@@ -8,7 +8,10 @@ import { PricingClosing } from "../parts/PricingClosing";
 import { PricingComparisonTable } from "../parts/PricingComparisonTable";
 import { PricingFootnotes } from "../parts/PricingFootnotes";
 import { PricingQuoteBlock } from "../parts/PricingQuoteBlock";
+import { pricingGridLayout } from "../pricingGrid";
 import type { PricingSection } from "@/types/site";
+
+const GRID_BREAKPOINTS = [{ prefix: "md:", cols: 3 }] as const;
 
 /**
  * Три тарифа в колонках с разделителями, без карточек. Вариант по
@@ -36,6 +39,7 @@ export function Table(props: PricingSection) {
     quote,
     comparison,
   } = props;
+  const { containerClass } = pricingGridLayout(items.length, GRID_BREAKPOINTS);
 
   return (
     <Section id={id} surface={surface}>
@@ -47,7 +51,7 @@ export function Table(props: PricingSection) {
           lead={lead}
         />
 
-        <div className={cn("mt-14 grid md:mt-20", "md:grid-cols-3")}>
+        <div className={cn("mt-14 grid md:mt-20", containerClass)}>
           {items.map((plan, index) => (
             <div
               key={plan.name}

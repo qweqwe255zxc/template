@@ -85,7 +85,7 @@ export function PlanContent({
       <p className={cn("tabular mt-6 font-display", priceClassName)}>
         <span className="whitespace-nowrap">{plan.price}</span>
         {plan.unit ? (
-          <span className="ml-2 text-body text-fg-muted">{plan.unit}</span>
+          <span className="ml-2 text-body tracking-normal text-fg-muted">{plan.unit}</span>
         ) : null}
       </p>
       {plan.text ? (
@@ -131,7 +131,7 @@ export function PlanContent({
             href={plan.action.href}
             variant={plan.action.variant ?? "secondary"}
             size="sm"
-            full="mobile"
+            full
           >
             {plan.action.label}
           </Button>
