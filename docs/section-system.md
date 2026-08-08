@@ -348,9 +348,12 @@ item в ряду → одна карточка `col-span-2`, два слота �
 
 ### About — `About/`, тип `"about"`
 
-Шесть вариантов. `photo-right`/`photo-left` — исходные, через
-`parts/AboutLayout.tsx`, `photo` там обязателен. `type-only` — единственный
-без фото вообще (econom, центрированная типографика). Два split-варианта
+Пять вариантов. `photo` — исходный, через `parts/AboutLayout.tsx`, `photo`
+там обязателен; сторону задаёт `photoPosition` ("right" по умолчанию,
+"left" — зеркально через `md:order-*`, а не отдельный variant — раньше это
+были `photo-right`/`photo-left`, различавшиеся только этим флагом).
+`type-only` — единственный без фото вообще (econom, центрированная
+типографика). Два split-варианта
 (`split-actions`/`quiet-split`) делят общие `parts/AboutTextBlock.tsx`
 (колонтитул+заголовок+текст+кнопки) и `parts/AboutMedia.tsx` (медиа-панель,
 как `Hero/parts/HeroPanel.tsx`) — отличаются только данными и парой флагов.
@@ -368,9 +371,10 @@ item в ряду → одна карточка `col-span-2`, два слота �
 | `text: string[]` | да | — | абзацы, по `<p>` на элемент |
 | `photo?` | нет* | — | *обязателен для всех вариантов, кроме `type-only` (dev-warn, если не задан) |
 | `photoAlt?` | нет | `title` или `""` | |
-| `variant` | нет | `"photo-right"` | см. таблицу вариантов |
+| `variant` | нет | `"photo"` | см. таблицу вариантов |
+| `photoPosition?: "left"\|"right"` | нет | `"right"` | сторона фото; читает только `photo` |
 | `surface` | нет | `"paper"` | тёмный вид — `"ink"` при любом split-варианте, не отдельный variant |
-| `actions?: CtaLink[]` | нет | — | кнопки под текстом; не читают `photo-right`/`photo-left`/`type-only`/`panel` |
+| `actions?: CtaLink[]` | нет | — | кнопки под текстом; не читают `photo`/`type-only`/`panel` |
 | `badge?` | нет | — | пилюля вместо подписи с тире; читает только `split-actions` |
 | `badgeIcon?` | нет | — | иконка в пилюле; читает только `split-actions` |
 | `decorative?` | нет | `false` | акцентные пятна за фото (декоративные, `-z-10`); читает только `split-actions` |
@@ -385,15 +389,14 @@ item в ряду → одна карточка `col-span-2`, два слота �
 
 | Значение | Раскладка |
 |---|---|
-| `photo-right` | текст 5/12 (подпись с тире), фото 7/12, `AboutLayout` — дефолт |
-| `photo-left` | зеркально: фото 7/12 слева, текст 5/12 справа |
+| `photo` | текст 5/12 (подпись с тире), фото 7/12, `AboutLayout` — дефолт; `photoPosition="left"` зеркалит раскладку |
 | `type-only` | econom: центрированная типографика, без фото и кнопок |
 | `split-actions` | текст 5/12 (подпись с тире или пилюля) + кнопки, фото 7/12 в приподнятой карточке; `surface: "ink"` + `frame: "browser"` даёт прежний тёмный вид |
 | `quiet-split` | то же, что `split-actions`, но вторая кнопка — текстовая ссылка |
 | `panel` | текст 5/12 (заголовок+абзацы+`aside`) слева, фото+`photoCaption`+`panel` (статы) 7/12 справа, `highlights` строкой под всем этим |
 
 Единственная секция с сознательно асимметричной 5/7 раскладкой у
-`photo-right`/`photo-left`/split-вариантов; фото `md:h-full` там же, на
+`photo`/split-вариантов; фото `md:h-full` там же, на
 мобильном `aspect-[4/3]`.
 
 ### FAQ — `FAQ/`, тип `"faq"`

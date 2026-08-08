@@ -8,8 +8,7 @@ const base = siteConfig.sections.find(
 )!;
 
 const variants: NonNullable<AboutSection["variant"]>[] = [
-  "photo-right",
-  "photo-left",
+  "photo",
   "type-only",
   "split-actions",
   "quiet-split",
@@ -29,6 +28,15 @@ export default function QaAboutPage() {
           />
         </QaBlock>
       ))}
+      <QaBlock label={`About / variant="photo" photoPosition="left"`}>
+        <About
+          {...base}
+          id="about-photo-left"
+          variant="photo"
+          photoPosition="left"
+          iconShape={base.iconShape ?? siteConfig.theme.iconShape}
+        />
+      </QaBlock>
     </main>
   );
 }

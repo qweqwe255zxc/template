@@ -299,7 +299,7 @@ export const siteConfig: SiteConfig = {
             id: "about",
             type: "about",
             surface: "surface",
-            // variant: "photo-right" | "photo-left" | "type-only" | "split-actions" |
+            // variant: "photo" | "type-only" | "split-actions" |
             //          "quiet-split" | "panel"
             variant: "panel",
             number: "03",

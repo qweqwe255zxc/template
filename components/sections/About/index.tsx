@@ -1,6 +1,5 @@
 import { Panel } from "./variants/Panel";
-import { PhotoLeft } from "./variants/PhotoLeft";
-import { PhotoRight } from "./variants/PhotoRight";
+import { Photo } from "./variants/Photo";
 import { QuietSplit } from "./variants/QuietSplit";
 import { SplitActions } from "./variants/SplitActions";
 import { TypeOnly } from "./variants/TypeOnly";
@@ -15,8 +14,7 @@ const variants: VariantMap<
   AboutSection,
   NonNullable<AboutSection["variant"]>
 > = {
-  "photo-right": PhotoRight,
-  "photo-left": PhotoLeft,
+  photo: Photo,
   "type-only": TypeOnly,
   "split-actions": SplitActions,
   "quiet-split": QuietSplit,
@@ -24,8 +22,8 @@ const variants: VariantMap<
 };
 
 export function About(props: AboutSection) {
-  const requested = props.variant ?? "photo-right";
-  const needsPhoto = (requested === "photo-right" || requested === "photo-left") && !props.photo;
+  const requested = props.variant ?? "photo";
+  const needsPhoto = requested === "photo" && !props.photo;
 
   if (process.env.NODE_ENV !== "production" && needsPhoto) {
     console.warn(
@@ -36,7 +34,7 @@ export function About(props: AboutSection) {
   }
 
   const resolved = needsPhoto ? "type-only" : requested;
-  const Variant = variants[resolved] ?? PhotoRight;
+  const Variant = variants[resolved] ?? Photo;
   return <Variant {...props} />;
 }
 

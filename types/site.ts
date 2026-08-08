@@ -663,7 +663,7 @@ export interface AboutPanel {
 export interface AboutSection extends SectionBase {
   type: "about";
   /**
-   * photo-right/photo-left — исходные, фото 7/12.
+   * photo         — исходный, фото 7/12; сторону фото задаёт photoPosition.
    * type-only    — econom: центрированная типографика, без фото и кнопок.
    * split-actions — текст 5/12 + кнопки, фото 7/12 в приподнятой карточке.
    *                Колонтитул — подпись с тире (number/eyebrow) либо
@@ -680,8 +680,7 @@ export interface AboutSection extends SectionBase {
    *                карточка со статами справа, ряд иконка+текст под фото.
    */
   variant?:
-    | "photo-right"
-    | "photo-left"
+    | "photo"
     | "type-only"
     | "split-actions"
     | "quiet-split"
@@ -691,7 +690,9 @@ export interface AboutSection extends SectionBase {
   /** Не читает только type-only — там второй колонки нет вовсе. */
   photo?: string;
   photoAlt?: string;
-  /** Кнопки под текстом. Читают все варианты кроме photo-right/photo-left/type-only/panel. */
+  /** Сторона фото. Читает только photo. */
+  photoPosition?: "left" | "right";
+  /** Кнопки под текстом. Читают все варианты кроме photo/type-only/panel. */
   actions?: CtaLink[];
   /**
    * Пилюля вместо обычной подписи-колонтитула над заголовком.

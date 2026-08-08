@@ -34,10 +34,12 @@ type ButtonProps = LinkProps | ActionProps;
  * (app/globals.css) и ручек пресета --radius-control / --btn-* :
  * в «Экономе» это 2px, тень none и сдвиг 0 — ровно плоская кнопка базы,
  * в «Стандарте» — 12px, тень покоя и подъём. Хардкодить их тут нельзя,
- * иначе кнопка перестанет отличаться между тарифами.
+ * иначе кнопка перестанет отличаться между тарифами. quiet не получает
+ * .ui-button вовсе: это текстовая ссылка без своей рамки/фона, и в
+ * «Стандарте» тень+подъём кнопки рисовали вокруг текста фантомную рамку.
  */
 const base =
-  "ui-button inline-flex shrink-0 items-center justify-center whitespace-nowrap text-button font-medium select-none cursor-pointer " +
+  "inline-flex shrink-0 items-center justify-center whitespace-nowrap text-button font-medium select-none cursor-pointer " +
   "disabled:cursor-not-allowed disabled:opacity-55 disabled:pointer-events-none";
 
 const sizes: Record<Size, string> = {
@@ -71,6 +73,7 @@ export function Button(props: ButtonProps) {
 
   const classes = cn(
     base,
+    variant !== "quiet" && "ui-button",
     variant !== "quiet" && sizes[size],
     variants[variant],
     full === true && "w-full",
