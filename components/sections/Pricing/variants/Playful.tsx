@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { fillLastRowClasses } from "@/lib/gridFill";
 import { getIcon } from "@/lib/icons";
 import { revealDelay } from "@/lib/reveal";
 import { cn } from "@/lib/cn";
@@ -12,6 +11,7 @@ import { PricingComparisonTable } from "../parts/PricingComparisonTable";
 import { PricingFootnotes } from "../parts/PricingFootnotes";
 import { PricingHeader } from "../parts/PricingHeader";
 import { PricingQuoteBlock } from "../parts/PricingQuoteBlock";
+import { pricingGridLayout } from "../pricingGrid";
 import type { PricingSection } from "@/types/site";
 
 const GRID_BREAKPOINTS = [{ prefix: "md:", cols: 3 }] as const;
@@ -43,7 +43,11 @@ export function Playful(props: PricingSection) {
     headerAlign,
     fillLastRow = true,
   } = props;
-  const spanClasses = fillLastRow ? fillLastRowClasses(items.length, GRID_BREAKPOINTS) : [];
+  const { containerClass, spanClasses: computedSpanClasses } = pricingGridLayout(
+    items.length,
+    GRID_BREAKPOINTS,
+  );
+  const spanClasses = fillLastRow ? computedSpanClasses : [];
 
   return (
     <Section id={id} surface={surface} iconShape={iconShape}>
@@ -57,7 +61,7 @@ export function Playful(props: PricingSection) {
           className="mb-12 md:mb-16"
         />
 
-        <div className="grid gap-gutter md:grid-cols-3">
+        <div className={cn("grid gap-gutter", containerClass)}>
           {items.map((plan, index) => {
             const Icon = getIcon(plan.icon);
             return (

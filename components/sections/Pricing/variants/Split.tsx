@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { fillLastRowClasses } from "@/lib/gridFill";
 import { revealDelay } from "@/lib/reveal";
 import { cn } from "@/lib/cn";
 import { PlanContent } from "../parts/PlanContent";
@@ -11,6 +10,7 @@ import { PricingClosing } from "../parts/PricingClosing";
 import { PricingComparisonTable } from "../parts/PricingComparisonTable";
 import { PricingFootnotes } from "../parts/PricingFootnotes";
 import { PricingQuoteBlock } from "../parts/PricingQuoteBlock";
+import { pricingGridLayout } from "../pricingGrid";
 import type { PricingSection } from "@/types/site";
 
 const GRID_BREAKPOINTS = [{ prefix: "sm:", cols: 2 }] as const;
@@ -39,7 +39,11 @@ export function Split(props: PricingSection) {
     comparison,
     fillLastRow = true,
   } = props;
-  const spanClasses = fillLastRow ? fillLastRowClasses(items.length, GRID_BREAKPOINTS) : [];
+  const { containerClass, spanClasses: computedSpanClasses } = pricingGridLayout(
+    items.length,
+    GRID_BREAKPOINTS,
+  );
+  const spanClasses = fillLastRow ? computedSpanClasses : [];
 
   return (
     <Section id={id} surface={surface}>
@@ -77,7 +81,7 @@ export function Split(props: PricingSection) {
             data-surface="ink"
             data-reveal
           >
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className={cn("grid gap-6", containerClass)}>
               {items.map((plan, index) => (
                 <div
                   key={plan.name}
@@ -102,10 +106,13 @@ export function Split(props: PricingSection) {
                 >
                   <Card
                     variant={plan.featured ? "elevated" : "framed"}
-                    className="flex h-full flex-col"
+                    className="relative flex h-full flex-col overflow-visible"
                   >
                     {plan.badge ? (
-                      <Badge variant="soft" className="mb-5 self-start uppercase">
+                      <Badge
+                        variant="soft"
+                        className="absolute -top-3 left-1/2 -translate-x-1/2 uppercase"
+                      >
                         {plan.badge}
                       </Badge>
                     ) : null}

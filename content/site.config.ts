@@ -649,6 +649,7 @@ export const siteConfig: SiteConfig = {
             trust: "Больше 60 студий уже собрали лендинг на «Модуле»",
             footnotes: [
                 {
+                    icon: "palette",
                     title: "Нужен свой пресет?",
                     text: "Соберём индивидуальную палитру и шрифтовую пару под нишу клиента.",
                     tone: "accent",

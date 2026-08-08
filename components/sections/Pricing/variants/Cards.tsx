@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ASPECT_PAIR_4_3, fillLastRowAspectClasses, fillLastRowClasses } from "@/lib/gridFill";
+import { ASPECT_PAIR_4_3, fillLastRowAspectClasses } from "@/lib/gridFill";
 import { revealDelay } from "@/lib/reveal";
 import { cn } from "@/lib/cn";
 import { PlanContent } from "../parts/PlanContent";
@@ -10,6 +10,7 @@ import { PricingClosing } from "../parts/PricingClosing";
 import { PricingComparisonTable } from "../parts/PricingComparisonTable";
 import { PricingFootnotes } from "../parts/PricingFootnotes";
 import { PricingQuoteBlock } from "../parts/PricingQuoteBlock";
+import { pricingGridLayout } from "../pricingGrid";
 import type { PricingSection } from "@/types/site";
 
 const GRID_BREAKPOINTS = [
@@ -47,9 +48,14 @@ export function Cards(props: PricingSection) {
     comparison,
     fillLastRow = true,
   } = props;
-  const spanClasses = fillLastRow ? fillLastRowClasses(items.length, GRID_BREAKPOINTS) : [];
+  const {
+    containerClass,
+    spanClasses: computedSpanClasses,
+    breakpoints,
+  } = pricingGridLayout(items.length, GRID_BREAKPOINTS);
+  const spanClasses = fillLastRow ? computedSpanClasses : [];
   const aspectClasses = fillLastRow
-    ? fillLastRowAspectClasses(items.length, GRID_BREAKPOINTS, ASPECT_PAIR_4_3)
+    ? fillLastRowAspectClasses(items.length, breakpoints, ASPECT_PAIR_4_3)
     : [];
 
   return (
@@ -62,7 +68,7 @@ export function Cards(props: PricingSection) {
           lead={lead}
         />
 
-        <div className={cn("mt-14 grid md:mt-20", "gap-gutter sm:grid-cols-2 lg:grid-cols-3")}>
+        <div className={cn("mt-14 grid md:mt-20", "gap-gutter", containerClass)}>
           {items.map((plan, index) => (
             <Card
               key={plan.name}
