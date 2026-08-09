@@ -17,13 +17,20 @@ export function Panel(props: CtaSection) {
   return (
     <Section id={id} surface={surface} spacing="lg">
       <Container>
-        <div className="grid gap-x-gutter gap-y-10 md:grid-cols-12 md:items-center">
-          {/* min-w-0: 12-колоночный grid по умолчанию не даёт ячейке
-              сжаться уже её контента (min-width: auto у грид-элементов) —
-              длинное слово в заголовке распирало 6/12-колонку и наезжало
-              на карточку с кнопками справа. break-words — подстраховка
-              на случай, если слово всё равно не влезает. */}
-          <div className="min-w-0 md:col-span-6" data-reveal>
+        <div className="grid gap-x-gutter gap-y-10 lg:grid-cols-12 lg:items-center">
+          {/* lg, не md: у text-h1 (fluid до 96px) в паре с широким
+              display-шрифтом слово вроде "Клонируйте" не помещается
+              в 6/12-колонку уже на 768px — переносится посреди слова
+              даже на дефолтном контенте. lg сдвигает сжатие до ширины,
+              где это редкий крайний случай, а не типичный. 7/5, а не
+              6/6 — тот же принцип, что у CtaBody (Band/Quiet): заголовку
+              достаётся доля побольше. min-w-0: 12-колоночный grid по
+              умолчанию не даёт ячейке сжаться уже её контента
+              (min-width: auto у грид-элементов) — длинное слово в
+              заголовке распирало колонку и наезжало на карточку с
+              кнопками справа. break-words — подстраховка на случай,
+              если слово всё равно не влезает. */}
+          <div className="min-w-0 lg:col-span-7" data-reveal>
             <CtaEyebrow eyebrow={eyebrow} variant="dot" />
 
             {title ? (
@@ -37,22 +44,24 @@ export function Panel(props: CtaSection) {
             ) : null}
           </div>
 
-          {actions.length > 0 ? (
-            <div className="md:col-span-6" data-reveal>
-              <Card variant="elevated" className="flex flex-col gap-4">
-                {actions.map((action, index) => (
-                  <Button
-                    key={index}
-                    href={action.href}
-                    variant={action.variant ?? "primary"}
-                    full
-                  >
-                    {action.label}
-                  </Button>
-                ))}
+          {actions.length > 0 || note ? (
+            <div className="lg:col-span-5" data-reveal>
+              {actions.length > 0 ? (
+                <Card variant="elevated" className="flex flex-col gap-4">
+                  {actions.map((action, index) => (
+                    <Button
+                      key={index}
+                      href={action.href}
+                      variant={action.variant ?? "primary"}
+                      full
+                    >
+                      {action.label}
+                    </Button>
+                  ))}
+                </Card>
+              ) : null}
 
-                {note ? <p className="text-small text-fg-muted">{note}</p> : null}
-              </Card>
+              {note ? <p className="mt-4 text-small text-fg-muted">{note}</p> : null}
             </div>
           ) : null}
         </div>

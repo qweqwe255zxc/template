@@ -20,23 +20,25 @@ export function CtaBody({ title, lead, actions = [], note }: CtaSection) {
           ) : null}
         </div>
 
-        {actions.length > 0 ? (
+        {actions.length > 0 || note ? (
           <div className="md:col-span-5 md:justify-self-end" data-reveal>
-            {/* items-baseline, не items-center/stretch по умолчанию:
-                variant="quiet" — текстовая ссылка без паддингов (h-auto),
-                рядом с обычной кнопкой (h-12) центр по боксу вместо
-                текста ставил подпись ссылки заметно выше подписи кнопки. */}
-            <div className="flex flex-col flex-wrap gap-4 sm:flex-row sm:items-baseline md:justify-end">
-              {actions.map((action, index) => (
-                <Button
-                  key={index}
-                  href={action.href}
-                  variant={action.variant ?? "primary"}
-                >
-                  {action.label}
-                </Button>
-              ))}
-            </div>
+            {actions.length > 0 ? (
+              /* items-baseline, не items-center/stretch по умолчанию:
+                 variant="quiet" — текстовая ссылка без паддингов (h-auto),
+                 рядом с обычной кнопкой (h-12) центр по боксу вместо
+                 текста ставил подпись ссылки заметно выше подписи кнопки. */
+              <div className="flex flex-col flex-wrap gap-4 sm:flex-row sm:items-baseline md:justify-end">
+                {actions.map((action, index) => (
+                  <Button
+                    key={index}
+                    href={action.href}
+                    variant={action.variant ?? "primary"}
+                  >
+                    {action.label}
+                  </Button>
+                ))}
+              </div>
+            ) : null}
             {note ? (
               <p className="mt-5 text-small text-fg-muted md:text-right">
                 {note}
