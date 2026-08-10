@@ -16,7 +16,19 @@ import type { GallerySection } from "@/types/site";
  * ссылка `link` внизу.
  */
 export function CardsIcon(props: GallerySection) {
-  const { id, surface = "surface", number, eyebrow, title, lead, action, items, align = "left", iconShape } = props;
+  const {
+    id,
+    surface = "surface",
+    number,
+    eyebrow,
+    title,
+    lead,
+    action,
+    items,
+    align = "left",
+    iconShape,
+    fillLastRow = true,
+  } = props;
   const centered = align === "center";
 
   return (
@@ -38,7 +50,7 @@ export function CardsIcon(props: GallerySection) {
             return (
               <li
                 key={`${item.category}-${item.year}-${index}`}
-                className={bentoSpan(index, items.length, { sm: 2, lg: 3 })}
+                className={fillLastRow ? bentoSpan(index, items.length, { sm: 2, lg: 3 }) : undefined}
               >
                 <Card variant="framed" className="flex h-full flex-col">
                   <div
@@ -65,7 +77,7 @@ export function CardsIcon(props: GallerySection) {
                       </span>
                     </div>
 
-                    <h3 className="mt-5 font-display text-h3">{item.title}</h3>
+                    <h3 className="mt-5 font-display text-h3">{item.title ?? item.category}</h3>
                     <p className="mt-3 text-small text-fg-muted">{item.problem}</p>
 
                     <div

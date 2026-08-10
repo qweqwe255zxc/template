@@ -6,17 +6,19 @@ interface BottomBarProps {
   legalName: string;
   links: CtaLink[];
   note?: string;
+  /** Текст реквизитов (ИНН/ОГРН и т.п.) — построчно под копирайтом. */
+  legal?: string[];
   className?: string;
 }
 
 /**
- * Нижняя строка футера: копирайт (+ опциональная дисклеймер-строка)
- * слева, юридические ссылки справа. Общий кусок для колончатых
- * вариантов (Bold/Classic/Monogram) — в Default та же идея
- * устроена немного иначе (там ещё legal[] построчно), поэтому Default
- * его не использует.
+ * Нижняя строка футера: копирайт (+ опциональная дисклеймер-строка и
+ * реквизиты) слева, юридические ссылки справа. Общий кусок для
+ * колончатых вариантов (Bold/Classic/Monogram) — в Default та же идея
+ * устроена немного иначе (свой собственный блок с footer.legal),
+ * поэтому Default его не использует.
  */
-export function BottomBar({ legalName, links, note, className }: BottomBarProps) {
+export function BottomBar({ legalName, links, note, legal = [], className }: BottomBarProps) {
   const year = new Date().getFullYear();
 
   return (
@@ -31,6 +33,11 @@ export function BottomBar({ legalName, links, note, className }: BottomBarProps)
         <p className={cn("tabular text-small text-fg-muted", note && "mt-1.5")}>
           © {year} {legalName}
         </p>
+        {legal.map((line) => (
+          <p key={line} className="tabular mt-1.5 text-small text-fg-muted">
+            {line}
+          </p>
+        ))}
       </div>
 
       {links.length > 0 ? (

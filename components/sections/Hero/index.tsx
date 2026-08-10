@@ -54,6 +54,18 @@ const IMAGE_ONLY: NonNullable<HeroSection["variant"]>[] = [
 ];
 
 /**
+ * poster/service без обязательного image откатываются на type-only —
+ * у них, в отличие от showcase (сам раздвигает текстовую колонку без
+ * медиа), нет собственной «безфотошной» раскладки: poster — акцентная
+ * панель без Container + фото встык, service — 7/5 с поиском и фото с
+ * overlay. Раздвигать эти раскладки под пустую колонку значит строить
+ * бесполезный отдельный дизайн ради edge-case; откат на самый безопасный
+ * вариант — тот же приём, что у About/index.tsx и у пары type-only ↔
+ * split в resolveHeroLayout.ts.
+ */
+const PHOTO_FALLBACK: NonNullable<HeroSection["variant"]>[] = ["poster", "service"];
+
+/**
  * Варианты, где image и widget делят одну колонку и image побеждает
  * (см. resolveHeroLayout для split, HeroSection.tsx:73-83 для showcase —
  * `image ? <HeroPanel> : widget ? <HeroWidget> : null` в обоих случаях).
@@ -66,9 +78,19 @@ const IMAGE_BEATS_WIDGET: NonNullable<HeroSection["variant"]>[] = [
 ];
 
 export function Hero(props: HeroSection) {
-  const { resolved } = resolveHeroLayout(props);
+  const { resolved: requested } = resolveHeroLayout(props);
+  const needsPhotoFallback = PHOTO_FALLBACK.includes(requested) && !props.image;
+  const resolved = needsPhotoFallback ? "type-only" : requested;
 
   if (process.env.NODE_ENV !== "production") {
+    if (needsPhotoFallback) {
+      console.warn(
+        `[Hero] Секция "${props.id}": variant="${requested}" без image — фото занять нечем, ` +
+          `показан "type-only". Дайте image: "/images/..." или возьмите другой variant. ` +
+          `См. docs/section-system.md.`,
+      );
+    }
+
     if (props.widget && props.image && IMAGE_BEATS_WIDGET.includes(resolved)) {
       console.warn(
         `[Hero] Секция "${props.id}": widget и image заняли бы одну колонку — показано фото, widget пропущен.`,

@@ -74,9 +74,16 @@ export function Split({ brand, footer, nav }: FooterProps) {
           ) : null}
 
           <div className="mt-10 flex flex-col items-center gap-4 border-t border-rule pt-6 md:flex-row md:justify-between">
-            <p className="tabular text-small text-fg-muted">
-              © {year} {brand.legalName}
-            </p>
+            <div className="text-center md:text-left">
+              <p className="tabular text-small text-fg-muted">
+                © {year} {brand.legalName}
+              </p>
+              {footer.legal.map((line) => (
+                <p key={line} className="tabular mt-1.5 text-small text-fg-muted">
+                  {line}
+                </p>
+              ))}
+            </div>
 
             {footer.social ? <SocialLinks items={footer.social} /> : null}
           </div>

@@ -12,6 +12,15 @@ interface ContactFieldsProps {
   consent: string;
   /** Колонка формы. В layout="cardContainer" её держит обёртка вокруг Card. */
   className?: string;
+  /**
+   * На каком брейкпоинте поля встают в 2 колонки. По умолчанию "sm" —
+   * подходит везде, кроме panels: там форма лежит в колонке, чья реальная
+   * ширина на md–lg (768–1023) уже сжата (7/12 от viewport, а не от
+   * Container), но sm уже включает 2 колонки — поля становятся тесными.
+   * panels передаёт "lg", где ширина формы либо ещё не доросла до
+   * max-w-32rem-колонки, либо уже доросла целиком.
+   */
+  fieldsBreakpoint?: "sm" | "lg";
 }
 
 /**
@@ -24,7 +33,12 @@ export function ContactFields({
   submitLabel,
   consent,
   className,
+  fieldsBreakpoint = "sm",
 }: ContactFieldsProps) {
+  const twoColClassName =
+    fieldsBreakpoint === "lg" ? "lg:grid-cols-2" : "sm:grid-cols-2";
+  const fullSpanClassName =
+    fieldsBreakpoint === "lg" ? "lg:col-span-2" : "sm:col-span-2";
   return (
     <form
       ref={form.formRef}
@@ -52,7 +66,7 @@ export function ContactFields({
         />
       </div>
 
-      <div className="grid gap-x-gutter gap-y-8 sm:grid-cols-2">
+      <div className={`grid gap-x-gutter gap-y-8 ${twoColClassName}`}>
         {fields.map((field) => (
           <Input
             key={field.name}
@@ -60,7 +74,7 @@ export function ContactFields({
             value={form.values[field.name] ?? ""}
             onChange={(value) => form.setField(field.name, value)}
             error={form.errors[field.name]}
-            className={field.type === "textarea" ? "sm:col-span-2" : undefined}
+            className={field.type === "textarea" ? fullSpanClassName : undefined}
           />
         ))}
       </div>

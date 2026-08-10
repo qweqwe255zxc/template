@@ -33,7 +33,16 @@ export function Default({ brand, contacts, footer, nav }: FooterProps) {
               </div>
 
               <nav className={colSpan} aria-label="Разделы сайта">
-                <ul className="grid gap-2.5 sm:grid-cols-2">
+                {/* auto-fit/minmax вместо фиксированного sm:grid-cols-2 —
+                    та же поправка, что в parts/FooterColumns.tsx: колонка
+                    реально сужается только с md (768px, colSpan), а sm:
+                    включается уже на 640px и на md-ширине сжимал бы список
+                    в 2 тесных столбца до того, как в колонке появится
+                    место (тот же класс бага, что чинили в ContactForm/Panels). */}
+                <ul
+                  className="grid gap-2.5"
+                  style={{ gridTemplateColumns: "repeat(auto-fit, minmax(8rem, 1fr))" }}
+                >
                   {nav.map((item) => (
                     <li key={item.href}>
                       <Link

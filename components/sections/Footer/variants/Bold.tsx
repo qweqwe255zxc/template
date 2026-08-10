@@ -47,6 +47,7 @@ export function Bold({ brand, footer }: FooterProps) {
             legalName={brand.legalName}
             links={footer.links}
             note={footer.note}
+            legal={footer.legal}
             className="mt-4"
           />
         </Container>

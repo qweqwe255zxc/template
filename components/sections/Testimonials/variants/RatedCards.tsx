@@ -17,7 +17,18 @@ import type { TestimonialsSection } from "@/types/site";
  * Опциональная строка `trust` под сеткой.
  */
 export function RatedCards(props: TestimonialsSection) {
-  const { id, surface = "paper", number, eyebrow, title, lead, trust, items, headerAlign } = props;
+  const {
+    id,
+    surface = "paper",
+    number,
+    eyebrow,
+    title,
+    lead,
+    trust,
+    items,
+    headerAlign,
+    fillLastRow = true,
+  } = props;
 
   return (
     <Section id={id} surface={surface}>
@@ -37,7 +48,7 @@ export function RatedCards(props: TestimonialsSection) {
               key={`${item.author}-${index}`}
               data-reveal
               style={revealDelay(index)}
-              className={bentoSpan(index, items.length, { md: 3 })}
+              className={fillLastRow ? bentoSpan(index, items.length, { md: 3 }) : undefined}
             >
               {/* Мягкая тонировка вместо полной инверсии поверхности —
                   раньше data-surface="ink" на светлой теме давал сплошной

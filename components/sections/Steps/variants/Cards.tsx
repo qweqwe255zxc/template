@@ -14,8 +14,18 @@ import type { StepsSection } from "@/types/site";
  * элементом — так короче), описание.
  */
 export function Cards(props: StepsSection) {
-  const { id, surface = "paper", number, eyebrow, title, lead, items, headerAlign, iconShape } =
-    props;
+  const {
+    id,
+    surface = "paper",
+    number,
+    eyebrow,
+    title,
+    lead,
+    items,
+    headerAlign,
+    iconShape,
+    fillLastRow = true,
+  } = props;
 
   return (
     <Section id={id} surface={surface} iconShape={iconShape}>
@@ -42,7 +52,7 @@ export function Cards(props: StepsSection) {
                 key={item.number}
                 data-reveal
                 style={revealDelay(index)}
-                className={bentoSpan(index, items.length, { sm: 2, lg: 3, xl: 4 })}
+                className={fillLastRow ? bentoSpan(index, items.length, { sm: 2, lg: 3, xl: 4 }) : undefined}
               >
                 <Card variant="framed" className="h-full">
                   {Icon ? (

@@ -16,7 +16,18 @@ import type { TestimonialsSection } from "@/types/site";
  * закрывает ряд).
  */
 export function Bento(props: TestimonialsSection) {
-  const { id, surface = "paper", number, eyebrow, title, lead, trust, items, headerAlign } = props;
+  const {
+    id,
+    surface = "paper",
+    number,
+    eyebrow,
+    title,
+    lead,
+    trust,
+    items,
+    headerAlign,
+    fillLastRow = true,
+  } = props;
   // item.featured выбирает, кто получает крупную карточку — без пометки
   // (или без совпадений) крупным остаётся первый по порядку, как раньше.
   const featuredIndex = items.findIndex((item) => item.featured);
@@ -57,7 +68,7 @@ export function Bento(props: TestimonialsSection) {
               key={`${item.author}-${index}`}
               data-reveal
               style={revealDelay(index)}
-              className={bentoSpan(index, rest.length, { sm: 2, lg: 3 })}
+              className={fillLastRow ? bentoSpan(index, rest.length, { sm: 2, lg: 3 }) : undefined}
             >
               <Card variant="framed" className="flex h-full flex-col">
                 <figure className="flex flex-1 flex-col">

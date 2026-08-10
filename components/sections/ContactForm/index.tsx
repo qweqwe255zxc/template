@@ -48,6 +48,21 @@ export function ContactForm(props: ContactFormProps) {
           `Переименуйте поле в конфиге.`,
       );
     }
+
+    const emptySelects = props.fields.filter(
+      (field) =>
+        field.type === "select" &&
+        !field.options?.length &&
+        !field.selectOptions?.length,
+    );
+    if (emptySelects.length > 0) {
+      console.warn(
+        `[ContactForm] Секция "${props.id}": поле ` +
+          `${emptySelects.map((field) => `"${field.name}"`).join(", ")} — type="select" ` +
+          `без options/selectOptions, выпадающий список будет пустым. ` +
+          `Задайте options: string[] или selectOptions: {label, value}[].`,
+      );
+    }
   }
 
   const Variant = variants[props.variant ?? "split"] ?? Split;

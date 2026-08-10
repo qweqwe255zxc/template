@@ -19,7 +19,18 @@ import type { FeaturesSection } from "@/types/site";
  * items, без вечно пустующего одиночного хвоста.
  */
 export function Bento(props: FeaturesSection) {
-  const { id, surface = "surface", number, eyebrow, title, lead, items, iconShape, headerAlign } = props;
+  const {
+    id,
+    surface = "surface",
+    number,
+    eyebrow,
+    title,
+    lead,
+    items,
+    iconShape,
+    headerAlign,
+    fillLastRow = true,
+  } = props;
 
   return (
     <Section id={id} surface={surface} iconShape={iconShape}>
@@ -42,7 +53,7 @@ export function Bento(props: FeaturesSection) {
               className={cn(
                 index === 0
                   ? "sm:col-span-2"
-                  : bentoSpan(index - 1, items.length - 1, { sm: 2 }),
+                  : fillLastRow && bentoSpan(index - 1, items.length - 1, { sm: 2 }),
               )}
             >
               <Card
@@ -59,7 +70,7 @@ export function Bento(props: FeaturesSection) {
                     item={item}
                     iconLayout="inline"
                     mediaAspectClassName={
-                      index === 0
+                      index === 0 || !fillLastRow
                         ? undefined
                         : bentoMediaAspect(index - 1, items.length - 1, { sm: 2 }, "4/3")
                     }

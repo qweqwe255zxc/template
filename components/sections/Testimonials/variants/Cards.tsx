@@ -36,6 +36,7 @@ export function Cards(props: TestimonialsSection) {
     title,
     lead,
     items,
+    fillLastRow = true,
   } = props;
 
   return (
@@ -58,7 +59,10 @@ export function Cards(props: TestimonialsSection) {
             <Card
               key={`${item.author}-${index}`}
               variant="framed"
-              className={cn("flex h-full flex-col", bentoSpan(index, items.length, { md: 3 }))}
+              className={cn(
+                "flex h-full flex-col",
+                fillLastRow && bentoSpan(index, items.length, { md: 3 }),
+              )}
             >
               <figure
                 className="flex flex-1 flex-col"

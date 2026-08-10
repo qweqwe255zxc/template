@@ -18,6 +18,7 @@ import type {
   Preset,
   Section,
   SectionType,
+  TitleStyle,
 } from "@/types/site";
 
 /** Данные сайта, которые нужны секциям помимо их собственных. */
@@ -27,6 +28,14 @@ export interface RenderContext {
   preset: Preset;
   /** Сайтвайдный дефолт формы .icon-tile (theme.iconShape) — см. SectionBase.iconShape. */
   iconShape: IconShape;
+  /**
+   * Сайтвайдный дефолт ThemeConfig.titleStyle — резолв тут не для CSS
+   * (тот идёт каскадом через data-title-style на <html>, см. раздел 1
+   * docs/section-system.md), а только для dev-warn CTA centered/boxed:
+   * им нужно ЗНАТЬ резолвленное значение, чтобы предупредить о ловушке
+   * titleStyle, а CSS-каскад сам по себе этого не даёт.
+   */
+  titleStyle: TitleStyle;
 }
 
 type Renderer<K extends SectionType> = (
@@ -141,7 +150,9 @@ const registry: { [K in SectionType]: Renderer<K> } = {
       iconShape={section.iconShape ?? iconShape}
     />
   ),
-  cta: (section) => <CTA {...section} />,
+  cta: (section, { titleStyle }) => (
+    <CTA {...section} resolvedTitleStyle={section.titleStyle ?? titleStyle} />
+  ),
   contact: (section, { contacts, preset, iconShape }) => (
     <ContactForm
       {...section}

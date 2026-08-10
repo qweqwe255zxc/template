@@ -79,6 +79,15 @@ export function Panels(props: ContactFormProps) {
             </p>
           ) : null}
 
+          {/* fieldsBreakpoint="lg": колонка тут не 7/12 Container'а, как у
+              split/boxed, а 7/12 сырого viewport, ограниченные сверху
+              max-w-32rem у самой формы (columnClassName ниже). На md–lg
+              (768–1023) колонка ещё не доросла до 32rem — дефолтный
+              sm:grid-cols-2 у ContactFields сжимал бы поля в 2 тесных
+              столбца. lg откладывает 2 колонки до момента, когда форма
+              либо уже полные 32rem, либо всё ещё в одну колонку — тот же
+              сбой, что у split/boxed (см. их комментарии), но по другой
+              причине (плавающая ширина колонки, а не колонка Container'а). */}
           <FormColumn
             form={form}
             fields={fields}
@@ -86,6 +95,7 @@ export function Panels(props: ContactFormProps) {
             consent={consent}
             layout={layout}
             columnClassName="mx-auto mt-10 max-w-[32rem] text-left"
+            fieldsBreakpoint="lg"
           />
         </div>
 
@@ -102,11 +112,14 @@ export function Panels(props: ContactFormProps) {
             <p className="text-caption font-medium uppercase text-fg-muted" data-reveal>
               Офис
             </p>
+            {/* md:text-h3 lg:text-h2: тот же сжатый диапазон 768–1023, что
+                и у формы слева — панель тут ~224–280px в ширину, полный
+                text-h2 разваливался на несколько строк. */}
             <a
               href={yandexMapsHref(contacts)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex min-w-0 items-start gap-2 break-words font-heading text-h2 underline decoration-rule-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+              className="mt-4 inline-flex min-w-0 items-start gap-2 break-words font-heading text-h2 underline decoration-rule-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent md:text-h3 lg:text-h2"
               data-reveal
             >
               <MapPin aria-hidden="true" strokeWidth={1.5} className="mt-2 size-6 shrink-0" />

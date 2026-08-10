@@ -17,7 +17,18 @@ import type { GallerySection } from "@/types/site";
  * бокс фото просто не рендерится, карточка остаётся текстовой.
  */
 export function PhotoGrid(props: GallerySection) {
-  const { id, surface = "surface", number, eyebrow, title, lead, action, items, align = "left" } = props;
+  const {
+    id,
+    surface = "surface",
+    number,
+    eyebrow,
+    title,
+    lead,
+    action,
+    items,
+    align = "left",
+    fillLastRow = true,
+  } = props;
   const centered = align === "center";
 
   return (
@@ -38,14 +49,21 @@ export function PhotoGrid(props: GallerySection) {
               key={`${item.category}-${item.year}-${index}`}
               data-reveal
               style={revealDelay(index % 3)}
-              className={bentoSpan(index, items.length, { sm: 2, lg: 3 })}
+              className={fillLastRow ? bentoSpan(index, items.length, { sm: 2, lg: 3 }) : undefined}
             >
               <Card variant="framed" padded={false} className="flex h-full flex-col overflow-hidden">
                 {item.photo ? (
                   <div
                     className={cn(
                       "ui-media relative w-full shrink-0 overflow-hidden rounded-none",
-                      bentoMediaAspect(index, items.length, { sm: 2, lg: 3 }, "4/3"),
+                      // bentoMediaAspect несёт и базовый aspect-ratio, и
+                      // растяжку под fillLastRow разом — при выключенном
+                      // fillLastRow нельзя просто убрать класс целиком
+                      // (фото осталось бы без aspect-ratio вовсе), нужен
+                      // базовый aspect-[4/3] без каких-либо breakpoint-спанов.
+                      fillLastRow
+                        ? bentoMediaAspect(index, items.length, { sm: 2, lg: 3 }, "4/3")
+                        : "aspect-[4/3]",
                     )}
                   >
                     <Image

@@ -34,6 +34,11 @@ export function Compact({ brand, footer }: FooterProps) {
               <span className="tabular text-small text-fg-muted">
                 © {year} {brand.legalName}
               </span>
+              {footer.legal.map((line) => (
+                <span key={line} className="tabular text-small text-fg-muted">
+                  {line}
+                </span>
+              ))}
             </div>
 
             {footer.links.length > 0 ? (

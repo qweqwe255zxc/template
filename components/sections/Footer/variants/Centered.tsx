@@ -45,6 +45,11 @@ export function Centered({ brand, footer, nav }: FooterProps) {
               <p className="tabular text-small text-fg-muted">
                 © {year} {brand.legalName}
               </p>
+              {footer.legal.map((line) => (
+                <p key={line} className="tabular mt-1.5 text-small text-fg-muted">
+                  {line}
+                </p>
+              ))}
             </div>
 
             {footer.social ? <SocialLinks items={footer.social} /> : null}

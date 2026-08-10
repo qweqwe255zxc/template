@@ -14,6 +14,8 @@ interface FormColumnProps {
   layout: NonNullable<ContactSection["layout"]>;
   /** Классы колонки. undefined в stacked — колонка там одна на всю ширину. */
   columnClassName?: string;
+  /** См. ContactFields — пробрасывается как есть, дефолт там же. */
+  fieldsBreakpoint?: "sm" | "lg";
 }
 
 /**
@@ -32,6 +34,7 @@ export function FormColumn({
   consent,
   layout,
   columnClassName,
+  fieldsBreakpoint,
 }: FormColumnProps) {
   const fieldsNode = (
     <ContactFields
@@ -40,6 +43,7 @@ export function FormColumn({
       submitLabel={submitLabel}
       consent={consent}
       className={layout === "cardContainer" ? undefined : columnClassName}
+      fieldsBreakpoint={fieldsBreakpoint}
     />
   );
 

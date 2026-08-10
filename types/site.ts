@@ -225,7 +225,7 @@ export interface HeroSection extends SectionBase {
     | "service";
   /**
    * Плашка-анонс над заголовком («Версия 2.0», «Набор открыт»).
-   * Читает только showcase — в остальных раскладках её место занимает
+   * Читают showcase и poster — в остальных раскладках её место занимает
    * рельс или колонтитул.
    */
   badge?: string;
@@ -494,7 +494,7 @@ export interface GallerySection extends SectionBase {
   variant?: "table" | "grid" | "cards-icon" | "photo-grid" | "photo-bento";
   items: CaseItem[];
   note?: string;
-  /** Кнопка в шапке секции. Читает только cards-icon. */
+  /** Кнопка в шапке секции. Читают cards-icon, photo-grid, photo-bento. */
   action?: CtaLink;
   /**
    * Выключка текста в карточке: left (по умолчанию) или center. Читают
@@ -962,9 +962,9 @@ export interface ContactSection extends SectionBase {
   showMap?: boolean;
   /**
    * Порядок формы и реквизитов НА МОБИЛЬНОМ, где split/boxed переходят
-   * в один столбец (ниже md). По умолчанию "form-first" — форма первая:
+   * в один столбец (ниже lg). По умолчанию "form-first" — форма первая:
    * это то, ради чего человек открыл раздел, реквизиты — второстепенны.
-   * На десктопе (md+, где колонки идут бок о бок) порядок не меняет —
+   * На десктопе (lg+, где колонки идут бок о бок) порядок не меняет —
    * там расположение слева/справа решает сам variant, это отдельная ось.
    * Читают только split/boxed — у stacked/panels свой порядок уже задан
    * версткой напрямую.

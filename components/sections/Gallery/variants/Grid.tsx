@@ -16,7 +16,7 @@ import type { GallerySection } from "@/types/site";
  * Раньше это чинил хардкод border-rule-strong прямо тут.
  */
 export function Grid(props: GallerySection) {
-  const { items, align = "left" } = props;
+  const { items, align = "left", fillLastRow = true } = props;
   const centered = align === "center";
 
   return (
@@ -25,7 +25,7 @@ export function Grid(props: GallerySection) {
         {items.map((item, index) => (
           <li
             key={`${item.category}-${item.year}-${index}`}
-            className={bentoSpan(index, items.length, { sm: 2, lg: 3 })}
+            className={fillLastRow ? bentoSpan(index, items.length, { sm: 2, lg: 3 }) : undefined}
           >
             <Card variant="framed" className="flex h-full flex-col">
               <div

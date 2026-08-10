@@ -77,7 +77,9 @@ export function BadgeAvatars(props: TeamSection) {
           ))}
         </ul>
 
-        {banner ? <TeamBannerBlock banner={banner} tone="solid" className="mt-12 md:mt-16" /> : null}
+        {banner ? (
+          <TeamBannerBlock banner={banner} tone={banner.tone ?? "solid"} className="mt-12 md:mt-16" />
+        ) : null}
       </Container>
     </Section>
   );

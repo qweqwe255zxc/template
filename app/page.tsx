@@ -42,6 +42,7 @@ export default function HomePage() {
             contacts,
             preset: theme.preset ?? "econom",
             iconShape: theme.iconShape ?? "circle",
+            titleStyle: theme.titleStyle ?? "standard",
           }}
         />
       </main>

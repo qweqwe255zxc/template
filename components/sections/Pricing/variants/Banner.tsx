@@ -81,7 +81,7 @@ export function Banner(props: PricingSection) {
                     {plan.badge}
                   </Badge>
                 ) : null}
-                <PlanContent plan={plan} priceClassName="text-h2" checkIcon />
+                <PlanContent plan={plan} priceClassName="text-h2" />
               </Card>
             </div>
           ))}

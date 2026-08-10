@@ -44,6 +44,7 @@ export function Cards(props: FeaturesSection) {
     action,
     items,
     iconShape,
+    fillLastRow = true,
   } = props;
 
   const gridColumns: BentoColumns = columns === 2 ? { sm: 2 } : { sm: 2, lg: 3 };
@@ -71,7 +72,7 @@ export function Cards(props: FeaturesSection) {
               variant="framed"
               className={cn(
                 "flex h-full flex-col",
-                bentoSpan(index, items.length, gridColumns),
+                fillLastRow && bentoSpan(index, items.length, gridColumns),
               )}
             >
               <div
@@ -82,7 +83,11 @@ export function Cards(props: FeaturesSection) {
                 <FeatureContent
                   item={item}
                   iconLayout="inline"
-                  mediaAspectClassName={bentoMediaAspect(index, items.length, gridColumns, "4/3")}
+                  mediaAspectClassName={
+                    fillLastRow
+                      ? bentoMediaAspect(index, items.length, gridColumns, "4/3")
+                      : undefined
+                  }
                 />
 
                 {item.link ? (

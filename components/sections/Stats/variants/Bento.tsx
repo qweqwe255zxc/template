@@ -21,7 +21,17 @@ import type { StatsSection } from "@/types/site";
  * там, где это ровно закрывает ряд, не там, где "ещё есть место".
  */
 export function Bento(props: StatsSection) {
-  const { id, surface = "paper", number, eyebrow, title, lead, items, iconShape } = props;
+  const {
+    id,
+    surface = "paper",
+    number,
+    eyebrow,
+    title,
+    lead,
+    items,
+    iconShape,
+    fillLastRow = true,
+  } = props;
 
   return (
     <Section id={id} surface={surface} iconShape={iconShape}>
@@ -38,9 +48,8 @@ export function Bento(props: StatsSection) {
           {items.map((item, index) => {
             const Icon = getIcon(item.icon);
             // Явный item.highlight всегда главнее позиции. Без него —
-            // прежний дефолт: первая карточка accent, последняя tint
-            // (только при 2+ элементах — с одним item совпадение "первая
-            // и последняя" раньше давало две конфликтующие оправы разом).
+            // дефолт только для первой карточки (accent); остальные,
+            // включая последнюю, остаются обычными framed.
             const highlight = item.highlight ?? (index === 0 ? "accent" : undefined);
 
             return (
@@ -56,7 +65,7 @@ export function Bento(props: StatsSection) {
                 // теме, светлее в тёмной, но не противоположный цвет.
                 className={cn(
                   highlight === "tint" && "bg-fg/[0.06]",
-                  bentoSpan(index, items.length, { md: 2 }),
+                  fillLastRow && bentoSpan(index, items.length, { md: 2 }),
                 )}
               >
                 {Icon ? (

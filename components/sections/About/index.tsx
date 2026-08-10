@@ -21,9 +21,11 @@ const variants: VariantMap<
   panel: Panel,
 };
 
+const PHOTO_REQUIRED_VARIANTS = new Set(["photo", "split-actions", "quiet-split", "panel"]);
+
 export function About(props: AboutSection) {
   const requested = props.variant ?? "photo";
-  const needsPhoto = requested === "photo" && !props.photo;
+  const needsPhoto = PHOTO_REQUIRED_VARIANTS.has(requested) && !props.photo;
 
   if (process.env.NODE_ENV !== "production" && needsPhoto) {
     console.warn(

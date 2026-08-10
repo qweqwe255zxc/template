@@ -15,8 +15,18 @@ import type { StepsSection } from "@/types/site";
  * ink-поверхность — обычно последний шаг («Результат»).
  */
 export function NumberedCards(props: StepsSection) {
-  const { id, surface = "paper", number, eyebrow, title, lead, items, headerAlign, iconShape } =
-    props;
+  const {
+    id,
+    surface = "paper",
+    number,
+    eyebrow,
+    title,
+    lead,
+    items,
+    headerAlign,
+    iconShape,
+    fillLastRow = true,
+  } = props;
 
   return (
     <Section id={id} surface={surface} iconShape={iconShape}>
@@ -39,7 +49,7 @@ export function NumberedCards(props: StepsSection) {
                 key={item.number}
                 data-reveal
                 style={revealDelay(index)}
-                className={bentoSpan(index, items.length, { sm: 2, lg: 3, xl: 4 })}
+                className={fillLastRow ? bentoSpan(index, items.length, { sm: 2, lg: 3, xl: 4 }) : undefined}
               >
                 <Card
                   variant="framed"
@@ -78,7 +88,12 @@ export function NumberedCards(props: StepsSection) {
                     <div
                       className={cn(
                         "ui-media relative mt-5 w-full shrink-0 overflow-hidden",
-                        bentoMediaAspect(index, items.length, { sm: 2, lg: 3, xl: 4 }, "4/3"),
+                        // bentoMediaAspect несёт и базовый aspect-ratio, и
+                        // растяжку под fillLastRow разом — при false нужен
+                        // явный базовый aspect-[4/3], а не полное снятие класса.
+                        fillLastRow
+                          ? bentoMediaAspect(index, items.length, { sm: 2, lg: 3, xl: 4 }, "4/3")
+                          : "aspect-[4/3]",
                       )}
                     >
                       <Image

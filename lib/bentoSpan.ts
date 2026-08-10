@@ -17,6 +17,18 @@ export type BentoColumns = Partial<Record<Breakpoint, 2 | 3 | 4>>;
  * приём, что даёт зеркальный узор 2×2 в референсе (первый ряд
  * большая+малая, второй — малая+большая). Остаток — обычные ряды по
  * `columns` карточек в 1 слот.
+ *
+ * Компрессия работает рядами по `columns - 1` элементов (один из них
+ * дублируется) — но когда оставшихся элементов меньше, чем нужно для
+ * ещё одного такого ряда, цикл компрессии останавливается раньше, чем
+ * набирается `need` рядов, и остаётся "хвост" из нескольких элементов,
+ * которому не хватает для последнего целого ряда. Этот хвост дотягивают
+ * тем же приёмом, что и `lib/gridFill.ts` (`fillLastRowClasses`) —
+ * `numToStretch = min(emptySlots, rowItems)` последних элементов
+ * хвоста получают span 2 (не больше — растяжка карточки капается на
+ * 2 слота), остальные элементы хвоста остаются в 1 слот. Если хвост уже
+ * кратен `columns` (компрессия не потребовалась вовсе или полностью
+ * покрыла всё, что могла), растягивать нечего — обычные ряды по 1 слоту.
  */
 function rowSpans(total: number, columns: number): Span[] {
   if (columns < 2 || total <= 0) return new Array(Math.max(total, 0)).fill(1);
@@ -36,9 +48,18 @@ function rowSpans(total: number, columns: number): Span[] {
     row += 1;
   }
 
-  while (placed < total) {
-    spans.push(1);
-    placed += 1;
+  const remaining = total - placed;
+  if (remaining > 0) {
+    const rowItems = remaining % columns;
+    if (rowItems === 0) {
+      for (let i = 0; i < remaining; i++) spans.push(1);
+    } else {
+      const emptySlots = columns - rowItems;
+      const numToStretch = Math.min(emptySlots, rowItems);
+      const plainCount = remaining - numToStretch;
+      for (let i = 0; i < plainCount; i++) spans.push(1);
+      for (let i = 0; i < numToStretch; i++) spans.push(2);
+    }
   }
 
   return spans;

@@ -18,7 +18,18 @@ import type { GallerySection } from "@/types/site";
  * карточка).
  */
 export function PhotoBento(props: GallerySection) {
-  const { id, surface = "surface", number, eyebrow, title, lead, action, items, align = "left" } = props;
+  const {
+    id,
+    surface = "surface",
+    number,
+    eyebrow,
+    title,
+    lead,
+    action,
+    items,
+    align = "left",
+    fillLastRow = true,
+  } = props;
   const centered = align === "center";
   const [first, ...rest] = items;
 
@@ -67,7 +78,7 @@ export function PhotoBento(props: GallerySection) {
               <p className="text-caption font-medium uppercase text-accent">
                 {first.category}
               </p>
-              <h3 className="mt-3 font-display text-h2">{first.title}</h3>
+              <h3 className="mt-3 font-display text-h2">{first.title ?? first.category}</h3>
               <p className="mt-4 text-body text-fg-muted">{first.problem}</p>
 
               {first.stats && first.stats.length > 0 ? (
@@ -109,7 +120,7 @@ export function PhotoBento(props: GallerySection) {
               key={`${item.category}-${item.year}-${index}`}
               data-reveal
               style={revealDelay(index)}
-              className={bentoSpan(index, rest.length, { sm: 2, lg: 3 })}
+              className={fillLastRow ? bentoSpan(index, rest.length, { sm: 2, lg: 3 }) : undefined}
             >
               <Card
                 variant="framed"
@@ -120,7 +131,9 @@ export function PhotoBento(props: GallerySection) {
                   <div
                     className={cn(
                       "ui-media relative w-full shrink-0 overflow-hidden rounded-none",
-                      bentoMediaAspect(index, rest.length, { sm: 2, lg: 3 }, "4/3"),
+                      fillLastRow
+                        ? bentoMediaAspect(index, rest.length, { sm: 2, lg: 3 }, "4/3")
+                        : "aspect-[4/3]",
                     )}
                   >
                     <Image
@@ -143,7 +156,7 @@ export function PhotoBento(props: GallerySection) {
                   <p className="text-caption font-medium uppercase text-fg-muted">
                     {item.category}
                   </p>
-                  <h3 className="mt-2 font-display text-h4">{item.title}</h3>
+                  <h3 className="mt-2 font-display text-h4">{item.title ?? item.category}</h3>
                   <p className="mt-2 text-small text-fg-muted">{item.problem}</p>
 
                   {item.link ? (
