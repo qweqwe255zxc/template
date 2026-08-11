@@ -49,7 +49,7 @@ export function Showcase(props: HeroSection) {
   const hasPanel = Boolean(image || widget);
 
   return (
-    <Section id={id} surface={surface} spacing="lg" tint="hero">
+    <Section id={id} surface={surface} spacing="hero" tint="hero">
       <Container>
         <div className="grid gap-x-gutter gap-y-12 md:grid-cols-12 md:items-center">
           <div className={hasPanel ? "md:col-span-6" : "md:col-span-9"}>

@@ -7,8 +7,13 @@ interface SectionProps {
   children: ReactNode;
   /** Контекст поверхности — переопределяет цветовые переменные для потомков. */
   surface?: Surface;
-  /** lg — hero и CTA, sm — полоса статистики, none — секция сама решает. */
-  spacing?: "default" | "lg" | "sm" | "none";
+  /**
+   * hero — первый экран: верх выкупает высоту фиксированного хедера
+   * (--space-hero-top), низ тише обычного (--space-hero). lg — CTA:
+   * просторнее секции, но без налога на хедер. sm — полоса статистики.
+   * none — секция сама решает.
+   */
+  spacing?: "default" | "hero" | "lg" | "sm" | "none";
   /** Линейка во всю ширину сверху, базовый разделитель между секциями. */
   ruleTop?: boolean;
   /**
@@ -25,6 +30,7 @@ interface SectionProps {
 
 const spacingMap = {
   default: "py-section",
+  hero: "pt-hero-top pb-hero",
   lg: "py-section-lg",
   sm: "py-section-sm",
   none: "",

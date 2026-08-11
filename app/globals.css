@@ -57,6 +57,9 @@
   --text-h3--line-height: var(--leading-h3);
   --text-h3--letter-spacing: var(--tracking-h3);
 
+  --text-h4: var(--size-h4);
+  --text-h4--line-height: var(--leading-h4);
+
   --text-stat: var(--size-stat);
   --text-stat--line-height: var(--leading-stat);
   --text-stat--letter-spacing: var(--tracking-stat);
@@ -86,6 +89,8 @@
   --spacing-section: var(--space-section);
   --spacing-section-lg: var(--space-section-lg);
   --spacing-section-sm: var(--space-section-sm);
+  --spacing-hero: var(--space-hero);
+  --spacing-hero-top: var(--space-hero-top);
   --spacing-gutter: var(--layout-gutter);
   --spacing-header: var(--header-height);
 

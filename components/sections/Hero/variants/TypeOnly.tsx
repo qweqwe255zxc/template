@@ -27,7 +27,7 @@ export function TypeOnly(props: HeroSection) {
   } = props;
 
   return (
-    <Section id={id} surface={surface} spacing="lg" tint="hero">
+    <Section id={id} surface={surface} spacing="hero" tint="hero">
       <Container>
         <div className="grid gap-x-gutter lg:grid-cols-12">
           <HeroRail number={number} rail={rail} className="lg:col-span-2" />

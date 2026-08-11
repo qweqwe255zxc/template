@@ -18,7 +18,7 @@ export function Panel(props: CtaSection) {
     <Section id={id} surface={surface} spacing="lg">
       <Container>
         <div className="grid gap-x-gutter gap-y-10 lg:grid-cols-12 lg:items-center">
-          {/* lg, не md: у text-h1 (fluid до 96px) в паре с широким
+          {/* lg, не md: у text-h1 (fluid до 64px) в паре с широким
               display-шрифтом слово вроде "Клонируйте" не помещается
               в 6/12-колонку уже на 768px — переносится посреди слова
               даже на дефолтном контенте. lg сдвигает сжатие до ширины,

@@ -152,12 +152,16 @@ export function Cascade(props: StepsSection) {
                     </span>
                   ) : null}
 
-                  <h3 className="mt-4 line-clamp-2 min-h-[2.6em] max-w-[22ch] font-heading text-h3">
+                  {/* Без line-clamp: он молча резал текст многоточием, а в
+                      шаблоне текст пишет клиент и увидеть потерю неоткуда.
+                      Проверено — обрезка шла ещё при контейнере 1600 (5
+                      строк показывались как 3). Выравнивать карточки он и
+                      не был нужен: пол высоты держит min-h-[19rem] у Card,
+                      а <ol> стоит items-start. */}
+                  <h3 className="mt-4 max-w-[22ch] font-heading text-h3">
                     {item.title}
                   </h3>
-                  <p className="mt-3 line-clamp-3 min-h-[4.8em] text-body text-fg-muted">
-                    {item.text}
-                  </p>
+                  <p className="mt-3 text-body text-fg-muted">{item.text}</p>
 
                   {item.photo ? (
                     <div className={cn("ui-media-inset relative mt-6 aspect-[4/3] w-full shrink-0 overflow-hidden", aspectClasses[index])}>

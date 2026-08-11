@@ -93,11 +93,23 @@
 
   /* Флюид 375 → 1440px, дальше кегль не растёт (контейнер 1240) */
   /* Нижняя граница 34px, а не 40: на 375px при 40px строка «и жилищные дела»
-     не помещается и «дела» отваливается в отдельную строку. */
-  --size-h1: clamp(2.125rem, 0.76rem + 5.82vw, 6rem); /* 34 → 96 */
-  --size-h2: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); /* 28 → 44 */
+     не помещается и «дела» отваливается в отдельную строку.
+
+     Верхняя граница 64px, а не 96: замерено на /qa-audit/hero при
+     1440×891 — при потолке 96px ни один из шести вариантов Hero не влезал
+     в экран ноутбука (1046–1308px против 891), у centered в первый экран
+     попадал только сам заголовок, кнопки уходили под сгиб. Потолок 64
+     сажает type-only и centered в первый экран целиком, а h1 остаётся
+     вдвое крупнее h3 и по-прежнему держит полосу 1240px. */
+  --size-h1: clamp(2.125rem, 1.1rem + 4.4vw, 4rem); /* 34 → 64 */
+  --size-h2: clamp(1.625rem, 1.35rem + 1.2vw, 2.375rem); /* 26 → 38 */
   --size-h3: clamp(1.25rem, 1.16rem + 0.38vw, 1.5rem); /* 20 → 24 */
-  --size-stat: clamp(2.75rem, 2.4rem + 1.5vw, 3.75rem); /* 44 → 60 */
+  /* Ступень заголовка карточки — между h3 и body. Класс text-h4 стоял в
+     13 компонентах (карточки Team/Steps/Gallery/FAQ/Pricing/Footer), но
+     токена под него не было: Tailwind такой утилиты не генерировал, и все
+     эти заголовки рендерились кеглем body. */
+  --size-h4: 1.1875rem; /* 19 */
+  --size-stat: clamp(2.25rem, 1.75rem + 2.2vw, 3.25rem); /* 36 → 52 */
   --size-quote: clamp(1.25rem, 1.07rem + 0.75vw, 1.75rem); /* 20 → 28 */
   --size-lead: clamp(1.125rem, 1.03rem + 0.38vw, 1.375rem); /* 18 → 22 */
   --size-body: clamp(1rem, 0.978rem + 0.094vw, 1.0625rem); /* 16 → 17 */
@@ -108,6 +120,7 @@
   --leading-h1: 1.05;
   --leading-h2: 1.12;
   --leading-h3: 1.3;
+  --leading-h4: 1.35;
   --leading-stat: 1;
   --leading-quote: 1.35;
   --leading-body: 1.6;
@@ -135,13 +148,31 @@
   /* --------------------------------------------------------------------
      РИТМ И РАЗМЕРЫ
      -------------------------------------------------------------------- */
-  --layout-container: 100rem; /* 1600px */
+  /* 1240px. Ровно это число называют Container.tsx, SectionHeader.tsx,
+     CLAUDE.md, docs/section-system.md, докстринги FAQ/Wide, FAQ/Narrow,
+     ContactForm/Stacked и Hero/Poster — и комментарий к шкале выше.
+     Значение 100rem/1600px было расхождением с первого коммита: при окне
+     1440px контейнер не срабатывал вовсе, контент занимал все 1440 и
+     упирался в оба края окна — у страницы не было полей. */
+  --layout-container: 77.5rem; /* 1240px */
   --layout-narrow: 47.5rem; /* 760px — колонка FAQ */
   --layout-gutter: clamp(1.25rem, 0.9rem + 1.5vw, 2.5rem); /* 20 → 40 */
 
-  --space-section: clamp(4rem, 2.5rem + 6.4vw, 8rem); /* 64 → 128 */
-  --space-section-lg: clamp(5rem, 2.8rem + 9.4vw, 10rem); /* 80 → 160 — hero, CTA */
-  --space-section-sm: clamp(2.5rem, 2rem + 2.1vw, 3.5rem); /* 40 → 56 — полоса статистики */
+  --space-section: clamp(3.5rem, 2.6rem + 3.8vw, 5.5rem); /* 56 → 88 */
+  --space-section-lg: clamp(4rem, 2.9rem + 4.7vw, 6.5rem); /* 64 → 104 — CTA */
+  --space-section-sm: clamp(2rem, 1.7rem + 1.3vw, 2.75rem); /* 32 → 44 — полоса статистики */
+
+  /* Hero — свой ритм, не --space-section-lg. Над hero висит фиксированный
+     хедер, поэтому верхний отступ обязан выкупить его высоту обратно:
+     на --space-section-lg между низом хедера и первой строкой оставалось
+     32px. Раньше это чинил один Hero/Split собственным
+     pt-[calc(var(--header-height)+3.5rem)], остальные пять — нет.
+     CTA сюда не переводим: акцентная полоса не борется за первый экран
+     и должна остаться просторной. */
+  --space-hero: clamp(3rem, 2.1rem + 3.1vw, 4.5rem); /* 48 → 72 — низ hero */
+  --space-hero-top: calc(
+    var(--header-height) + clamp(1.5rem, 1rem + 1.6vw, 2.5rem)
+  ); /* 96 → 112 — хедер + воздух */
 
   --header-height: 4.5rem; /* 72px */
   --scroll-offset: 6rem; /* header + воздух, для scroll-margin-top */
@@ -182,11 +213,20 @@
   --title-margin-x: 0;
 }
 
+/* Собственная ступень, а не var(--size-h1). «Центрированный стиль
+   заголовка» и «кегль заголовка hero» — два разных решения, и держать их
+   на одной переменной значит менять оба разом: при --size-h1 в 64px
+   КАЖДЫЙ h2 на странице становился вровень с заголовком первого экрана, и
+   hero переставал быть самым крупным объектом страницы. 48 намеренно
+   стоит между h2 (38) и h1 (64) — заметно церемоннее обычного заголовка,
+   но не выдаёт себя за hero. */
 [data-title-style="centered"] {
-  --title-size: var(--size-h1);
-  --title-line-height: var(--leading-h1);
+  --title-size: clamp(1.875rem, 1.3rem + 2.6vw, 3rem); /* 30 → 48 */
+  --title-line-height: 1.1;
   --title-tracking: var(--tracking-h1);
-  --title-max-width: 46rem;
+  /* 42rem = 672px в колонке 1168px (58%). Прежние 46rem считались от
+     контейнера 1600 и в 1240 занимают уже 63%, прижимаясь к краям. */
+  --title-max-width: 42rem;
   --title-align: center;
   --title-margin-x: auto;
 }
