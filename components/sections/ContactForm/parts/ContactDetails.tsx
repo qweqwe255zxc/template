@@ -15,6 +15,14 @@ import type { ContactsConfig } from "@/types/site";
 interface ContactDetailsProps {
   contacts: ContactsConfig;
   detailsTitle?: string;
+  /**
+   * list — вертикальный список на линейках, по строке на реквизит: для
+   * боковой колонки (split). inline — та же информация компактной
+   * строкой в несколько колонок: для раскладок, где реквизиты стоят НАД
+   * формой (stacked). Вертикальный список там занимал 560px и отжимал
+   * форму на второй экран, хотя это всего семь коротких значений.
+   */
+  layout?: "list" | "inline";
   /** Классы колонки реквизитов. */
   className?: string;
 }
@@ -29,6 +37,7 @@ interface ContactDetailsProps {
 export function ContactDetails({
   contacts,
   detailsTitle,
+  layout = "list",
   className,
 }: ContactDetailsProps) {
   const details: {
@@ -97,11 +106,25 @@ export function ContactDetails({
         </h3>
       ) : null}
 
-      <dl className="mt-7 border-t border-rule">
+      {/* Число колонок в inline-раскладке решает КОНТЕЙНЕРНЫЙ запрос, а
+          не брейкпоинт окна: этот блок стоит и во всю ширину секции
+          (stacked), и в залипающей колонке 4/12 (sticky-split). По ширине
+          окна во втором случае получалось бы три колонки по 127px. */}
+      <dl
+        className={
+          layout === "inline"
+            ? "@container/details mt-7 grid gap-x-gutter gap-y-1 border-y border-rule py-6 @lg/details:grid-cols-2 @4xl/details:grid-cols-3"
+            : "mt-7 border-t border-rule"
+        }
+      >
         {details.map(({ icon: Icon, label, value, href }) => (
           <div
             key={label}
-            className="flex items-start gap-4 border-b border-rule py-5"
+            className={
+              layout === "inline"
+                ? "flex items-start gap-3 py-2"
+                : "flex items-start gap-4 border-b border-rule py-5"
+            }
           >
             <Icon
               aria-hidden="true"

@@ -7,7 +7,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/"],
+        // /qa-audit — внутренний стенд вариантов, он не часть сайта клиента
+        // и удаляется перед сдачей; пока он есть, поисковику там делать нечего.
+        disallow: ["/api/", "/qa-audit"],
       },
     ],
     sitemap: `${siteConfig.seo.siteUrl}/sitemap.xml`,

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Check } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { ActionGroup } from "@/components/ui/ActionGroup";
 import { cn } from "@/lib/cn";
 import type { PricingClosing as PricingClosingData } from "@/types/site";
 
@@ -27,26 +27,29 @@ export function PricingClosing({ closing, className }: PricingClosingProps) {
         className={cn("rounded-card bg-bg p-8 text-fg md:p-12", className)}
         data-reveal
       >
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-[36ch]">
+        {/* Сетка 7/5 с выравниванием по НИЗУ, а не flex + justify-between
+            + items-center. Прежняя раскладка разводила текст и кнопки по
+            дальним краям баннера и центрировала кнопки по высоте всего
+            блока: при заголовке в три строки они зависали в пустоте
+            посреди тёмного прямоугольника, ни к чему не привязанные.
+            Теперь кнопки стоят на одной линии с последней строкой текста
+            и держатся своей колонки. */}
+        <div className="grid gap-x-gutter gap-y-8 md:grid-cols-12 md:items-end">
+          {/* Ширину текста задаёт колонка, своего max-w-[36ch] тут нет:
+              кап в 36 знаков держал заголовок в трети отведённой колонки,
+              и между текстом и кнопками зияла пустая треть баннера. */}
+          <div className="md:col-span-7">
             <h3 className="font-heading text-h2">{closing.title}</h3>
             {closing.text ? (
-              <p className="mt-3 text-body text-fg-muted">{closing.text}</p>
+              <p className="mt-3 max-w-[62ch] text-body text-fg-muted">{closing.text}</p>
             ) : null}
           </div>
-          {closing.actions && closing.actions.length > 0 ? (
-            <div className="flex shrink-0 flex-wrap gap-4">
-              {closing.actions.map((action) => (
-                <Button
-                  key={action.label}
-                  href={action.href}
-                  variant={action.variant ?? "secondary"}
-                >
-                  {action.label}
-                </Button>
-              ))}
-            </div>
-          ) : null}
+          <ActionGroup
+            actions={closing.actions ?? []}
+            align="end"
+            fallbackVariant="secondary"
+            className="md:col-span-5"
+          />
         </div>
       </div>
     );
@@ -84,15 +87,7 @@ export function PricingClosing({ closing, className }: PricingClosingProps) {
             ))}
           </ul>
         ) : null}
-        {closing.actions && closing.actions.length > 0 ? (
-          <div className="mt-7 flex flex-wrap gap-4">
-            {closing.actions.map((action) => (
-              <Button key={action.label} href={action.href} variant={action.variant ?? "primary"}>
-                {action.label}
-              </Button>
-            ))}
-          </div>
-        ) : null}
+        <ActionGroup actions={closing.actions ?? []} align="start" className="mt-7" />
       </div>
     </div>
   );

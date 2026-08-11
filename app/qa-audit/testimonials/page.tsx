@@ -13,6 +13,7 @@ const variants: NonNullable<TestimonialsSection["variant"]>[] = [
   "bento",
   "rated-cards",
   "spotlight",
+  "sticky-split",
 ];
 
 export default function QaTestimonialsPage() {

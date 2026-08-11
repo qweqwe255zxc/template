@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 
 interface ContainerProps {
   children: ReactNode;
-  /** page — 1240px, narrow — 760px (колонка FAQ и текстовые блоки). */
+  /** page — 1600px, narrow — 760px (колонка FAQ и текстовые блоки). */
   width?: "page" | "narrow";
   className?: string;
 }

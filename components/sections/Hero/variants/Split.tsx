@@ -49,28 +49,14 @@ export function Split(props: HeroSection) {
     <Section
       id={id}
       surface={surface}
-      // Для фото — spacing="none" плюс ручной pt/pb: нижний отступ
-      // переиспользует тот же токен --space-section-lg (ритм перед
-      // следующей секцией не меняется), верхний уменьшен. С полным
-      // --space-section-lg сверху (80–160px) плюс высота хедера hero с
-      // высоким фото прижимался к низу первого экрана, а не читался по
-      // центру. pt тут — фиксированные брейкпоинты, а не clamp: это
-      // подгон под конкретную высоту фото, а не самостоятельный токен
-      // ритма. Виджет заметно ниже фото и в первый экран укладывается
-      // при обычном spacing="lg".
-      //
-      // Хедер теперь fixed поверх hero (не резервирует высоту в потоке —
-      // до скролла он прозрачный и лежит прямо над этой секцией), поэтому
-      // к прежним pt-8/10/14 обязательно прибавлен --header-height:
-      // раньше эти же 72px давал сам хедер своим местом в потоке, теперь
-      // их даёт только этот отступ.
-      spacing={withImage ? "none" : "lg"}
+      // Раньше здесь была развилка spacing="none" + ручной pt/pb с тремя
+      // брейкпоинтами: она подгоняла верхний отступ под фиксированную
+      // высоту фото и прибавляла --header-height вручную. Обе задачи ушли
+      // в токены — налог на fixed-хедер теперь в --space-hero-top
+      // (spacing="hero" у всех шести вариантов), а фото ведётся аспектом
+      // и подгонять под него нечего.
+      spacing="hero"
       tint="hero"
-      className={
-        withImage
-          ? "pt-[calc(var(--header-height)+2rem)] pb-[var(--space-section-lg)] md:pt-[calc(var(--header-height)+2.5rem)] lg:pt-[calc(var(--header-height)+3.5rem)]"
-          : undefined
-      }
     >
       <Container>
         <div className="grid gap-x-gutter lg:grid-cols-12 lg:items-center">
@@ -90,14 +76,15 @@ export function Split(props: HeroSection) {
 
           {withImage ? (
             // Фото — col-span-5 col-start-8, встык к правому краю
-            // контейнера: rail(1)+text(6)=7, разрыва нет. Высота на lg+
-            // явная и стоит на ВНУТРЕННЕМ боксе, а не min-height на
-            // grid-ячейке: при min-height + stretch фото растягивалось от
-            // общего верхнего края строки и весь лишний рост уходил вниз.
-            // На мобильном и планшете грид схлопнут в одну колонку, там
-            // высоту держит aspect-square (lg:aspect-auto его снимает).
-            // pl-8/lg:pl-12 — единственный источник зазора между текстом и
-            // фото (плюс стандартный gap-x-gutter). Паддинг на внешнем
+            // контейнера: rail(1)+text(6)=7, разрыва нет. Высоту на всех
+            // ширинах держит аспект, без явных lg:h-[34rem]/xl:h-[40rem]:
+            // те 544/640px не зависели ни от одного токена, поэтому фото
+            // не реагировало на ширину контейнера, и в колонке 402px
+            // «фото 4/3» рисовалось портретом 1:1.6 — заявленный аспект
+            // нарушался на каждом десктопе, а секция вылезала за первый
+            // экран. Квадрат на lg+ компенсирует узкую колонку.
+            // pl-10/xl:pl-16 — единственный источник зазора между текстом
+            // и фото (плюс стандартный gap-x-gutter). Паддинг на внешнем
             // grid-элементе, overflow-hidden на внутреннем боксе, чтобы
             // паддинг не резал скругление.
             <div
@@ -106,7 +93,7 @@ export function Split(props: HeroSection) {
                 hideMediaOnMobile && "hidden lg:block",
               )}
             >
-              <div className="ui-media-raised relative aspect-[4/3] w-full overflow-hidden lg:aspect-auto lg:h-[34rem] xl:h-[40rem]">
+              <div className="ui-media-raised relative aspect-[4/3] w-full overflow-hidden lg:aspect-square">
                 <Image
                   src={image as string}
                   alt={headline.join(" ")}

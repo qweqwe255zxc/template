@@ -10,13 +10,20 @@ import { yandexMapsHref } from "../parts/yandexMapsHref";
 import type { ContactFormProps } from "../types";
 
 /**
- * Полноширинная афиша: форма слева выровнена по общей оси страницы —
- * тот же приём, что у Hero/Poster (mr-auto-блок фиксированной ширины
- * calc(var(--container-page)/2), чтобы левый край текста совпадал с
- * краем Container независимо от ширины окна), справа — тёмная панель
- * со своим data-surface="ink" (адрес, телефон, почта) и картой внахлёст
- * к правому краю окна. Своего Container нет — панели сами держат
- * отступы, поэтому Section идёт со spacing="none".
+ * Полноширинная афиша: слева форма, отцентрованная в своей колонке,
+ * справа — тёмная панель со своим data-surface="ink" (адрес, телефон,
+ * почта) и картой внахлёст к правому краю окна. Своего Container нет —
+ * панели сами держат отступы, поэтому Section идёт со spacing="none".
+ *
+ * Раньше докстринг обещал выравнивание по оси страницы через
+ * mr-auto-блок шириной calc(var(--container-page)/2) — как у Hero/Poster.
+ * Ни одно из трёх утверждений коду не соответствовало: блок стоял
+ * mx-auto (то есть по центру, а не по левой оси), делитель был *7/12, а
+ * содержимое внутри — text-center. Здесь именно центрированная колонка,
+ * и кап ширины больше не выводится из контейнера: значение, посчитанное
+ * от --container-page, ломается при любой смене контейнера, и в один
+ * момент оно оказалось УЖЕ, чем max-w-3xl у самой формы, из-за чего её
+ * собственная ширина переставала работать вовсе.
  *
  * number секция тут не показывает — колонтитулу негде стоять на
  * полноширинной панели без общего левого поля (тот же случай, что и у
@@ -56,11 +63,10 @@ export function Panels(props: ContactFormProps) {
           выглядела заметно мельче остальных элементов раскладки. Форме
           нужно больше пространства, чем справочной информации. */}
       <div className="grid md:grid-cols-12 md:items-stretch">
-        {/* text-center + mx-auto на заголовке/лиде и на самой форме — тот
-            же приём max-w(...)/2 держит колонку на общей оси страницы,
-            но раньше содержимое внутри было прижато к левому краю этой
-            колонки, а не центрировано в ней. */}
-        <div className="mx-auto w-full max-w-[calc(var(--container-page)*7/12)] px-gutter py-section-lg text-center md:col-span-7">
+        {/* max-w-4xl (896px) — предохранитель на очень широких мониторах,
+            а не рабочая ширина: на типовых экранах колонка md:col-span-7
+            уже, и ширину задаёт она, оставляя форме её max-w-3xl. */}
+        <div className="mx-auto w-full max-w-4xl px-gutter py-section-lg text-center md:col-span-7">
           {eyebrow ? (
             <p className="text-caption font-medium uppercase text-fg-muted" data-reveal>
               {eyebrow}
@@ -79,22 +85,29 @@ export function Panels(props: ContactFormProps) {
             </p>
           ) : null}
 
-          {/* fieldsBreakpoint="lg": колонка тут не 7/12 Container'а, как у
-              split/boxed, а 7/12 сырого viewport, ограниченные сверху
-              max-w-32rem у самой формы (columnClassName ниже). На md–lg
-              (768–1023) колонка ещё не доросла до 32rem — дефолтный
-              sm:grid-cols-2 у ContactFields сжимал бы поля в 2 тесных
-              столбца. lg откладывает 2 колонки до момента, когда форма
-              либо уже полные 32rem, либо всё ещё в одну колонку — тот же
-              сбой, что у split/boxed (см. их комментарии), но по другой
-              причине (плавающая ширина колонки, а не колонка Container'а). */}
+          {/* max-w-3xl — тот же потолок, что у ContactForm/Stacked.tsx для
+              своей формы: раньше тут стоял max-w-32rem (512px), державший
+              форму заметно уже колонки-обёртки даже на широких десктопах.
+              Но и без потолка вообще форма растягивалась на всю
+              max-w(...)*7/12 колонку (до ~900px) — поля в 2 колонки
+              становились неестественно широкими на большом десктопе.
+              max-w-3xl — компромисс: шире прежних 512px, но не во всю
+              ширину плавающей 7/12-колонки.
+              fieldsBreakpoint="lg": колонка тут не 7/12 Container'а, как у
+              split/boxed, а 7/12 сырого viewport — на md–lg (768–1023) она
+              ещё не доросла до комфортной ширины, дефолтный sm:grid-cols-2
+              у ContactFields сжимал бы поля в 2 тесных столбца. lg
+              откладывает 2 колонки до момента, когда viewport уже даёт
+              колонке достаточно места — тот же сбой, что у split/boxed
+              (см. их комментарии), но по другой причине (плавающая ширина
+              колонки, а не колонка Container'а). */}
           <FormColumn
             form={form}
             fields={fields}
             submitLabel={submitLabel}
             consent={consent}
             layout={layout}
-            columnClassName="mx-auto mt-10 max-w-[32rem] text-left"
+            columnClassName="mx-auto mt-10 w-full max-w-3xl text-left"
             fieldsBreakpoint="lg"
           />
         </div>
@@ -164,7 +177,10 @@ export function Panels(props: ContactFormProps) {
           </div>
 
           {showMap && mapSrc ? (
-            <div className="relative min-h-[16rem] flex-1 border-t border-rule">
+            // До md панель стоит своей строкой и остатка высоты под картой
+            // нет — там высоту даёт ширина карты (aspect). На md+ работает
+            // flex-1: карта забирает весь остаток панели.
+            <div className="relative aspect-[3/2] border-t border-rule md:aspect-auto md:flex-1">
               <iframe
                 src={mapSrc}
                 loading="lazy"

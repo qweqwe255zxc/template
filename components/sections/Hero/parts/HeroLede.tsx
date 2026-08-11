@@ -7,7 +7,7 @@ interface HeroLedeProps {
   headline: string[];
   lead?: string;
   actions?: CtaLink[];
-  /** Понизить потолок --size-h1 с 96px до 72px — см. parts/headlineScale.ts. */
+  /** Понизить потолок --size-h1 с 64px до 48px — см. parts/headlineScale.ts. */
   compact?: boolean;
   /** Ширина колонки на md+ — своя у каждой раскладки. */
   className?: string;

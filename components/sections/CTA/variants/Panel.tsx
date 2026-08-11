@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { ActionGroup } from "@/components/ui/ActionGroup";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -18,7 +18,7 @@ export function Panel(props: CtaSection) {
     <Section id={id} surface={surface} spacing="lg">
       <Container>
         <div className="grid gap-x-gutter gap-y-10 lg:grid-cols-12 lg:items-center">
-          {/* lg, не md: у text-h1 (fluid до 96px) в паре с широким
+          {/* lg, не md: у text-h1 (fluid до 64px) в паре с широким
               display-шрифтом слово вроде "Клонируйте" не помещается
               в 6/12-колонку уже на 768px — переносится посреди слова
               даже на дефолтном контенте. lg сдвигает сжатие до ширины,
@@ -47,17 +47,8 @@ export function Panel(props: CtaSection) {
           {actions.length > 0 || note ? (
             <div className="lg:col-span-5" data-reveal>
               {actions.length > 0 ? (
-                <Card variant="elevated" className="flex flex-col gap-4">
-                  {actions.map((action, index) => (
-                    <Button
-                      key={index}
-                      href={action.href}
-                      variant={action.variant ?? "primary"}
-                      full
-                    >
-                      {action.label}
-                    </Button>
-                  ))}
+                <Card variant="elevated">
+                  <ActionGroup actions={actions} stacked />
                 </Card>
               ) : null}
 

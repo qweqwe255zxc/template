@@ -34,7 +34,11 @@ export function StatCard({ item, tile = "none" }: StatCardProps) {
             <Icon aria-hidden="true" strokeWidth={1.5} className="size-5" />
           </span>
         ) : (
-          <div className="mb-4 flex size-8 items-center justify-center text-accent">
+          // text-fg-muted, а не text-accent: по правилу акцента (CLAUDE.md
+          // §1.1) ВСЕ иконки — приглушённый текст. Акцентная иконка в
+          // каждой карточке-метрике размывала правило и красила сетку
+          // цифр в цвет бренда целиком.
+          <div className="mb-4 flex size-8 items-center justify-center text-fg-muted">
             <Icon aria-hidden="true" strokeWidth={1.5} className="size-5" />
           </div>
         )

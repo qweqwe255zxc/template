@@ -5,6 +5,7 @@ import { Columns } from "./variants/Columns";
 import { PhotoCards } from "./variants/PhotoCards";
 import { Rows } from "./variants/Rows";
 import { TagsCards } from "./variants/TagsCards";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { TeamSection } from "@/types/site";
 
@@ -20,6 +21,7 @@ const variants: VariantMap<TeamSection, NonNullable<TeamSection["variant"]>> = {
   "badge-avatars": BadgeAvatars,
   "tags-cards": TagsCards,
   bento: Bento,
+  "sticky-split": StickySplit,
 };
 
 export function Team(props: TeamSection) {

@@ -81,31 +81,32 @@ export function Panel(props: AboutSection) {
 
           {photo ? (
             <div className="lg:col-span-7">
-              <div
-                className="relative aspect-[4/3] w-full overflow-hidden lg:aspect-[16/11]"
-                data-reveal
-                style={revealDelay(1)}
-              >
-                <div className="ui-media-raised absolute inset-0 overflow-hidden">
-                  <Image
-                    src={photo}
-                    alt={photoAlt ?? title ?? ""}
-                    fill
-                    sizes="(min-width: 768px) 55vw, 100vw"
-                    className="object-cover"
-                  />
+              {/* Обёртка нужна, чтобы плашка была СОСЕДОМ фото-бокса, а не
+                  его потомком: у бокса overflow-hidden (кадрирует фото), и
+                  плашка внутри него обрезалась бы по его границе. Раньше
+                  это лечили line-clamp-2 на заголовке — то есть молча
+                  резали текст клиента (§1.5 п.2). */}
+              <div className="relative" data-reveal style={revealDelay(1)}>
+                <div className="relative aspect-[4/3] w-full overflow-hidden lg:aspect-[16/11]">
+                  <div className="ui-media-raised absolute inset-0 overflow-hidden">
+                    <Image
+                      src={photo}
+                      alt={photoAlt ?? title ?? ""}
+                      fill
+                      sizes="(min-width: 768px) 55vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
 
                 {photoCaption ? (
-                  <div className="ui-popover absolute bottom-5 left-5 max-w-[16rem] bg-card p-5">
+                  // До sm фото-бокс низкий, и плашка поверх него съедала бы
+                  // кадр целиком — там она идёт обычным потоком под фото.
+                  <div className="ui-popover mt-4 bg-card p-5 sm:absolute sm:bottom-5 sm:left-5 sm:mt-0 sm:max-w-[16rem]">
                     <p className="text-caption font-medium uppercase text-accent">
                       {photoCaption.eyebrow}
                     </p>
-                    {/* line-clamp: плашка — absolute поверх фото с aspect-ratio
-                        боксом; на невысоких мобильных боксах длинный заголовок
-                        мог вылезти за верхнюю границу самого бокса (overflow-hidden
-                        режет по границе контейнера, а не по границе плашки). */}
-                    <p className="mt-1 line-clamp-2 font-display text-h4">
+                    <p className="mt-1 font-display text-h4">
                       {photoCaption.title}
                     </p>
                   </div>

@@ -3,6 +3,7 @@ import { Photo } from "./variants/Photo";
 import { QuietSplit } from "./variants/QuietSplit";
 import { SplitActions } from "./variants/SplitActions";
 import { TypeOnly } from "./variants/TypeOnly";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { AboutSection } from "@/types/site";
 
@@ -19,6 +20,7 @@ const variants: VariantMap<
   "split-actions": SplitActions,
   "quiet-split": QuietSplit,
   panel: Panel,
+  "sticky-split": StickySplit,
 };
 
 const PHOTO_REQUIRED_VARIANTS = new Set(["photo", "split-actions", "quiet-split", "panel"]);

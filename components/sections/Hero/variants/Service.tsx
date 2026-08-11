@@ -41,7 +41,7 @@ export function Service(props: HeroSection) {
   } = props;
 
   return (
-    <Section id={id} surface={surface} spacing="lg" tint="hero">
+    <Section id={id} surface={surface} spacing="hero" tint="hero">
       <Container>
         <div className="grid gap-x-gutter gap-y-12 md:grid-cols-12 md:items-center">
           <div className="md:col-span-7">
@@ -104,7 +104,11 @@ export function Service(props: HeroSection) {
                   прижат к низу бокса, и «низ» обязан быть предсказуемым,
                   а не зависеть от пропорций конкретного файла. */}
               <div className="relative">
-                <div className="ui-media-raised relative aspect-[3/4] w-full overflow-hidden">
+                {/* 4/5, а не 3/4: колонка md:col-span-5 — около 470px, и
+                    портрет 3/4 давал 627px, ровно высоту всей секции.
+                    Формат остаётся портретным, но высоту секции снова
+                    определяет текстовая колонка. */}
+                <div className="ui-media-raised relative aspect-[4/5] w-full overflow-hidden">
                   <Image
                     src={image}
                     alt={headline.join(" ")}

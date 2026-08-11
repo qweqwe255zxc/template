@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { ActionGroup } from "@/components/ui/ActionGroup";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { CtaEyebrow } from "../parts/CtaEyebrow";
@@ -36,19 +36,7 @@ export function Left(props: CtaSection) {
           {/* items-baseline: variant="quiet" — текстовая ссылка без своего
               бокса (h-auto), рядом с обычными кнопками (h-12) центр по
               боксу держал её заметно выше подписи кнопок. */}
-          {actions.length > 0 ? (
-            <div className="mt-8 flex flex-wrap items-baseline gap-x-8 gap-y-4" data-reveal>
-              {actions.map((action, index) => (
-                <Button
-                  key={index}
-                  href={action.href}
-                  variant={action.variant ?? "primary"}
-                >
-                  {action.label}
-                </Button>
-              ))}
-            </div>
-          ) : null}
+          <ActionGroup actions={actions} align="start" className="mt-8" />
 
           {note ? <p className="mt-5 text-small text-fg-muted">{note}</p> : null}
         </div>

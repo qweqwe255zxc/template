@@ -1,5 +1,8 @@
+import { Alternating } from "./variants/Alternating";
 import { Bento } from "./variants/Bento";
 import { Cards } from "./variants/Cards";
+import { Compact } from "./variants/Compact";
+import { StickySplit } from "./variants/StickySplit";
 import { Table } from "./variants/Table";
 import type { VariantMap } from "../variantMap";
 import type { FeaturesSection } from "@/types/site";
@@ -30,9 +33,22 @@ const variants: VariantMap<
   table: Table,
   cards: Cards,
   bento: Bento,
+  "sticky-split": StickySplit,
+  alternating: Alternating,
+  compact: Compact,
 };
 
-const GRID_ONLY: NonNullable<FeaturesSection["variant"]>[] = ["table"];
+/**
+ * Раскладки, которые не умеют показывать photo и потому форсируются в
+ * cards, если фото задано. alternating сюда НЕ входит — она построена
+ * вокруг фото. bento и cards держат каждый item в Card, туда фото
+ * встаёт само.
+ */
+const GRID_ONLY: NonNullable<FeaturesSection["variant"]>[] = [
+  "table",
+  "sticky-split",
+  "compact",
+];
 
 export function Features(props: FeaturesSection) {
   const variant = props.variant ?? "table";

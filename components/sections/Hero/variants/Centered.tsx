@@ -40,7 +40,7 @@ export function Centered(props: HeroSection) {
   const kicker = [number, rail].filter(Boolean).join(" · ");
 
   return (
-    <Section id={id} surface={surface} spacing="lg" tint="hero">
+    <Section id={id} surface={surface} spacing="hero" tint="hero">
       <Container>
         <div className="mx-auto max-w-[52rem] text-center">
           {kicker ? (

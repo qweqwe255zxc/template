@@ -83,7 +83,17 @@ export function AboutLayout({
 
           <div
             className={cn(
-              "ui-media-raised relative aspect-[4/3] w-full overflow-hidden md:col-span-7 md:aspect-auto md:h-full md:min-h-[420px]",
+              "ui-media-raised relative aspect-[4/3] w-full overflow-hidden md:col-span-7 md:aspect-auto md:h-full",
+              // Пол высоты на md+: текстовая колонка бывает короткой (пара
+              // абзацев), и растянутое по строке фото схлопывалось в
+              // полоску. Пол берётся от собственной ширины колонки через
+              // padding-top у ::before — Image здесь absolute и высоту не
+              // даёт. Числа в px тут были бы вторым источником правды и
+              // ломались бы при смене контейнера (§1.5 п.3).
+              // 45% — широкая полоса: при длинном тексте высоту всё равно
+              // задаёт соседняя колонка, а на 1920 фото не превращается в
+              // огромный квадрат рядом с тремя строками текста.
+              "md:before:block md:before:pt-[45%] md:before:content-['']",
               photoFirst && "md:order-1",
             )}
             data-reveal

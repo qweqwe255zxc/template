@@ -15,6 +15,7 @@ const variants: NonNullable<StatsSection["variant"]>[] = [
   "bento",
   "photo",
   "plain",
+  "sticky-split",
 ];
 
 export default function QaStatsPage() {

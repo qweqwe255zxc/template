@@ -13,6 +13,7 @@ const variants: NonNullable<AboutSection["variant"]>[] = [
   "split-actions",
   "quiet-split",
   "panel",
+  "sticky-split",
 ];
 
 export default function QaAboutPage() {

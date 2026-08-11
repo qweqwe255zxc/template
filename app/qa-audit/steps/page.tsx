@@ -16,6 +16,7 @@ const variants: NonNullable<StepsSection["variant"]>[] = [
   "timeline-horizontal",
   "split",
   "numbered-cards",
+  "sticky-split",
 ];
 
 export default function QaStepsPage() {

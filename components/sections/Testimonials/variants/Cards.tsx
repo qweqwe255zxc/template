@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { revealDelay } from "@/lib/reveal";
 import { bentoSpan } from "@/lib/bentoSpan";
 import { cn } from "@/lib/cn";
+import { RatingStars } from "../parts/RatingStars";
 import { TestimonialBody } from "../parts/TestimonialBody";
 import type { TestimonialsSection } from "@/types/site";
 
@@ -69,10 +70,17 @@ export function Cards(props: TestimonialsSection) {
                 data-reveal
                 style={revealDelay(index)}
               >
+                {/* Рейтинг сверху: без него карточка начиналась прямо с
+                    абзаца текста и читалась пустой — у отзыва не было
+                    ничего, что схватывается взглядом до чтения. Рисуется
+                    только если у item задан rating, поэтому конфиги без
+                    оценок выглядят как раньше. */}
+                <RatingStars rating={item.rating} className="mb-4" />
+
                 <TestimonialBody
                   item={item}
-                  quoteClassName="text-lead"
-                  captionClassName="mt-auto pt-6"
+                  quoteClassName="mb-8 text-lead"
+                  captionClassName="mt-auto border-t border-rule pt-7"
                 />
               </figure>
             </Card>

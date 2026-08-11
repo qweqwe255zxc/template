@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { ActionGroup } from "@/components/ui/ActionGroup";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { CtaEyebrow } from "../parts/CtaEyebrow";
@@ -18,8 +18,16 @@ export function Centered(props: CtaSection) {
         <div className="mx-auto max-w-[46rem] text-center">
           <CtaEyebrow eyebrow={eyebrow} variant="badge" className="flex justify-center" />
 
+          {/* mx-auto обязателен. .section-title задаёт max-width
+              (--title-max-width) и margin-inline: 0, поэтому в text-center
+              бокс заголовка прижимался к левому краю колонки, а по центру
+              шёл только текст внутри него — эйброу и лид центрировались,
+              а заголовок стоял левее их оси. */}
           {title ? (
-            <h2 className={`font-heading section-title ${eyebrow ? "mt-4" : ""}`} data-reveal>
+            <h2
+              className={`mx-auto font-heading section-title ${eyebrow ? "mt-4" : ""}`}
+              data-reveal
+            >
               {title}
             </h2>
           ) : null}
@@ -30,22 +38,7 @@ export function Centered(props: CtaSection) {
             </p>
           ) : null}
 
-          {actions.length > 0 ? (
-            <div
-              className="mt-9 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row sm:items-baseline"
-              data-reveal
-            >
-              {actions.map((action, index) => (
-                <Button
-                  key={index}
-                  href={action.href}
-                  variant={action.variant ?? "primary"}
-                >
-                  {action.label}
-                </Button>
-              ))}
-            </div>
-          ) : null}
+          <ActionGroup actions={actions} align="center" className="mt-9" />
 
           {note ? <p className="mt-5 text-small text-fg-muted">{note}</p> : null}
         </div>

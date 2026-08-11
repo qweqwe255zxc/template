@@ -11,7 +11,33 @@ const variants: NonNullable<FeaturesSection["variant"]>[] = [
   "table",
   "cards",
   "bento",
+  "sticky-split",
+  "alternating",
+  "compact",
 ];
+
+/**
+ * alternating построена вокруг item.photo, а в демо-конфиге у Features
+ * фото нет — на стенде вариант показывал бы только свой фолбэк без
+ * картинок. Фото подставляются ТОЛЬКО этому блоку: положить их в сам
+ * site.config нельзя, роутер секции форсирует cards, как только фото
+ * появляется хотя бы у одного элемента (см. Features/index.tsx), и
+ * остальные пять раскладок на стенде перестали бы рендериться.
+ */
+const PHOTOS = [
+  "/images/steps-1.jpg",
+  "/images/steps-2.jpg",
+  "/images/steps-3.jpg",
+  "/images/steps-4.jpg",
+];
+
+const withPhotos = {
+  ...base,
+  items: base.items.map((item, index) => ({
+    ...item,
+    photo: PHOTOS[index % PHOTOS.length],
+  })),
+};
 
 export default function QaFeaturesPage() {
   return (
@@ -19,7 +45,7 @@ export default function QaFeaturesPage() {
       {variants.map((variant) => (
         <QaBlock key={variant} label={`Features / variant="${variant}"`}>
           <Features
-            {...base}
+            {...(variant === "alternating" ? withPhotos : base)}
             id={`features-${variant}`}
             variant={variant}
             iconShape={base.iconShape ?? siteConfig.theme.iconShape}

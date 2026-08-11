@@ -13,6 +13,7 @@ const variants: NonNullable<GallerySection["variant"]>[] = [
   "cards-icon",
   "photo-grid",
   "photo-bento",
+  "sticky-split",
 ];
 
 export default function QaGalleryPage() {

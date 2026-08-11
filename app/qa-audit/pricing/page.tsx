@@ -18,6 +18,7 @@ const variants: NonNullable<PricingSection["variant"]>[] = [
   "glass",
   "banner",
   "matrix",
+  "sticky-split",
 ];
 
 export default function QaPricingPage() {
