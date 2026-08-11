@@ -131,7 +131,9 @@ export function Poster(props: HeroSection) {
           // источником правды о высоте первого экрана.
           <div
             className={cn(
-              "min-h-[22rem] md:min-h-0",
+              // До md фото стоит своей строкой, и высоту ему даёт
+              // собственная ширина (aspect), а не число в rem.
+              "aspect-[4/3] md:aspect-auto",
               hideMediaOnMobile ? "hidden md:relative md:block" : "relative",
             )}
           >

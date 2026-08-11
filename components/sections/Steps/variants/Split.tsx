@@ -22,7 +22,13 @@ export function Split(props: StepsSection) {
     <Section id={id} surface={surface} iconShape={iconShape}>
       <Container>
         <div className="grid gap-x-gutter gap-y-10 md:grid-cols-2 md:items-stretch">
-          <div className="ui-media-raised relative min-h-[22rem] overflow-hidden md:min-h-0">
+          {/* До md колонки нет, и высоту бокса задаёт САМА подпись: она идёт
+              обычным потоком, а ::before добавляет над ней полосу фото в
+              четверть собственной ширины. Так длинный заголовок клиента
+              раздвигает бокс, а не обрезается о его край — фиксированная
+              высота (было min-h-[22rem]) резала бы. На md+ высоту даёт
+              строка грида (items-stretch), и подпись возвращается в absolute. */}
+          <div className="ui-media-raised relative flex flex-col justify-end overflow-hidden before:block before:pt-[25%] before:content-[''] md:block md:before:hidden">
             <Image
               src={image}
               alt={title ?? ""}
@@ -32,7 +38,7 @@ export function Split(props: StepsSection) {
             />
 
             {number || eyebrow || title || lead ? (
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent p-8 pt-20">
+              <div className="relative bg-gradient-to-t from-ink/90 via-ink/40 to-transparent p-8 pt-20 md:absolute md:inset-x-0 md:bottom-0">
                 {number || eyebrow ? (
                   <p className="text-caption font-medium uppercase text-paper/70">
                     {[number, eyebrow].filter(Boolean).join(" · ")}

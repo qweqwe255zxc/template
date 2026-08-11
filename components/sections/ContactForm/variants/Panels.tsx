@@ -177,7 +177,10 @@ export function Panels(props: ContactFormProps) {
           </div>
 
           {showMap && mapSrc ? (
-            <div className="relative min-h-[16rem] flex-1 border-t border-rule">
+            // До md панель стоит своей строкой и остатка высоты под картой
+            // нет — там высоту даёт ширина карты (aspect). На md+ работает
+            // flex-1: карта забирает весь остаток панели.
+            <div className="relative aspect-[3/2] border-t border-rule md:aspect-auto md:flex-1">
               <iframe
                 src={mapSrc}
                 loading="lazy"

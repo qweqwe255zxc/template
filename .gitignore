@@ -44,3 +44,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# дамп кода для разговора с ИИ — генерируется по требованию, в репозитории не нужен
+repomix-output.xml

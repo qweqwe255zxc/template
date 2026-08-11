@@ -127,7 +127,7 @@ item в ряду → одна карточка `col-span-2`, два слота �
 
 ### Hero — `components/sections/Hero/`, тип `"hero"`
 
-Шесть вариантов. Роутер разрешает `type-only` ↔ `split` через
+Семь вариантов (считая `sticky-split`). Роутер разрешает `type-only` ↔ `split` через
 `resolveHeroLayout` (`widget` сам включает `split`; `split` без
 `image`/`widget` откатывается на `type-only`) — для остальных четырёх
 `resolved === props.variant`. Несовместимые комбинации полей дают
@@ -176,7 +176,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Stats — `Stats/`, тип `"stats"`
 
-Семь вариантов. `band`/`grid` — плоские, без заголовка секции (только
+Восемь вариантов (считая `sticky-split`). `band`/`grid` — плоские, без заголовка секции (только
 `number`, не `eyebrow`/`title`/`lead`). Остальные пять — карточные,
 читают заголовок через `parts/StatsHeader.tsx`.
 
@@ -207,7 +207,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Features — `Features/`, тип `"features"`
 
-Шесть вариантов. `table`/`cards`/`alternating`/`compact` — заголовок
+Шесть вариантов (считая `sticky-split`). `table`/`cards`/`alternating`/`compact` — заголовок
 через `SectionHeader`. `bento` центрирует его через
 `parts/FeaturesHeader.tsx`. `sticky-split` собирает шапку сам: она уезжает
 в левую колонку и на `lg+` залипает при прокрутке.
@@ -248,7 +248,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Steps — `Steps/`, тип `"steps"`
 
-Восемь вариантов. `rail`/`stack`/`timeline-vertical` — заголовок через
+Девять вариантов (считая `sticky-split`). `rail`/`stack`/`timeline-vertical` — заголовок через
 `SectionHeader`. Пять новых — через свой `parts/StepsHeader.tsx`.
 
 | Поле | Обязательное | По умолчанию | Примечание |
@@ -275,7 +275,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Gallery — `Gallery/`, тип `"gallery"` (кейсы)
 
-Пять вариантов. `table`/`grid` — `surface="ink"` по умолчанию
+Шесть вариантов (считая `sticky-split`). `table`/`grid` — `surface="ink"` по умолчанию
 (единственный тёмный блок), заголовок через `SectionHeader`. Три новых
 карточных — через `parts/GalleryHeader.tsx` (эйброу + опц. кнопка
 `action` справа), по умолчанию `surface="surface"`.
@@ -303,7 +303,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Testimonials — `Testimonials/`, тип `"testimonials"`
 
-Пять вариантов. `quotes`/`cards` — заголовок через `SectionHeader`.
+Шесть вариантов (считая `sticky-split`). `quotes`/`cards` — заголовок через `SectionHeader`.
 `bento`/`rated-cards`/`spotlight` — через `parts/TestimonialsHeader.tsx`.
 
 | Поле | Обязательное | По умолчанию | Примечание |
@@ -329,7 +329,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Team — `Team/`, тип `"team"`
 
-Семь вариантов. `columns`/`rows`/`cards` — заголовок через
+Восемь вариантов (считая `sticky-split`). `columns`/`rows`/`cards` — заголовок через
 `SectionHeader`. `photo-cards`/`badge-avatars`/`tags-cards` — через
 `parts/TeamHeader.tsx`. `bento` строит свою шапку в 2 колонки (как
 `About`).
@@ -360,7 +360,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### About — `About/`, тип `"about"`
 
-Пять вариантов. `photo` — исходный, через `parts/AboutLayout.tsx`, `photo`
+Шесть вариантов (считая `sticky-split`). `photo` — исходный, через `parts/AboutLayout.tsx`, `photo`
 там обязателен; сторону задаёт `photoPosition` ("right" по умолчанию,
 "left" — зеркально через `md:order-*`, а не отдельный variant — раньше это
 были `photo-right`/`photo-left`, различавшиеся только этим флагом).
@@ -413,7 +413,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### FAQ — `FAQ/`, тип `"faq"`
 
-Четыре варианта. `narrow`/`wide` делят общий `parts/FaqBody.tsx` (шапка +
+Пять вариантов (считая `sticky-split`). `narrow`/`wide` делят общий `parts/FaqBody.tsx` (шапка +
 аккордеон, отличаются только шириной контейнера). `split-sidebar` и
 `categorized` — самостоятельные раскладки.
 
@@ -437,7 +437,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Pricing — `Pricing/`, тип `"pricing"`
 
-Десять вариантов. `table`/`cards` — исходные, через `parts/PlanContent.tsx`
+Одиннадцать вариантов (считая `sticky-split`). `table`/`cards` — исходные, через `parts/PlanContent.tsx`
 (общее содержимое тарифа для всех вариантов). Восемь новых читают
 центрированный заголовок через `parts/PricingHeader.tsx` (как
 `TestimonialsHeader`).
@@ -479,7 +479,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### CTA — `CTA/`, тип `"cta"`
 
-Шесть вариантов. `band`/`quiet` не читают `eyebrow` (заголовок
+Семь вариантов (считая `sticky-split`). `band`/`quiet` не читают `eyebrow` (заголовок
 слева/кнопки справа, `parts/CtaBody.tsx`), отличаются только
 вертикальным ритмом. Четыре новых читают `eyebrow` через
 `parts/CtaEyebrow.tsx` (пилюля или подпись с точкой).
@@ -1045,7 +1045,7 @@ variant="framed"`; `elevated` — только если подъём нужен 
 
 ## Семейство `sticky-split`
 
-Один и тот же `variant` в одиннадцати секциях: Hero, Stats, Features,
+Один и тот же `variant` в двенадцати секциях: Hero, Stats, Features,
 Steps, About, Gallery, Testimonials, Team, Pricing, FAQ, ContactForm,
 CTA. Заголовок раздела — колонка 4/12 слева, залипает на `lg+` под
 хедером (`top: calc(var(--header-height) + 2rem)`); содержимое — 8/12

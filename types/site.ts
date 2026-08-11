@@ -1202,6 +1202,10 @@ export interface FooterNewsletter {
   placeholder: string;
   submitLabel: string;
   action: string;
+  /** Подтверждение после возврата с `action` (?subscribed=1). Есть дефолт. */
+  successText?: string;
+  /** Ответ на невалидный адрес (?subscribed=invalid). Есть дефолт. */
+  errorText?: string;
 }
 
 /**

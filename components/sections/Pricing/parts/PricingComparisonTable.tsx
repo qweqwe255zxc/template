@@ -17,6 +17,9 @@ interface PricingComparisonTableProps {
 export function PricingComparisonTable({ comparison, className }: PricingComparisonTableProps) {
   return (
     <div className={cn("overflow-x-auto", className)} data-reveal>
+      {/* min-w — не фиксированный размер блока, а порог горизонтальной
+          прокрутки: ниже 640px таблица сравнения нечитаема, и её честнее
+          прокручивать, чем сжимать колонки. Не убирать по §1.5 п.3. */}
       <table className="w-full min-w-[640px] border-collapse text-left">
         <thead>
           <tr className="border-b border-rule">
