@@ -8,6 +8,7 @@ import { Quote } from "./variants/Quote";
 import { Ribbon } from "./variants/Ribbon";
 import { Split } from "./variants/Split";
 import { Table } from "./variants/Table";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { PricingSection } from "@/types/site";
 
@@ -34,6 +35,7 @@ const variants: VariantMap<
   glass: Glass,
   banner: Banner,
   matrix: Matrix,
+  "sticky-split": StickySplit,
 };
 
 export function Pricing(props: PricingSection) {

@@ -106,10 +106,14 @@ export function ContactDetails({
         </h3>
       ) : null}
 
+      {/* Число колонок в inline-раскладке решает КОНТЕЙНЕРНЫЙ запрос, а
+          не брейкпоинт окна: этот блок стоит и во всю ширину секции
+          (stacked), и в залипающей колонке 4/12 (sticky-split). По ширине
+          окна во втором случае получалось бы три колонки по 127px. */}
       <dl
         className={
           layout === "inline"
-            ? "mt-7 grid gap-x-gutter gap-y-1 border-y border-rule py-6 sm:grid-cols-2 lg:grid-cols-3"
+            ? "@container/details mt-7 grid gap-x-gutter gap-y-1 border-y border-rule py-6 @lg/details:grid-cols-2 @4xl/details:grid-cols-3"
             : "mt-7 border-t border-rule"
         }
       >

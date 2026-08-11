@@ -12,6 +12,7 @@ const variants: NonNullable<FaqSection["variant"]>[] = [
   "wide",
   "split-sidebar",
   "categorized",
+  "sticky-split",
 ];
 
 export default function QaFaqPage() {

@@ -14,6 +14,7 @@ const variants: NonNullable<CtaSection["variant"]>[] = [
   "left",
   "boxed",
   "panel",
+  "sticky-split",
 ];
 
 export default function QaCtaPage() {

@@ -222,7 +222,9 @@ export interface HeroSection extends SectionBase {
     | "centered"
     | "showcase"
     | "poster"
-    | "service";
+    | "service"
+    /** Парный к sticky-split остальных секций: та же ось 4/8, без залипания (в первом экране липнуть не к чему). */
+    | "sticky-split";
   /**
    * Плашка-анонс над заголовком («Версия 2.0», «Набор открыт»).
    * Читают showcase и poster — в остальных раскладках её место занимает
@@ -327,7 +329,16 @@ export interface StatsSection extends SectionBase {
    *             (раньше был отдельным вариантом dark, отличавшимся только
    *             этим полем, которое и так есть у любой секции).
    */
-  variant?: "band" | "grid" | "badge" | "rows" | "bento" | "photo" | "plain";
+  variant?:
+    | "band"
+    | "grid"
+    | "badge"
+    | "rows"
+    | "bento"
+    | "photo"
+    | "plain"
+    /** Цифры сеткой 2×2 справа от залипающего заголовка. Семейство sticky-split. */
+    | "sticky-split";
   /**
    * Подложка под цифрами: flat — полоса во всю ширину с линейками
    * сверху/снизу (база), elevated — единый блок с тенью,
@@ -375,7 +386,7 @@ export interface FeaturesSection extends SectionBase {
    * bento   — заголовок пилюлей по центру, асимметричная двухколоночная
    *           сетка карточек; `item.tags` — плашки под описанием первого
    *           элемента.
-   * split-list  — заголовок залипает слева, справа список строками на
+   * sticky-split — заголовок залипает слева, справа список строками на
    *           линейках. Для длинного перечня (6–10 пунктов), где сетка
    *           карточек превращается в стену прямоугольников.
    * alternating — чередующиеся ряды фото/текст, лево-право. Для 3–5
@@ -385,7 +396,7 @@ export interface FeaturesSection extends SectionBase {
    *           коротких пунктов («что входит», «стек»), где карточки дают
    *           девять почти пустых прямоугольников. `columns` не читает.
    */
-  variant?: "table" | "cards" | "bento" | "split-list" | "alternating" | "compact";
+  variant?: "table" | "cards" | "bento" | "sticky-split" | "alternating" | "compact";
   columns?: 2 | 3;
   /** Кнопка под сеткой карточек. Читает только cards. */
   action?: CtaLink;
@@ -445,7 +456,9 @@ export interface StepsSection extends SectionBase {
     | "cascade"
     | "timeline-horizontal"
     | "split"
-    | "numbered-cards";
+    | "numbered-cards"
+    /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
+    | "sticky-split";
   /** Фото для variant="split" — эйброу/заголовок/лид ложатся поверх него. Без него вариант не рендерится. */
   image?: string;
   /**
@@ -500,7 +513,14 @@ export interface GallerySection extends SectionBase {
    *              элемент — крупный, с фото и `stats`, остальные —
    *              обычная сетка (фото — если задано, иначе плашка).
    */
-  variant?: "table" | "grid" | "cards-icon" | "photo-grid" | "photo-bento";
+  variant?:
+    | "table"
+    | "grid"
+    | "cards-icon"
+    | "photo-grid"
+    | "photo-bento"
+    /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
+    | "sticky-split";
   items: CaseItem[];
   note?: string;
   /** Кнопка в шапке секции. Читают cards-icon, photo-grid, photo-bento. */
@@ -556,7 +576,14 @@ export interface TestimonialsSection extends SectionBase {
    *                  цитата, `result`, автор) слева, список остальных
    *                  отзывов справа (без карточек, на линейках).
    */
-  variant?: "quotes" | "cards" | "bento" | "rated-cards" | "spotlight";
+  variant?:
+    | "quotes"
+    | "cards"
+    | "bento"
+    | "rated-cards"
+    | "spotlight"
+    /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
+    | "sticky-split";
   items: TestimonialItem[];
   /** Строка «нам доверяют» под отзывами. Тот же тип, что у Hero. */
   trust?: HeroTrust;
@@ -623,7 +650,9 @@ export interface TeamSection extends SectionBase {
     | "photo-cards"
     | "badge-avatars"
     | "tags-cards"
-    | "bento";
+    | "bento"
+    /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
+    | "sticky-split";
   items: TeamMember[];
   /** Фото для шапки variant="bento". Без него шапка остаётся текстовой. */
   image?: string;
@@ -693,7 +722,9 @@ export interface AboutSection extends SectionBase {
     | "type-only"
     | "split-actions"
     | "quiet-split"
-    | "panel";
+    | "panel"
+    /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
+    | "sticky-split";
   /** Абзацы, один <p> на элемент массива. */
   text: string[];
   /** Не читает только type-only — там второй колонки нет вовсе. */
@@ -755,7 +786,13 @@ export interface FaqSection extends SectionBase {
    *                   `item.category` (настоящая фильтрация, клиентский
    *                   стейт), аккордеон карточками с иконкой у вопроса.
    */
-  variant?: "narrow" | "wide" | "split-sidebar" | "categorized";
+  variant?:
+    | "narrow"
+    | "wide"
+    | "split-sidebar"
+    | "categorized"
+    /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
+    | "sticky-split";
   items: FaqItem[];
   /** Карточка поддержки в сайдбаре. Читает только split-sidebar. */
   support?: FaqSupport;
@@ -854,7 +891,9 @@ export interface PricingSection extends SectionBase {
     | "quote"
     | "glass"
     | "banner"
-    | "matrix";
+    | "matrix"
+    /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
+    | "sticky-split";
   items: PricingPlan[];
   note?: string;
   /** Короткая подпись доверия под сеткой. Читают split/playful. */
@@ -909,7 +948,15 @@ export interface CtaSection extends SectionBase {
    * panel      — текст слева, справа — карточка со списком actions
    *              строками на всю ширину, а не рядом кнопок.
    */
-  variant?: "band" | "quiet" | "centered" | "left" | "boxed" | "panel";
+  variant?:
+    | "band"
+    | "quiet"
+    | "centered"
+    | "left"
+    | "boxed"
+    | "panel"
+    /** Парный к sticky-split остальных секций: та же ось 4/8, без залипания (липнуть не к чему). */
+    | "sticky-split";
   actions?: CtaLink[];
   note?: string;
 }
@@ -949,7 +996,13 @@ export interface ContactSection extends SectionBase {
    *                 адресом/телефоном/почтой и картой справа, внахлёст
    *                 к краю окна.
    */
-  variant?: "split" | "stacked" | "boxed" | "panels";
+  variant?:
+    | "split"
+    | "stacked"
+    | "boxed"
+    | "panels"
+    /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
+    | "sticky-split";
   /**
    * plain — форма лежит прямо на поверхности секции (база),
    * cardContainer — форма упакована в Card variant="elevated".

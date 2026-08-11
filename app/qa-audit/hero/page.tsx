@@ -14,6 +14,7 @@ const variants: NonNullable<HeroSection["variant"]>[] = [
   "showcase",
   "poster",
   "service",
+  "sticky-split",
 ];
 
 export default function QaHeroPage() {

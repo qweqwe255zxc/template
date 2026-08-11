@@ -5,6 +5,7 @@ import { Grid } from "./variants/Grid";
 import { Photo } from "./variants/Photo";
 import { Plain } from "./variants/Plain";
 import { Rows } from "./variants/Rows";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { StatsSection } from "@/types/site";
 
@@ -29,6 +30,7 @@ const variants: VariantMap<
   bento: Bento,
   photo: Photo,
   plain: Plain,
+  "sticky-split": StickySplit,
 };
 
 export function Stats(props: StatsSection) {

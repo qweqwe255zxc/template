@@ -15,6 +15,7 @@ const variants: NonNullable<TeamSection["variant"]>[] = [
   "badge-avatars",
   "tags-cards",
   "bento",
+  "sticky-split",
 ];
 
 export default function QaTeamPage() {

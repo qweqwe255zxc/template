@@ -6,6 +6,7 @@ import { Split } from "./variants/Split";
 import { Stack } from "./variants/Stack";
 import { TimelineHorizontal } from "./variants/TimelineHorizontal";
 import { TimelineVertical } from "./variants/TimelineVertical";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { StepsSection } from "@/types/site";
 
@@ -25,6 +26,7 @@ const variants: VariantMap<
   "timeline-horizontal": TimelineHorizontal,
   split: Split,
   "numbered-cards": NumberedCards,
+  "sticky-split": StickySplit,
 };
 
 export function Steps(props: StepsSection) {

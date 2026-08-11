@@ -3,6 +3,7 @@ import { Grid } from "./variants/Grid";
 import { PhotoBento } from "./variants/PhotoBento";
 import { PhotoGrid } from "./variants/PhotoGrid";
 import { Table } from "./variants/Table";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { GallerySection } from "@/types/site";
 
@@ -22,6 +23,7 @@ const variants: VariantMap<
   "cards-icon": CardsIcon,
   "photo-grid": PhotoGrid,
   "photo-bento": PhotoBento,
+  "sticky-split": StickySplit,
 };
 
 export function Gallery(props: GallerySection) {

@@ -5,6 +5,7 @@ import { Service } from "./variants/Service";
 import { Showcase } from "./variants/Showcase";
 import { Split } from "./variants/Split";
 import { TypeOnly } from "./variants/TypeOnly";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { HeroSection } from "@/types/site";
 
@@ -28,6 +29,7 @@ const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
   showcase: Showcase,
   poster: Poster,
   service: Service,
+  "sticky-split": StickySplit,
 };
 
 /** Варианты без второй колонки: image и widget им положить некуда. */

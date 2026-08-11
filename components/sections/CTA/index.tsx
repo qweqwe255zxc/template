@@ -4,6 +4,7 @@ import { Centered } from "./variants/Centered";
 import { Left } from "./variants/Left";
 import { Panel } from "./variants/Panel";
 import { Quiet } from "./variants/Quiet";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { CtaSection, TitleStyle } from "@/types/site";
 
@@ -25,6 +26,7 @@ const variants: VariantMap<CtaSection, NonNullable<CtaSection["variant"]>> = {
   left: Left,
   boxed: Boxed,
   panel: Panel,
+  "sticky-split": StickySplit,
 };
 
 /**

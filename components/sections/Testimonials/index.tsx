@@ -3,6 +3,7 @@ import { Cards } from "./variants/Cards";
 import { Quotes } from "./variants/Quotes";
 import { RatedCards } from "./variants/RatedCards";
 import { Spotlight } from "./variants/Spotlight";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { TestimonialsSection } from "@/types/site";
 
@@ -19,6 +20,7 @@ const variants: VariantMap<
   bento: Bento,
   "rated-cards": RatedCards,
   spotlight: Spotlight,
+  "sticky-split": StickySplit,
 };
 
 export function Testimonials(props: TestimonialsSection) {

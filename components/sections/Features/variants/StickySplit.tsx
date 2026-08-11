@@ -1,20 +1,20 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Container } from "@/components/ui/Container";
+import { StickySplit as SplitLayout } from "@/components/ui/StickySplit";
 import { Section } from "@/components/ui/Section";
 import { getIcon } from "@/lib/icons";
 import { revealDelay } from "@/lib/reveal";
 import type { FeatureItem, FeaturesSection } from "@/types/site";
 
 /**
- * Заголовок раздела залипает слева, список возможностей идёт справа
- * строками на линейках. Ниша: длинный перечень (6–10 пунктов), где
- * карточки превратились бы в стену одинаковых прямоугольников, а
- * `table` — в широкую малочитаемую сетку.
+ * Список возможностей строками на линейках справа от залипающего
+ * заголовка. Ниша: длинный перечень (6–10 пунктов), где карточки
+ * превратились бы в стену одинаковых прямоугольников, а `table` — в
+ * широкую малочитаемую сетку.
  *
- * Заголовок на lg+ становится sticky: при прокрутке длинного списка
- * видно, к чему этот список относится. `top` считается от высоты
- * фиксированного хедера, иначе заголовок уезжал бы под него.
+ * Саму ось 4/8 и залипание держит общий `ui/StickySplit` — тот же, что
+ * у всех остальных секций с `variant="sticky-split"`. Здесь остаётся
+ * только правая колонка.
  *
  * Фото у элементов эта раскладка не показывает — роутер секции
  * форсирует `cards`, если хотя бы у одного item задан photo (см.
@@ -79,47 +79,20 @@ function FeatureRow({ item, index }: { item: FeatureItem; index: number }) {
   );
 }
 
-export function SplitList(props: FeaturesSection) {
+export function StickySplit(props: FeaturesSection) {
   const { id, surface = "surface", number, eyebrow, title, lead, items, iconShape } = props;
 
   return (
     <Section id={id} surface={surface} iconShape={iconShape}>
-      <Container>
-        <div className="grid gap-x-gutter gap-y-10 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-[calc(var(--header-height)+2rem)]">
-              {number ? (
-                <p className="tabular text-caption font-medium uppercase text-fg-muted" data-reveal>
-                  {number}
-                </p>
-              ) : null}
-              {eyebrow ? (
-                <p className="mt-1 text-caption font-medium uppercase text-fg-muted" data-reveal>
-                  {eyebrow}
-                </p>
-              ) : null}
-              {title ? (
-                <h2 className="mt-5 font-heading section-title-scale" data-reveal>
-                  {title}
-                </h2>
-              ) : null}
-              {lead ? (
-                <p className="mt-5 max-w-[46ch] text-lead text-fg-muted" data-reveal>
-                  {lead}
-                </p>
-              ) : null}
-            </div>
-          </div>
-
-          <ul className="lg:col-span-8 lg:col-start-5">
-            {items.map((item, index) => (
-              <FeatureRow key={item.title} item={item} index={index} />
-            ))}
-          </ul>
-        </div>
-      </Container>
+      <SplitLayout number={number} eyebrow={eyebrow} title={title} lead={lead}>
+        <ul>
+          {items.map((item, index) => (
+            <FeatureRow key={item.title} item={item} index={index} />
+          ))}
+        </ul>
+      </SplitLayout>
     </Section>
   );
 }
 
-export default SplitList;
+export default StickySplit;

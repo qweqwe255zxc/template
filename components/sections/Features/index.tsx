@@ -2,7 +2,7 @@ import { Alternating } from "./variants/Alternating";
 import { Bento } from "./variants/Bento";
 import { Cards } from "./variants/Cards";
 import { Compact } from "./variants/Compact";
-import { SplitList } from "./variants/SplitList";
+import { StickySplit } from "./variants/StickySplit";
 import { Table } from "./variants/Table";
 import type { VariantMap } from "../variantMap";
 import type { FeaturesSection } from "@/types/site";
@@ -33,7 +33,7 @@ const variants: VariantMap<
   table: Table,
   cards: Cards,
   bento: Bento,
-  "split-list": SplitList,
+  "sticky-split": StickySplit,
   alternating: Alternating,
   compact: Compact,
 };
@@ -46,7 +46,7 @@ const variants: VariantMap<
  */
 const GRID_ONLY: NonNullable<FeaturesSection["variant"]>[] = [
   "table",
-  "split-list",
+  "sticky-split",
   "compact",
 ];
 

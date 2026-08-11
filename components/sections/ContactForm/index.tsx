@@ -2,6 +2,7 @@ import { Boxed } from "./variants/Boxed";
 import { Panels } from "./variants/Panels";
 import { Split } from "./variants/Split";
 import { Stacked } from "./variants/Stacked";
+import { StickySplit } from "./variants/StickySplit";
 import type { VariantMap } from "../variantMap";
 import type { ContactFormProps } from "./types";
 import type { ContactSection } from "@/types/site";
@@ -27,6 +28,7 @@ const variants: VariantMap<
   stacked: Stacked,
   boxed: Boxed,
   panels: Panels,
+  "sticky-split": StickySplit,
 };
 
 /**
