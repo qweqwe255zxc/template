@@ -1,4 +1,3 @@
-import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { BottomBar } from "../parts/BottomBar";
 import { FooterColumns } from "../parts/FooterColumns";
@@ -12,10 +11,15 @@ import type { FooterProps } from "../types";
  * эта зона просто не рендерится — колонки при этом занимают освободившееся
  * место.
  *
- * `footer.monogramBackground` решает и фон плашки, и поверхность секции
- * разом — раньше это были два отдельных файла (gradient/glass),
- * отличавшихся только этими двумя классами: настоящей разницы в
+ * `footer.monogramBackground` решает поверхность секции — раньше это
+ * были два отдельных файла (gradient/glass), настоящей разницы в
  * раскладке между ними не было.
+ *
+ * Сама плашка в обоих режимах — плоская заливка акцентом. Раньше режим
+ * "gradient" рисовал её через `from-accent to-accent-active`: градиент
+ * из цвета в его же затемнённую версию не несёт информации и является
+ * штампом («квадратик с инициалом на градиенте»). Имя значения
+ * оставлено как есть — это публичный API конфига.
  */
 export function Monogram({ brand, footer }: FooterProps) {
   const initial = brand.name.charAt(0).toUpperCase();
@@ -33,12 +37,7 @@ export function Monogram({ brand, footer }: FooterProps) {
               <p className="inline-flex items-center gap-2.5 font-heading text-h3 font-bold">
                 <span
                   aria-hidden="true"
-                  className={cn(
-                    "flex size-8 items-center justify-center rounded-control text-body font-bold text-accent-fg",
-                    background === "surface"
-                      ? "bg-accent"
-                      : "bg-gradient-to-br from-accent to-accent-active",
-                  )}
+                  className="flex size-8 items-center justify-center rounded-control bg-accent text-body font-bold text-accent-fg"
                 >
                   {initial}
                 </span>

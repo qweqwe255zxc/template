@@ -54,7 +54,7 @@ export function Monogram({
           >
             <span
               aria-hidden="true"
-              className="flex size-8 items-center justify-center rounded-control bg-gradient-to-br from-accent to-accent-active text-body font-bold text-accent-fg"
+              className="flex size-8 items-center justify-center rounded-control bg-accent text-body font-bold text-accent-fg"
             >
               {initial}
             </span>

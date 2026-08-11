@@ -17,9 +17,16 @@ const GRID_BREAKPOINTS = [{ prefix: "md:", cols: 3 }] as const;
 
 /**
  * Лейбл `tag` в каждой карточке, выделенный тариф — поверхность accent
- * (как у Split/Dark/Playful) с лёгким белым бликом поверх, вместо
- * буквального радужного градиента референса: цвет карточки остаётся
- * ролью тарифа, а не хардкодом конкретных оттенков.
+ * (как у Split/Dark/Playful): цвет карточки остаётся ролью тарифа, а не
+ * хардкодом конкретных оттенков.
+ *
+ * Белого «блика» (`from-white/25 … to-black/10`) поверх выделенной
+ * карточки больше нет. Он имитировал стекло вручную, поверх цвета,
+ * который задан токеном: подмешивал в акцент чистый белый и чистый
+ * чёрный, из-за чего заливка уезжала от бренда и приобретала ровно тот
+ * «залитый глянцем» вид, по которому макет опознают как
+ * сгенерированный. Выделенный тариф и без него читается — своей
+ * поверхностью, рамкой и бейджем.
  */
 export function Glass(props: PricingSection) {
   const {
@@ -66,18 +73,11 @@ export function Glass(props: PricingSection) {
               style={revealDelay(index)}
             >
               {/* Плашка — внутри Card (не после), чтобы двигаться вместе с
-                  ним на hover-подъёме. Блик рисует отдельный вложенный слой
-                  с overflow-hidden, сам Card остаётся overflow-visible. */}
+                  ним на hover-подъёме; сам Card остаётся overflow-visible. */}
               <Card
                 variant={plan.featured ? "elevated" : "framed"}
                 className="relative flex h-full flex-col overflow-visible"
               >
-                {plan.featured ? (
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-card bg-gradient-to-br from-white/25 via-transparent to-black/10"
-                  />
-                ) : null}
                 {/* solid, а не soft: плашка приподнята над краем карточки и
                     наполовину лежит на фоне секции — полупрозрачная подложка
                     на светлом фоне секции читалась как «обрезанная»/пропадала. */}

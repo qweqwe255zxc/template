@@ -12,12 +12,14 @@ import { useNavOverflow } from "../parts/useNavOverflow";
 import type { HeaderProps } from "../types";
 
 /**
- * Стеклянная подложка (`--header-bg` + `--header-blur`) в «Стандарте»
- * и так включена всегда через `.ui-header` — отличие этого варианта
- * только в тени: она у `.ui-header[data-scrolled="true"]`, а здесь
- * шапка обязана выглядеть приподнятой с первого кадра, а не после
- * скролла, поэтому `data-scrolled` держим включённым безусловно.
- * Реальный скролл всё равно нужен — от него зависит нижняя линейка.
+ * Единственный вариант со стеклянной подложкой. `.ui-header--glass`
+ * (globals.css) локально подменяет `--header-bg` + `--header-blur` —
+ * раньше эту пару включал сразу всем хедерам пресет «Стандарт», из-за
+ * чего блюр был не выбором, а фоном по умолчанию.
+ *
+ * `data-scrolled` держим включённым безусловно: шапка обязана
+ * выглядеть приподнятой с первого кадра, а не после скролла. Реальный
+ * скролл всё равно нужен — от него зависит нижняя линейка.
  */
 export function Glass({
   brandName,
@@ -35,7 +37,7 @@ export function Glass({
       data-surface="paper"
       data-scrolled="true"
       className={cn(
-        "ui-header fixed inset-x-0 top-0 z-[var(--z-header)] text-fg",
+        "ui-header ui-header--glass fixed inset-x-0 top-0 z-[var(--z-header)] text-fg",
         scrolled ? "border-b border-rule" : "border-b border-transparent",
         hideOnScroll && "transition-transform duration-300",
         hideOnScroll && hiddenByScroll && "-translate-y-full",
