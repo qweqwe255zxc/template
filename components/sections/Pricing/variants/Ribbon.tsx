@@ -73,14 +73,10 @@ export function Ribbon(props: PricingSection) {
             >
               <div
                 aria-hidden={!(plan.featured && plan.badge)}
-                // Тон и цвет — через шаблонную строку, а не cn(): twMerge
-                // без расширения темы видит text-caption (кастомный
-                // размерный токен) и text-accent-fg (цветовой) как один
-                // конфликтующий "text-*" — и молча схлопывает их в
-                // последний, роняя text-caption у featured-карточки.
-                className={`px-7 py-3 text-center text-caption font-medium uppercase md:px-9 ${
-                  plan.featured && plan.badge ? "bg-accent text-accent-fg" : "invisible"
-                }`}
+                className={cn(
+                  "px-7 py-3 text-center text-caption font-medium uppercase md:px-9",
+                  plan.featured && plan.badge ? "bg-accent text-accent-fg" : "invisible",
+                )}
               >
                 {plan.featured && plan.badge ? plan.badge : " "}
               </div>
