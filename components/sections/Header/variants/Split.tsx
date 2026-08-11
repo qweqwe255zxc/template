@@ -115,8 +115,10 @@ export function Split({
                   <Link
                     href={item.href}
                     className={cn(
-                      "text-small whitespace-nowrap transition-colors hover:text-fg",
-                      item.href === activeHref ? "text-fg" : "text-fg-muted",
+                      "border-b-2 pb-1 text-small whitespace-nowrap transition-colors hover:text-fg",
+                      item.href === activeHref
+                        ? "border-accent text-accent"
+                        : "border-transparent text-fg-muted",
                     )}
                   >
                     {item.label}

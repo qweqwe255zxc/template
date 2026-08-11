@@ -79,22 +79,29 @@ export function Panels(props: ContactFormProps) {
             </p>
           ) : null}
 
-          {/* fieldsBreakpoint="lg": колонка тут не 7/12 Container'а, как у
-              split/boxed, а 7/12 сырого viewport, ограниченные сверху
-              max-w-32rem у самой формы (columnClassName ниже). На md–lg
-              (768–1023) колонка ещё не доросла до 32rem — дефолтный
-              sm:grid-cols-2 у ContactFields сжимал бы поля в 2 тесных
-              столбца. lg откладывает 2 колонки до момента, когда форма
-              либо уже полные 32rem, либо всё ещё в одну колонку — тот же
-              сбой, что у split/boxed (см. их комментарии), но по другой
-              причине (плавающая ширина колонки, а не колонка Container'а). */}
+          {/* max-w-3xl — тот же потолок, что у ContactForm/Stacked.tsx для
+              своей формы: раньше тут стоял max-w-32rem (512px), державший
+              форму заметно уже колонки-обёртки даже на широких десктопах.
+              Но и без потолка вообще форма растягивалась на всю
+              max-w(...)*7/12 колонку (до ~900px) — поля в 2 колонки
+              становились неестественно широкими на большом десктопе.
+              max-w-3xl — компромисс: шире прежних 512px, но не во всю
+              ширину плавающей 7/12-колонки.
+              fieldsBreakpoint="lg": колонка тут не 7/12 Container'а, как у
+              split/boxed, а 7/12 сырого viewport — на md–lg (768–1023) она
+              ещё не доросла до комфортной ширины, дефолтный sm:grid-cols-2
+              у ContactFields сжимал бы поля в 2 тесных столбца. lg
+              откладывает 2 колонки до момента, когда viewport уже даёт
+              колонке достаточно места — тот же сбой, что у split/boxed
+              (см. их комментарии), но по другой причине (плавающая ширина
+              колонки, а не колонка Container'а). */}
           <FormColumn
             form={form}
             fields={fields}
             submitLabel={submitLabel}
             consent={consent}
             layout={layout}
-            columnClassName="mx-auto mt-10 max-w-[32rem] text-left"
+            columnClassName="mx-auto mt-10 w-full max-w-3xl text-left"
             fieldsBreakpoint="lg"
           />
         </div>
