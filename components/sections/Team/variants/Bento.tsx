@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { revealDelay } from "@/lib/reveal";
-import { ASPECT_PAIR_3_4, fillLastRowAspectClasses, fillLastRowClasses } from "@/lib/gridFill";
+import { ASPECT_PAIR_3_4_PAD_GAP_6, fillLastRowAspectClasses, fillLastRowClasses } from "@/lib/gridFill";
 import { cn } from "@/lib/cn";
 import { MemberSocial } from "../parts/MemberSocial";
 import { TeamBannerBlock } from "../parts/TeamBannerBlock";
@@ -43,7 +43,7 @@ export function Bento(props: TeamSection) {
   const [first, ...rest] = items;
   const spanClasses = fillLastRow ? fillLastRowClasses(rest.length, GRID_BREAKPOINTS) : [];
   const aspectClasses = fillLastRow
-    ? fillLastRowAspectClasses(rest.length, GRID_BREAKPOINTS, ASPECT_PAIR_3_4)
+    ? fillLastRowAspectClasses(rest.length, GRID_BREAKPOINTS, ASPECT_PAIR_3_4_PAD_GAP_6)
     : [];
 
   return (
@@ -130,7 +130,14 @@ export function Bento(props: TeamSection) {
               <Card
                 variant="framed"
                 padded={false}
-                className={cn("relative overflow-hidden", aspectClasses[index])}
+                // h-0 + pt-[...] (padding-top hack), не aspect-ratio: см.
+                // комментарий у ASPECT_PAIR_3_4_PAD_GAP_6 в lib/gridFill.ts —
+                // тут высота растянутой карточки должна учитывать gap между
+                // колонками, что aspect-ratio выразить не может, а
+                // Container Queries (cqw) дали рассинхрон layout/paint в
+                // Chrome. Весь контент внутри — position:absolute (Image
+                // fill + оверлей), поэтому h-0 не обрезает ничего лишнего.
+                className={cn("relative h-0 pt-[133.333%] overflow-hidden", aspectClasses[index])}
                 data-surface={member.photo ? undefined : "ink"}
               >
                 {member.photo ? (
