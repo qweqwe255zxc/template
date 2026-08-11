@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { ActionGroup } from "@/components/ui/ActionGroup";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -47,17 +47,8 @@ export function Panel(props: CtaSection) {
           {actions.length > 0 || note ? (
             <div className="lg:col-span-5" data-reveal>
               {actions.length > 0 ? (
-                <Card variant="elevated" className="flex flex-col gap-4">
-                  {actions.map((action, index) => (
-                    <Button
-                      key={index}
-                      href={action.href}
-                      variant={action.variant ?? "primary"}
-                      full
-                    >
-                      {action.label}
-                    </Button>
-                  ))}
+                <Card variant="elevated">
+                  <ActionGroup actions={actions} stacked />
                 </Card>
               ) : null}
 
