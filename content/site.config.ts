@@ -103,7 +103,7 @@ export const siteConfig: SiteConfig = {
         variant: "split",
         actions: [
             { label: "Смотреть демо", href: "#hero", variant: "secondary" },
-            { label: "Начать бесплатно", href: "#contact", variant: "primary" },
+            { label: "Обсудить проект", href: "#contact", variant: "primary" },
         ],
     },
 
@@ -190,7 +190,7 @@ export const siteConfig: SiteConfig = {
             facts: [
                 { value: "63", label: "готовых варианта секций" },
                 { value: "2 тарифа", label: "econom / standard" },
-                { value: "0 строк кода", label: "чтобы собрать первый лендинг" },
+                { value: "12 типов", label: "секций — у каждой своя раскладка" },
             ],
             proof: {
                 avatars: [
@@ -199,7 +199,7 @@ export const siteConfig: SiteConfig = {
                     "/images/testimonial-3.jpg",
                     "/images/testimonial-4.jpg",
                 ],
-                text: "Уже используют 120+ студий и фрилансеров",
+                text: "Уже используют 60+ студий и фрилансеров",
             },
         },
 
@@ -217,10 +217,10 @@ export const siteConfig: SiteConfig = {
             lead: "Коротко — почему агентства выбирают «Модуль» для клиентских лендингов вместо вёрстки с нуля.",
             image: "/images/stats-photo.jpg",
             items: [
-                { value: "120", suffix: "+", label: "студий и агентств", icon: "globe" },
+                { value: "60", suffix: "+", label: "студий и агентств", icon: "globe" },
                 { value: "63", label: "варианта секций", icon: "check" },
                 { value: "15", suffix: "", label: "минут на сборку прототипа", icon: "clock" },
-                { value: "4.9", label: "средняя оценка на маркетплейсе", icon: "star" },
+                { value: "4.8", label: "средний рейтинг в отзывах ниже", icon: "star" },
             ],
         },
 
@@ -632,7 +632,6 @@ export const siteConfig: SiteConfig = {
                     name: "Standard",
                     tag: "ВЫБОР СТУДИЙ",
                     icon: "star",
-                    badge: "MOST POPULAR",
                     price: "14 900 ₽",
                     unit: "/ проект",
                     text: "То, что выбирает большинство студий по умолчанию.",
@@ -667,7 +666,7 @@ export const siteConfig: SiteConfig = {
             ],
             closing: {
                 title: "Не знаете, какой тариф выбрать?",
-                text: "Опишите нишу клиента — подскажем пресет, варианты секций и палитру за 15 минут.",
+                text: "Пришлите нишу и пару референсов — за 15 минут скажем, хватит econom или нужен standard.",
                 actions: [
                     { label: "Написать в Telegram", href: "https://t.me/modul_team", variant: "primary" },
                     { label: "Сравнить тарифы", href: "#pricing", variant: "secondary" },
@@ -732,7 +731,7 @@ export const siteConfig: SiteConfig = {
             nav: "Контакты",
             eyebrow: "Контакты",
             title: "Расскажите, что собираете",
-            lead: "Опишите задачу в двух словах — подскажем тариф, варианты секций и сроки под вашу нишу.",
+            lead: "Чем подробнее опишете задачу, тем точнее ответ: конкретный тариф, набор секций и сроки — без общих фраз.",
             detailsTitle: "Как с нами связаться",
             mapSrc: "https://yandex.ru/map-widget/v1/?ll=37.6064,55.7601&z=16&pt=37.6064,55.7601,pm2rdm",
             fields: [
