@@ -28,7 +28,7 @@ export function Glass({
   showThemeToggle,
   hideOnScroll,
 }: HeaderProps) {
-  const { scrolled, hiddenByScroll, menuOpen, toggleMenu, closeMenu, activeHref } = useHeaderState(nav);
+  const { hiddenByScroll, menuOpen, toggleMenu, closeMenu, activeHref } = useHeaderState(nav);
   const { ref: navRef, overflowing } = useNavOverflow<HTMLElement>();
   const initial = brandName.charAt(0).toUpperCase();
 
@@ -38,7 +38,7 @@ export function Glass({
       data-scrolled="true"
       className={cn(
         "ui-header ui-header--glass fixed inset-x-0 top-0 z-[var(--z-header)] text-fg",
-        scrolled ? "border-b border-rule" : "border-b border-transparent",
+        "border-b",
         hideOnScroll && "transition-transform duration-300",
         hideOnScroll && hiddenByScroll && "-translate-y-full",
       )}
