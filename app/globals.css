@@ -477,11 +477,25 @@
      и обязан оставаться прозрачным — иначе прозрачность нечем показать.
      Фон/блюр/тень приезжают только вместе с data-scrolled="true" (см.
      parts/useHeaderState.ts) — то самое место, где раньше стоял только
-     box-shadow, а background-color был включён всегда. */
+     box-shadow, а background-color был включён всегда.
+
+     border-color тоже задаётся здесь централизованно, а не Tailwind-
+     классом border-rule/border-transparent в каждом из 8 вариантов
+     (так было раньше): --header-bg равен --surface-bg, а самая частая
+     поверхность страницы — тоже "paper", то есть в большинстве секций
+     фон хедера после скролла совпадает с фоном страницы один в один.
+     Хайрлайн --surface-rule (обычная линейка контента) и elevation-sm
+     (4–5% альфы, 1px) на таком фоне почти не читаются — хедер выглядит
+     так, будто всё ещё прозрачный, хотя технически уже непрозрачный.
+     --surface-rule-strong — тот же токен, которым карточки Стандарта
+     уже решают ровно эту задачу («--card-border: var(--surface-rule-
+     strong)», см. блок [data-preset="standard"] ниже) — тут используется
+     тот же приём для хедера. */
   .ui-header {
     background-color: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    border-color: transparent;
     transition:
       background-color var(--duration-ui) var(--ease-ui),
       backdrop-filter var(--duration-ui) var(--ease-ui),
@@ -493,6 +507,7 @@
     background-color: var(--header-bg);
     backdrop-filter: var(--header-blur);
     -webkit-backdrop-filter: var(--header-blur);
+    border-color: var(--surface-rule-strong);
     box-shadow: var(--header-shadow);
   }
 

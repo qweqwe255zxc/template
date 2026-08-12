@@ -44,7 +44,7 @@ export function Split({
       data-scrolled={effectiveScrolled}
       className={cn(
         "ui-header fixed inset-x-0 top-0 z-[var(--z-header)] text-fg",
-        effectiveScrolled ? "border-b border-rule" : "border-b border-transparent",
+        "border-b",
         hideOnScroll && "transition-transform duration-300",
         hideOnScroll && hiddenByScroll && "-translate-y-full",
       )}
