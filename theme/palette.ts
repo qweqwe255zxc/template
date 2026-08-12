@@ -7,18 +7,18 @@
  * в проекте быть не должно, в компонентах только токены и классы Tailwind.
  */
 export const palette = {
-  paper: "#fafafa",
+  paper: "#f4f2ee",
   surface: "#ffffff",
-  ink: "#17181c",
-  inkMuted: "#5b5f6a",
-  rule: "#e4e4e9",
-  accent: "#8c2434",
+  ink: "#1b1c19",
+  inkMuted: "#5b5f5a",
+  rule: "#e3e0d8",
+  accent: "#16494f",
 } as const;
 
 export const paletteDark = {
-  paper: "#121316",
-  ink: "#f5f5f7",
-  accent: "#e08d95",
+  paper: "#141615",
+  ink: "#f2f3ef",
+  accent: "#79c2c6",
 } as const;
 
 /**
@@ -40,10 +40,10 @@ export const paletteDark = {
  */
 export const elevation = {
   none: "none",
-  sm: "0 1px 1px 0 rgb(23 24 28 / 0.04)",
-  md: "0 1px 2px -1px rgb(23 24 28 / 0.05)",
-  lg: "0 2px 4px -2px rgb(23 24 28 / 0.07)",
-  cardHover: "0 2px 6px -2px rgb(23 24 28 / 0.10)",
+  sm: "0 1px 1px 0 rgb(27 28 25 / 0.04)",
+  md: "0 1px 2px -1px rgb(27 28 25 / 0.05)",
+  lg: "0 2px 4px -2px rgb(27 28 25 / 0.07)",
+  cardHover: "0 2px 6px -2px rgb(27 28 25 / 0.10)",
 } as const;
 
 /**
@@ -54,11 +54,11 @@ export const elevation = {
  */
 export const elevationStandard = {
   none: "none",
-  sm: "0 1px 1px 0 rgb(23 24 28 / 0.05)",
-  md: "0 1px 1px 0 rgb(23 24 28 / 0.05), 0 2px 4px -1px rgb(23 24 28 / 0.07)",
-  lg: "0 1px 1px 0 rgb(23 24 28 / 0.06), 0 4px 8px -2px rgb(23 24 28 / 0.09)",
+  sm: "0 1px 1px 0 rgb(27 28 25 / 0.05)",
+  md: "0 1px 1px 0 rgb(27 28 25 / 0.05), 0 2px 4px -1px rgb(27 28 25 / 0.07)",
+  lg: "0 1px 1px 0 rgb(27 28 25 / 0.06), 0 4px 8px -2px rgb(27 28 25 / 0.09)",
   cardHover:
-    "0 1px 1px 0 rgb(23 24 28 / 0.07), 0 6px 12px -3px rgb(23 24 28 / 0.11)",
+    "0 1px 1px 0 rgb(27 28 25 / 0.07), 0 6px 12px -3px rgb(27 28 25 / 0.11)",
 } as const;
 
 /**

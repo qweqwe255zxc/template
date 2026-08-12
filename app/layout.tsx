@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Golos_Text, Onest, Unbounded } from "next/font/google";
+import {
+  Golos_Text,
+  Wix_Madefor_Display,
+  Wix_Madefor_Text,
+} from "next/font/google";
 import { RevealRoot } from "@/components/ui/RevealRoot";
 import { ThemeScript } from "@/components/ThemeScript";
 import { YandexMetrika } from "@/components/YandexMetrika";
@@ -8,17 +12,22 @@ import { buildMetadata } from "@/lib/seo";
 import { palette, paletteDark } from "@/theme/palette";
 import "./globals.css";
 
-// Display-шрифт для заголовков, крупных цифр и цитат, с нормальной кириллицей.
-// Body — кириллица-first гротеск. IT/SaaS-ниша: современный гротеск вместо
-// серифа (см. CLAUDE.md, §1.2) — Syne/Space Grotesk из таблицы там кириллицу
-// не поддерживают вовсе, поэтому пара Unbounded/Onest.
-const onest = Onest({
+// Шрифты ДЕМО-сборки. Под проект пара выбирается заново по референсам
+// клиента (CLAUDE.md §5 шаг 0), а таблица §1.2 — набор кандидатов, а не
+// дефолт по нише. Обязательное техническое условие для русского сайта:
+// у семейства должно быть кириллическое подмножество — subsets:
+// ["cyrillic"] на шрифте без него не соберётся (так отпадают, например,
+// Syne, Space Grotesk, Sora, Outfit, DM Sans).
+//
+// Display-шрифт — h3/h4, цитаты, крупные цифры.
+const madeforText = Wix_Madefor_Text({
   subsets: ["cyrillic", "latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-onest",
+  variable: "--font-madefor-text",
 });
 
+// Body — кириллица-first гротеск.
 const golos = Golos_Text({
   subsets: ["cyrillic", "latin"],
   weight: ["400", "500", "600"],
@@ -26,13 +35,13 @@ const golos = Golos_Text({
   variable: "--font-golos",
 });
 
-// Вторая гротескная гарнитура — только для h1 и h2, для акцентной
-// декоративной типографики (см. font-heading в theme/tokens.css).
-const unbounded = Unbounded({
+// Вторая гарнитура — только для h1 и h2, для акцентной декоративной
+// типографики (см. font-heading в theme/tokens.css).
+const madeforDisplay = Wix_Madefor_Display({
   subsets: ["cyrillic", "latin"],
   weight: ["600", "700", "800"],
   display: "swap",
-  variable: "--font-unbounded",
+  variable: "--font-madefor-display",
 });
 
 export const metadata: Metadata = buildMetadata(siteConfig);
@@ -58,7 +67,7 @@ export default function RootLayout({
       lang="ru"
       data-preset={siteConfig.theme.preset ?? "econom"}
       data-title-style={siteConfig.theme.titleStyle ?? "standard"}
-      className={`${onest.variable} ${golos.variable} ${unbounded.variable}`}
+      className={`${madeforText.variable} ${golos.variable} ${madeforDisplay.variable}`}
       suppressHydrationWarning
     >
       <head>
