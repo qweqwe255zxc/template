@@ -40,7 +40,7 @@ npm run build 2>&1 | tail -40
 
 Читай `content/site.config.ts`, `theme/tokens.css`, `theme/palette.ts`, `app/layout.tsx`.
 
-1. **Палитра не дефолтная.** `--palette-accent: #8c2434` и `--palette-paper: #fafafa` — цвета демо-сборки. Если они остались, это блокер: клиенту отдают чужой бренд.
+1. **Палитра не дефолтная.** `--palette-accent: #16494f` и `--palette-paper: #f4f2ee` — цвета демо-сборки «Модуль». Если они остались (или остались близкие к ним — палитру «подвинули», а не собрали заново), это блокер: клиенту отдают чужой бренд. Там же проверяй шрифтовую пару: Wix Madefor Display / Wix Madefor Text + Golos Text — это тоже демо.
 2. **Палитра синхронизирована в двух файлах.** `theme/tokens.css` и `theme/palette.ts` (рантайм-дубль для favicon/OG/`themeColor`). Расхождение — блокер: OG-картинка и цвет вкладки будут от другого бренда.
    ```bash
    grep -nE "palette-(paper|surface|ink|accent)\b" theme/tokens.css | head

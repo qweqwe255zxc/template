@@ -1,6 +1,7 @@
 import { Band } from "./variants/Band";
 import { Boxed } from "./variants/Boxed";
 import { Centered } from "./variants/Centered";
+import { Editorial } from "./variants/Editorial";
 import { Left } from "./variants/Left";
 import { Panel } from "./variants/Panel";
 import { Quiet } from "./variants/Quiet";
@@ -19,7 +20,25 @@ import type { CtaSection, TitleStyle } from "@/types/site";
  *
  * Как добавить новый дизайн — docs/section-system.md, раздел 7.
  */
+/* --------------------------------------------------------------------------
+   ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
+   Sirotov Architects).
+
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
+   `editorial`: band, quiet, centered, left, boxed, panel, sticky-split.
+
+   EDITORIAL — новое семейство: печатная сетка, линейки, нумерованные
+   колонтитулы, крупный заголовок в верхнем регистре. Общая шапка
+   семейства — components/ui/EditorialHeader.tsx.
+
+   Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
+   theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
+   блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
+   вернуть как было, достаточно снять этот комментарий, строку
+   `editorial` из карты ниже и значение из union в types/site.ts.
+   -------------------------------------------------------------------------- */
 const variants: VariantMap<CtaSection, NonNullable<CtaSection["variant"]>> = {
+  // Эконом-класс
   band: Band,
   quiet: Quiet,
   centered: Centered,
@@ -27,6 +46,8 @@ const variants: VariantMap<CtaSection, NonNullable<CtaSection["variant"]>> = {
   boxed: Boxed,
   panel: Panel,
   "sticky-split": StickySplit,
+  // Семейство editorial
+  editorial: Editorial,
 };
 
 /**

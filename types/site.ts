@@ -224,7 +224,15 @@ export interface HeroSection extends SectionBase {
     | "poster"
     | "service"
     /** Парный к sticky-split остальных секций: та же ось 4/8, без залипания (в первом экране липнуть не к чему). */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: колонтитул на линейке (number слева, rail
+     * справа), заголовок-афиша в верхнем регистре с поднятым потолком
+     * кегля, лид и кнопки строкой по нижнему краю, `image` полосой во
+     * всю ширину ОКНА под ними. `widget` не читается — второй колонки в
+     * раскладке нет.
+     */
+    | "editorial";
   /**
    * Плашка-анонс над заголовком («Версия 2.0», «Набор открыт»).
    * Читают showcase и poster — в остальных раскладках её место занимает
@@ -396,7 +404,20 @@ export interface FeaturesSection extends SectionBase {
    *           коротких пунктов («что входит», «стек»), где карточки дают
    *           девять почти пустых прямоугольников. `columns` не читает.
    */
-  variant?: "table" | "cards" | "bento" | "sticky-split" | "alternating" | "compact";
+  variant?:
+    | "table"
+    | "cards"
+    | "bento"
+    | "sticky-split"
+    | "alternating"
+    | "compact"
+    /**
+     * Семейство editorial: нумерованный перечень на волосяных линейках.
+     * Линию держит каждая ячейка своим border-top, колонки разделяет
+     * только воздух. Как и table, несовместим с `photo` — роутер уводит
+     * такую секцию в cards.
+     */
+    | "editorial";
   columns?: 2 | 3;
   /** Кнопка под сеткой карточек. Читает только cards. */
   action?: CtaLink;
@@ -458,7 +479,14 @@ export interface StepsSection extends SectionBase {
     | "split"
     | "numbered-cards"
     /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: шаги в ряд на СПЛОШНОЙ линейке (в отличие от
+     * волосяной у features/editorial), номер и `meta` одной строкой над
+     * заголовком. Число колонок берётся из числа шагов: до 3 на lg, до 5
+     * на xl. `icon` рисуется голым глифом, `iconShape` не читается.
+     */
+    | "editorial";
   /** Фото для variant="split" — эйброу/заголовок/лид ложатся поверх него. Без него вариант не рендерится. */
   image?: string;
   /**
@@ -520,7 +548,13 @@ export interface GallerySection extends SectionBase {
     | "photo-grid"
     | "photo-bento"
     /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: сетка фотографий без карточек, подпись лежит
+     * прямо на поверхности секции (название и год строкой по базовой
+     * линии, категория капителью). `align: "center"` не читает.
+     */
+    | "editorial";
   items: CaseItem[];
   note?: string;
   /** Кнопка в шапке секции. Читают cards-icon, photo-grid, photo-bento. */
@@ -893,7 +927,14 @@ export interface PricingSection extends SectionBase {
     | "banner"
     | "matrix"
     /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: карточки, у которых шапка набрана как
+     * колонтитул раздела — позиционный индекс капителью слева,
+     * `plan.badge` плашкой справа, название тарифа под ними. Цена —
+     * text-h2, чек-лист тире (без галок).
+     */
+    | "editorial";
   items: PricingPlan[];
   note?: string;
   /** Короткая подпись доверия под сеткой. Читают split/playful. */
@@ -956,7 +997,15 @@ export interface CtaSection extends SectionBase {
     | "boxed"
     | "panel"
     /** Парный к sticky-split остальных секций: та же ось 4/8, без залипания (липнуть не к чему). */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: тёмная полоса (surface по умолчанию "ink", не
+     * "accent"), заголовок text-h1 в верхнем регистре слева 7/12, лид с
+     * кнопками справа 5/12, обе колонки по нижнему краю. `eyebrow` —
+     * колонтитул на линейке над заголовком. От theme.titleStyle не
+     * зависит.
+     */
+    | "editorial";
   actions?: CtaLink[];
   note?: string;
 }

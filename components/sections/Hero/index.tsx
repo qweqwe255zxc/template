@@ -1,5 +1,6 @@
 import { resolveHeroLayout } from "./parts/resolveHeroLayout";
 import { Centered } from "./variants/Centered";
+import { Editorial } from "./variants/Editorial";
 import { Poster } from "./variants/Poster";
 import { Service } from "./variants/Service";
 import { Showcase } from "./variants/Showcase";
@@ -22,7 +23,26 @@ import type { HeroSection } from "@/types/site";
  *
  * Как добавить новый дизайн — docs/section-system.md, раздел 7.
  */
+/* --------------------------------------------------------------------------
+   ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
+   Sirotov Architects).
+
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
+   `editorial`: type-only, split, centered, showcase, poster, service,
+   sticky-split.
+
+   EDITORIAL — новое семейство: печатная сетка, волосяные линейки,
+   нумерованные колонтитулы, крупный заголовок в верхнем регистре. Общая
+   шапка семейства — components/ui/EditorialHeader.tsx.
+
+   Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
+   theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
+   блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
+   вернуть как было, достаточно снять этот комментарий, строку
+   `editorial` из карты ниже и значение из union в types/site.ts.
+   -------------------------------------------------------------------------- */
 const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
+  // Эконом-класс
   "type-only": TypeOnly,
   split: Split,
   centered: Centered,
@@ -30,6 +50,8 @@ const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
   poster: Poster,
   service: Service,
   "sticky-split": StickySplit,
+  // Семейство editorial
+  editorial: Editorial,
 };
 
 /** Варианты без второй колонки: image и widget им положить некуда. */
@@ -49,10 +71,18 @@ const NO_RAIL: NonNullable<HeroSection["variant"]>[] = [
   "service",
 ];
 
-/** Варианты, которые умеют показать только фото, но не виджет метрик. */
+/**
+ * Варианты, которые умеют показать только фото, но не виджет метрик.
+ *
+ * editorial входит сюда, но, в отличие от poster/service, image ему НЕ
+ * обязателен (в PHOTO_FALLBACK его нет): фотография там — полоса-горизонт
+ * под первым экраном, без неё раскладка остаётся законченной голой
+ * типографикой. А вот виджет положить некуда — второй колонки нет вовсе.
+ */
 const IMAGE_ONLY: NonNullable<HeroSection["variant"]>[] = [
   "poster",
   "service",
+  "editorial",
 ];
 
 /**

@@ -1,6 +1,7 @@
 import { Banner } from "./variants/Banner";
 import { Cards } from "./variants/Cards";
 import { Dark } from "./variants/Dark";
+import { Editorial } from "./variants/Editorial";
 import { Glass } from "./variants/Glass";
 import { Matrix } from "./variants/Matrix";
 import { Playful } from "./variants/Playful";
@@ -21,10 +22,30 @@ import type { PricingSection } from "@/types/site";
  *
  * Как добавить новый дизайн — docs/section-system.md, раздел 7.
  */
+/* --------------------------------------------------------------------------
+   ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
+   Sirotov Architects). «Тариф» здесь — класс шаблона, не тариф клиента
+   из items ниже.
+
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
+   `editorial`: table, cards, ribbon, split, dark, playful, quote, glass,
+   banner, matrix, sticky-split.
+
+   EDITORIAL — новое семейство: печатная сетка, линейки, нумерованные
+   колонтитулы, крупный заголовок в верхнем регистре. Общая шапка
+   семейства — components/ui/EditorialHeader.tsx.
+
+   Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
+   theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
+   блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
+   вернуть как было, достаточно снять этот комментарий, строку
+   `editorial` из карты ниже и значение из union в types/site.ts.
+   -------------------------------------------------------------------------- */
 const variants: VariantMap<
   PricingSection,
   NonNullable<PricingSection["variant"]>
 > = {
+  // Эконом-класс
   table: Table,
   cards: Cards,
   ribbon: Ribbon,
@@ -36,6 +57,8 @@ const variants: VariantMap<
   banner: Banner,
   matrix: Matrix,
   "sticky-split": StickySplit,
+  // Семейство editorial
+  editorial: Editorial,
 };
 
 export function Pricing(props: PricingSection) {
