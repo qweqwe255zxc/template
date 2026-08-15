@@ -14,6 +14,7 @@ const variants: NonNullable<FeaturesSection["variant"]>[] = [
   "sticky-split",
   "alternating",
   "compact",
+  "editorial",
 ];
 
 /**

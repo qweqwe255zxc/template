@@ -1,5 +1,6 @@
 import { Cards } from "./variants/Cards";
 import { Cascade } from "./variants/Cascade";
+import { Editorial } from "./variants/Editorial";
 import { NumberedCards } from "./variants/NumberedCards";
 import { Rail } from "./variants/Rail";
 import { Split } from "./variants/Split";
@@ -14,10 +15,29 @@ import type { StepsSection } from "@/types/site";
  * Роутер секции Steps.
  * Как добавить новый дизайн — docs/section-system.md, раздел 7.
  */
+/* --------------------------------------------------------------------------
+   ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
+   Sirotov Architects).
+
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
+   `editorial`: rail, stack, timeline-vertical, cards, cascade,
+   timeline-horizontal, split, numbered-cards, sticky-split.
+
+   EDITORIAL — новое семейство: печатная сетка, линейки, нумерованные
+   колонтитулы, крупный заголовок в верхнем регистре. Общая шапка
+   семейства — components/ui/EditorialHeader.tsx.
+
+   Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
+   theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
+   блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
+   вернуть как было, достаточно снять этот комментарий, строку
+   `editorial` из карты ниже и значение из union в types/site.ts.
+   -------------------------------------------------------------------------- */
 const variants: VariantMap<
   StepsSection,
   NonNullable<StepsSection["variant"]>
 > = {
+  // Эконом-класс
   rail: Rail,
   stack: Stack,
   "timeline-vertical": TimelineVertical,
@@ -27,6 +47,8 @@ const variants: VariantMap<
   split: Split,
   "numbered-cards": NumberedCards,
   "sticky-split": StickySplit,
+  // Семейство editorial
+  editorial: Editorial,
 };
 
 export function Steps(props: StepsSection) {
