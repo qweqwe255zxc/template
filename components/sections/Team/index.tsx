@@ -2,6 +2,7 @@ import { BadgeAvatars } from "./variants/BadgeAvatars";
 import { Bento } from "./variants/Bento";
 import { Cards } from "./variants/Cards";
 import { Columns } from "./variants/Columns";
+import { Editorial } from "./variants/Editorial";
 import { PhotoCards } from "./variants/PhotoCards";
 import { Rows } from "./variants/Rows";
 import { TagsCards } from "./variants/TagsCards";
@@ -17,19 +18,23 @@ import type { TeamSection } from "@/types/site";
    ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
    Sirotov Architects).
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов этой секции: columns, rows, cards, photo-cards, badge-avatars, tags-cards, bento,
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
+   семейства `editorial`: columns, rows, cards, photo-cards, badge-avatars, tags-cards, bento,
    sticky-split.
 
-   EDITORIAL — семейство печатной сетки (линейки, нумерованные
-   колонтитулы, крупный заголовок в верхнем регистре) у этой секции ПОКА
-   НЕ СДЕЛАНО: первым заходом перенесены шесть ключевых секций — Hero,
-   Features, Steps, Gallery, Pricing, CTA. Общая шапка семейства —
+   EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
+   крупный заголовок в верхнем регистре. Общая шапка семейства —
    components/ui/EditorialHeader.tsx.
+
+   Семейство закрыто целиком: вариант `editorial` есть у всех
+   двенадцати секций и у Header/Footer, то есть сайт этим приёмом
+   собирается без примеси карточных раскладок.
 
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий.
+   вернуть как было, достаточно снять этот комментарий, строку
+   `editorial` из карты ниже и значение из union в types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<TeamSection, NonNullable<TeamSection["variant"]>> = {
   // Эконом-класс
@@ -41,6 +46,8 @@ const variants: VariantMap<TeamSection, NonNullable<TeamSection["variant"]>> = {
   "tags-cards": TagsCards,
   bento: Bento,
   "sticky-split": StickySplit,
+  // Семейство editorial
+  editorial: Editorial,
 };
 
 export function Team(props: TeamSection) {

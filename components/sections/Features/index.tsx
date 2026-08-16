@@ -39,6 +39,10 @@ import type { FeaturesSection } from "@/types/site";
    нумерованные колонтитулы, крупный заголовок в верхнем регистре. Общая
    шапка семейства — components/ui/EditorialHeader.tsx.
 
+   Семейство закрыто целиком: вариант `editorial` есть у всех
+   двенадцати секций и у Header/Footer, то есть сайт этим приёмом
+   собирается без примеси карточных раскладок.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы

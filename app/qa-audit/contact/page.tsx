@@ -13,6 +13,7 @@ const variants: NonNullable<ContactSection["variant"]>[] = [
   "boxed",
   "panels",
   "sticky-split",
+  "editorial",
 ];
 
 export default function QaContactPage() {

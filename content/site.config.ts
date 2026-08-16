@@ -106,7 +106,7 @@ export const siteConfig: SiteConfig = {
 
     header: {
         // variant: "default" | "bold" | "classic" | "compact" | "monogram" |
-        //          "centered" | "glass" | "split"
+        //          "centered" | "glass" | "split" | "editorial"
         variant: "split",
         actions: [
             { label: "Смотреть демо", href: "#hero", variant: "secondary" },
@@ -116,7 +116,7 @@ export const siteConfig: SiteConfig = {
 
     footer: {
         // variant: "default" | "bold" | "classic" | "compact" | "monogram" |
-        //          "centered" | "split"
+        //          "centered" | "split" | "editorial"
         variant: "monogram",
         // monogramBackground: "gradient" | "surface" — только для variant: "monogram".
         monogramBackground: "gradient",
@@ -178,7 +178,7 @@ export const siteConfig: SiteConfig = {
             type: "hero",
             surface: "paper",
             // variant: "type-only" | "split" | "centered" | "showcase" |
-            //          "poster" | "service"
+            //          "poster" | "service" | "sticky-split" | "editorial"
             variant: "service",
             // rail читают только type-only/split/centered — showcase его
             // игнорирует (номер/рельс уступают место badge). Оставлено
@@ -214,7 +214,8 @@ export const siteConfig: SiteConfig = {
             id: "stats",
             type: "stats",
             surface: "surface",
-            // variant: "band" | "grid" | "badge" | "rows" | "bento" | "photo" | "plain"
+            // variant: "band" | "grid" | "badge" | "rows" | "bento" | "photo" |
+            //          "plain" | "sticky-split" | "editorial"
             variant: "plain",
             // containerVariant: "flat" | "elevated" | "bordered" — читают
             // только band/grid, для photo не применяется.
@@ -235,7 +236,8 @@ export const siteConfig: SiteConfig = {
             id: "services",
             type: "features",
             surface: "paper",
-            // variant: "table" | "cards" | "bento"
+            // variant: "table" | "cards" | "bento" | "alternating" | "compact" |
+            //          "sticky-split" | "editorial"
             variant: "bento",
             number: "02",
             nav: "Возможности",
@@ -307,7 +309,7 @@ export const siteConfig: SiteConfig = {
             type: "about",
             surface: "surface",
             // variant: "photo" | "type-only" | "split-actions" |
-            //          "quiet-split" | "panel"
+            //          "quiet-split" | "panel" | "sticky-split" | "editorial"
             variant: "panel",
             number: "03",
             eyebrow: "Наш подход",
@@ -328,7 +330,8 @@ export const siteConfig: SiteConfig = {
             type: "steps",
             surface: "paper",
             // variant: "rail" | "stack" | "timeline-vertical" | "cards" | "cascade" |
-            //          "timeline-horizontal" | "split" | "numbered-cards"
+            //          "timeline-horizontal" | "split" | "numbered-cards" |
+            //          "sticky-split" | "editorial"
             variant: "cards",
             number: "04",
             nav: "Как собрать",
@@ -377,7 +380,7 @@ export const siteConfig: SiteConfig = {
             type: "gallery",
             surface: "ink",
             // variant: "table" | "grid" | "cards-icon" | "photo-grid" |
-            //          "photo-bento"
+            //          "photo-bento" | "sticky-split" | "editorial"
             variant: "photo-grid",
             number: "05",
             nav: "Кейсы",
@@ -441,7 +444,8 @@ export const siteConfig: SiteConfig = {
             id: "testimonials",
             type: "testimonials",
             surface: "surface",
-            // variant: "quotes" | "cards" | "bento" | "rated-cards" | "spotlight"
+            // variant: "quotes" | "cards" | "bento" | "rated-cards" | "spotlight" |
+            //          "sticky-split" | "editorial"
             variant: "spotlight",
             number: "06",
             nav: "Отзывы",
@@ -494,7 +498,8 @@ export const siteConfig: SiteConfig = {
             type: "team",
             surface: "paper",
             // variant: "columns" | "rows" | "cards" | "photo-cards" |
-            //          "badge-avatars" | "tags-cards" | "bento"
+            //          "badge-avatars" | "tags-cards" | "bento" |
+            //          "sticky-split" | "editorial"
             variant: "bento",
             number: "07",
             nav: "Команда",
@@ -550,7 +555,8 @@ export const siteConfig: SiteConfig = {
             id: "faq",
             type: "faq",
             surface: "surface",
-            // variant: "narrow" | "wide" | "split-sidebar" | "categorized"
+            // variant: "narrow" | "wide" | "split-sidebar" | "categorized" |
+            //          "sticky-split" | "editorial"
             variant: "categorized",
             number: "08",
             nav: "Вопросы",
@@ -613,7 +619,8 @@ export const siteConfig: SiteConfig = {
             type: "pricing",
             surface: "paper",
             // variant: "table" | "cards" | "ribbon" | "split" | "dark" | "playful" |
-            //          "quote" | "glass" | "banner" | "matrix"
+            //          "quote" | "glass" | "banner" | "matrix" |
+            //          "sticky-split" | "editorial"
             variant: "matrix",
             number: "09",
             nav: "Тарифы",
@@ -712,7 +719,8 @@ export const siteConfig: SiteConfig = {
             id: "cta",
             type: "cta",
             surface: "accent",
-            // variant: "band" | "quiet" | "centered" | "left" | "boxed" | "panel"
+            // variant: "band" | "quiet" | "centered" | "left" | "boxed" | "panel" |
+            //          "sticky-split" | "editorial"
             variant: "panel",
             eyebrow: "Следующий шаг",
             title: "Клонируйте шаблон и замените site.config.ts",
@@ -729,7 +737,8 @@ export const siteConfig: SiteConfig = {
             id: "contact",
             type: "contact",
             surface: "surface",
-            // variant: "split" | "stacked" | "boxed" | "panels"
+            // variant: "split" | "stacked" | "boxed" | "panels" |
+            //          "sticky-split" | "editorial"
             variant: "panels",
             // layout: "plain" | "cardContainer" — подложка под самой формой,
             // отдельная ось от variant (раскладки колонок).

@@ -1,3 +1,4 @@
+import { Editorial } from "./variants/Editorial";
 import { Panel } from "./variants/Panel";
 import { Photo } from "./variants/Photo";
 import { QuietSplit } from "./variants/QuietSplit";
@@ -15,18 +16,22 @@ import type { AboutSection } from "@/types/site";
    ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
    Sirotov Architects).
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов этой секции: photo, type-only, split-actions, quiet-split, panel, sticky-split.
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
+   семейства `editorial`: photo, type-only, split-actions, quiet-split, panel, sticky-split.
 
-   EDITORIAL — семейство печатной сетки (линейки, нумерованные
-   колонтитулы, крупный заголовок в верхнем регистре) у этой секции ПОКА
-   НЕ СДЕЛАНО: первым заходом перенесены шесть ключевых секций — Hero,
-   Features, Steps, Gallery, Pricing, CTA. Общая шапка семейства —
+   EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
+   крупный заголовок в верхнем регистре. Общая шапка семейства —
    components/ui/EditorialHeader.tsx.
+
+   Семейство закрыто целиком: вариант `editorial` есть у всех
+   двенадцати секций и у Header/Footer, то есть сайт этим приёмом
+   собирается без примеси карточных раскладок.
 
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий.
+   вернуть как было, достаточно снять этот комментарий, строку
+   `editorial` из карты ниже и значение из union в types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
   AboutSection,
@@ -39,9 +44,20 @@ const variants: VariantMap<
   "quiet-split": QuietSplit,
   panel: Panel,
   "sticky-split": StickySplit,
+  // Семейство editorial
+  editorial: Editorial,
 };
 
-const PHOTO_REQUIRED_VARIANTS = new Set(["photo", "split-actions", "quiet-split", "panel"]);
+// editorial тоже здесь: без фотографии от него остаётся одна текстовая
+// колонка 7/12, то есть type-only с пустой половиной справа — ровно тот
+// случай, ради которого этот откат и заведён.
+const PHOTO_REQUIRED_VARIANTS = new Set([
+  "photo",
+  "split-actions",
+  "quiet-split",
+  "panel",
+  "editorial",
+]);
 
 export function About(props: AboutSection) {
   const requested = props.variant ?? "photo";

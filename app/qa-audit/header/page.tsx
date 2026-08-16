@@ -15,6 +15,7 @@ const variants: HeaderVariant[] = [
   "centered",
   "glass",
   "split",
+  "editorial",
 ];
 
 /**

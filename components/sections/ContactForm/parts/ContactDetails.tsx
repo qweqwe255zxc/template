@@ -21,8 +21,13 @@ interface ContactDetailsProps {
    * строкой в несколько колонок: для раскладок, где реквизиты стоят НАД
    * формой (stacked). Вертикальный список там занимал 560px и отжимал
    * форму на второй экран, хотя это всего семь коротких значений.
+   * editorial — семейство печатной сетки: подпись капителью, значение
+   * крупным `font-display`, без иконок и без линеек между строками.
+   * Иконка-пиктограмма у каждого реквизита — ровно тот декор, вместо
+   * которого в этом семействе работает типографика, а линейка там
+   * зарезервирована под колонтитул раздела.
    */
-  layout?: "list" | "inline";
+  layout?: "list" | "inline" | "editorial";
   /** Классы колонки реквизитов. */
   className?: string;
 }
@@ -106,40 +111,23 @@ export function ContactDetails({
         </h3>
       ) : null}
 
-      {/* Число колонок в inline-раскладке решает КОНТЕЙНЕРНЫЙ запрос, а
-          не брейкпоинт окна: этот блок стоит и во всю ширину секции
-          (stacked), и в залипающей колонке 4/12 (sticky-split). По ширине
-          окна во втором случае получалось бы три колонки по 127px. */}
-      <dl
-        className={
-          layout === "inline"
-            ? "@container/details mt-7 grid gap-x-gutter gap-y-1 border-y border-rule py-6 @lg/details:grid-cols-2 @4xl/details:grid-cols-3"
-            : "mt-7 border-t border-rule"
-        }
-      >
-        {details.map(({ icon: Icon, label, value, href }) => (
-          <div
-            key={label}
-            className={
-              layout === "inline"
-                ? "flex items-start gap-3 py-2"
-                : "flex items-start gap-4 border-b border-rule py-5"
-            }
-          >
-            <Icon
-              aria-hidden="true"
-              strokeWidth={1.5}
-              className="mt-0.5 size-5 shrink-0 text-fg-muted"
-            />
-            <div className="min-w-0">
+      {layout === "editorial" ? (
+        // Тот же контейнерный запрос, что и в inline, и по той же
+        // причине: колонка реквизитов бывает и 5/12, и во всю ширину, а
+        // считать надо по ней, а не по окну. Одна колонка на узком
+        // экране — потому что значения тут набраны крупно (адрес в две
+        // строки), и вторая колонка начиналась бы с переноса.
+        <dl className="@container/details mt-8 grid gap-x-gutter gap-y-8 @lg/details:grid-cols-2">
+          {details.map(({ label, value, href }) => (
+            <div key={label} className="min-w-0">
               <dt className="text-caption font-medium uppercase text-fg-muted">
                 {label}
               </dt>
-              <dd className="tabular mt-1.5 text-body">
+              <dd className="tabular mt-3 font-display text-h3 break-words">
                 {href ? (
                   <a
                     href={href}
-                    className="underline decoration-rule-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                    className="transition-colors hover:text-accent"
                     {...(href.startsWith("http")
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
@@ -151,9 +139,58 @@ export function ContactDetails({
                 )}
               </dd>
             </div>
-          </div>
-        ))}
-      </dl>
+          ))}
+        </dl>
+      ) : (
+        /* Число колонок в inline-раскладке решает КОНТЕЙНЕРНЫЙ запрос, а
+           не брейкпоинт окна: этот блок стоит и во всю ширину секции
+           (stacked), и в залипающей колонке 4/12 (sticky-split). По ширине
+           окна во втором случае получалось бы три колонки по 127px. */
+        <dl
+          className={
+            layout === "inline"
+              ? "@container/details mt-7 grid gap-x-gutter gap-y-1 border-y border-rule py-6 @lg/details:grid-cols-2 @4xl/details:grid-cols-3"
+              : "mt-7 border-t border-rule"
+          }
+        >
+          {details.map(({ icon: Icon, label, value, href }) => (
+            <div
+              key={label}
+              className={
+                layout === "inline"
+                  ? "flex items-start gap-3 py-2"
+                  : "flex items-start gap-4 border-b border-rule py-5"
+              }
+            >
+              <Icon
+                aria-hidden="true"
+                strokeWidth={1.5}
+                className="mt-0.5 size-5 shrink-0 text-fg-muted"
+              />
+              <div className="min-w-0">
+                <dt className="text-caption font-medium uppercase text-fg-muted">
+                  {label}
+                </dt>
+                <dd className="tabular mt-1.5 text-body">
+                  {href ? (
+                    <a
+                      href={href}
+                      className="underline decoration-rule-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                      {...(href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      {value}
+                    </a>
+                  ) : (
+                    value
+                  )}
+                </dd>
+              </div>
+            </div>
+          ))}
+        </dl>
+      )}
 
       {contacts.inn || contacts.ogrn ? (
         <p className="tabular mt-6 text-small text-fg-muted">
