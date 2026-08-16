@@ -1,6 +1,7 @@
 import { Cards } from "./variants/Cards";
 import { Cascade } from "./variants/Cascade";
 import { Editorial } from "./variants/Editorial";
+import { Product } from "./variants/Product";
 import { NumberedCards } from "./variants/NumberedCards";
 import { Rail } from "./variants/Rail";
 import { Split } from "./variants/Split";
@@ -19,8 +20,8 @@ import type { StepsSection } from "@/types/site";
    ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
    Sirotov Architects).
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
-   `editorial`: rail, stack, timeline-vertical, cards, cascade,
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
+   `editorial` и `product`: rail, stack, timeline-vertical, cards, cascade,
    timeline-horizontal, split, numbered-cards, sticky-split.
 
    EDITORIAL — новое семейство: печатная сетка, линейки, нумерованные
@@ -31,11 +32,16 @@ import type { StepsSection } from "@/types/site";
    двенадцати секций и у Header/Footer, то есть сайт этим приёмом
    собирается без примеси карточных раскладок.
 
+   PRODUCT — карточки и метрики: каждый блок в Card, у каждого раздела
+   измеримый показатель, числа tabular. Общая шапка семейства —
+   components/ui/ProductHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий, строку
-   `editorial` из карты ниже и значение из union в types/site.ts.
+   вернуть как было, достаточно снять этот комментарий, строки
+   `editorial`/`product` из карты ниже и значения из union в
+   types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
   StepsSection,
@@ -53,6 +59,8 @@ const variants: VariantMap<
   "sticky-split": StickySplit,
   // Семейство editorial
   editorial: Editorial,
+  // Семейство product
+  product: Product,
 };
 
 export function Steps(props: StepsSection) {

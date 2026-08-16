@@ -1,4 +1,5 @@
 import { Editorial } from "./variants/Editorial";
+import { Product } from "./variants/Product";
 import { Panel } from "./variants/Panel";
 import { Photo } from "./variants/Photo";
 import { QuietSplit } from "./variants/QuietSplit";
@@ -17,7 +18,7 @@ import type { AboutSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
-   семейства `editorial`: photo, type-only, split-actions, quiet-split, panel, sticky-split.
+   семейств `editorial` и `product`: photo, type-only, split-actions, quiet-split, panel, sticky-split.
 
    EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
    крупный заголовок в верхнем регистре. Общая шапка семейства —
@@ -27,11 +28,16 @@ import type { AboutSection } from "@/types/site";
    двенадцати секций и у Header/Footer, то есть сайт этим приёмом
    собирается без примеси карточных раскладок.
 
+   PRODUCT — карточки и метрики: каждый блок в Card, у каждого раздела
+   измеримый показатель, числа tabular. Общая шапка семейства —
+   components/ui/ProductHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий, строку
-   `editorial` из карты ниже и значение из union в types/site.ts.
+   вернуть как было, достаточно снять этот комментарий, строки
+   `editorial`/`product` из карты ниже и значения из union в
+   types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
   AboutSection,
@@ -46,6 +52,8 @@ const variants: VariantMap<
   "sticky-split": StickySplit,
   // Семейство editorial
   editorial: Editorial,
+  // Семейство product
+  product: Product,
 };
 
 // editorial тоже здесь: без фотографии от него остаётся одна текстовая

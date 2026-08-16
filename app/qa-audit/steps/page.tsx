@@ -18,6 +18,7 @@ const variants: NonNullable<StepsSection["variant"]>[] = [
   "numbered-cards",
   "sticky-split",
   "editorial",
+  "product",
 ];
 
 export default function QaStepsPage() {

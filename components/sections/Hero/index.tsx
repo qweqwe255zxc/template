@@ -1,6 +1,7 @@
 import { resolveHeroLayout } from "./parts/resolveHeroLayout";
 import { Centered } from "./variants/Centered";
 import { Editorial } from "./variants/Editorial";
+import { Product } from "./variants/Product";
 import { Poster } from "./variants/Poster";
 import { Service } from "./variants/Service";
 import { Showcase } from "./variants/Showcase";
@@ -27,8 +28,8 @@ import type { HeroSection } from "@/types/site";
    ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
    Sirotov Architects).
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
-   `editorial`: type-only, split, centered, showcase, poster, service,
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
+   `editorial` и `product`: type-only, split, centered, showcase, poster, service,
    sticky-split.
 
    EDITORIAL — новое семейство: печатная сетка, волосяные линейки,
@@ -39,11 +40,16 @@ import type { HeroSection } from "@/types/site";
    двенадцати секций и у Header/Footer, то есть сайт этим приёмом
    собирается без примеси карточных раскладок.
 
+   PRODUCT — карточки и метрики: каждый блок в Card, у каждого раздела
+   измеримый показатель, числа tabular. Общая шапка семейства —
+   components/ui/ProductHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий, строку
-   `editorial` из карты ниже и значение из union в types/site.ts.
+   вернуть как было, достаточно снять этот комментарий, строки
+   `editorial`/`product` из карты ниже и значения из union в
+   types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
   // Эконом-класс
@@ -56,6 +62,8 @@ const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
   "sticky-split": StickySplit,
   // Семейство editorial
   editorial: Editorial,
+  // Семейство product
+  product: Product,
 };
 
 /** Варианты без второй колонки: image и widget им положить некуда. */
@@ -102,6 +110,16 @@ const IMAGE_ONLY: NonNullable<HeroSection["variant"]>[] = [
 const PHOTO_FALLBACK: NonNullable<HeroSection["variant"]>[] = ["poster", "service"];
 
 /**
+ * product требует widget по той же логике, что poster/service требуют
+ * image, только по другому полю: вторая колонка там — карточка метрик, и
+ * без неё от раскладки остаётся половина тёмного экрана и пустота
+ * справа. Откат на centered, а не на type-only: тёмный первый экран в
+ * этом семействе — часть приёма, и centered единственный, кто его
+ * сохраняет без второй колонки.
+ */
+const WIDGET_FALLBACK: NonNullable<HeroSection["variant"]>[] = ["product"];
+
+/**
  * Варианты, где image и widget делят одну колонку и image побеждает
  * (см. resolveHeroLayout для split, HeroSection.tsx:73-83 для showcase —
  * `image ? <HeroPanel> : widget ? <HeroWidget> : null` в обоих случаях).
@@ -116,9 +134,23 @@ const IMAGE_BEATS_WIDGET: NonNullable<HeroSection["variant"]>[] = [
 export function Hero(props: HeroSection) {
   const { resolved: requested } = resolveHeroLayout(props);
   const needsPhotoFallback = PHOTO_FALLBACK.includes(requested) && !props.image;
-  const resolved = needsPhotoFallback ? "type-only" : requested;
+  const needsWidgetFallback =
+    !needsPhotoFallback && WIDGET_FALLBACK.includes(requested) && !props.widget;
+  const resolved = needsPhotoFallback
+    ? "type-only"
+    : needsWidgetFallback
+      ? "centered"
+      : requested;
 
   if (process.env.NODE_ENV !== "production") {
+    if (needsWidgetFallback) {
+      console.warn(
+        `[Hero] Секция "${props.id}": variant="${requested}" без widget — вторую колонку ` +
+          `занять нечем, показан "centered". Дайте widget: { title, metrics } или возьмите ` +
+          `другой variant. См. docs/section-system.md.`,
+      );
+    }
+
     if (needsPhotoFallback) {
       console.warn(
         `[Hero] Секция "${props.id}": variant="${requested}" без image — фото занять нечем, ` +
@@ -155,6 +187,18 @@ export function Hero(props: HeroSection) {
           `widget в этой раскладке не рендерится (карточка метрик на полноэкранной ` +
           `половине читается как случайный объект в пустоте). Дайте image или ` +
           `возьмите variant: "showcase". См. docs/section-system.md.`,
+      );
+    }
+
+    // Зеркало IMAGE_ONLY: product показывает только карточку метрик, и
+    // фотографии в нём положить некуда — вторая колонка занята виджетом,
+    // который и есть причина существования раскладки.
+    if (resolved === "product" && props.image) {
+      console.warn(
+        `[Hero] Секция "${props.id}": variant="product" показывает только widget — ` +
+          `image в этой раскладке не рендерится (вторая колонка занята карточкой ` +
+          `метрик). Уберите image из конфига или возьмите variant: "split". ` +
+          `См. docs/section-system.md.`,
       );
     }
 

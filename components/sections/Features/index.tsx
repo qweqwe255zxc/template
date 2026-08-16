@@ -3,6 +3,7 @@ import { Bento } from "./variants/Bento";
 import { Cards } from "./variants/Cards";
 import { Compact } from "./variants/Compact";
 import { Editorial } from "./variants/Editorial";
+import { Product } from "./variants/Product";
 import { StickySplit } from "./variants/StickySplit";
 import { Table } from "./variants/Table";
 import type { VariantMap } from "../variantMap";
@@ -32,8 +33,8 @@ import type { FeaturesSection } from "@/types/site";
    ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
    Sirotov Architects).
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
-   `editorial`: table, cards, bento, sticky-split, alternating, compact.
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
+   `editorial` и `product`: table, cards, bento, sticky-split, alternating, compact.
 
    EDITORIAL — новое семейство: печатная сетка, волосяные линейки,
    нумерованные колонтитулы, крупный заголовок в верхнем регистре. Общая
@@ -43,11 +44,16 @@ import type { FeaturesSection } from "@/types/site";
    двенадцати секций и у Header/Footer, то есть сайт этим приёмом
    собирается без примеси карточных раскладок.
 
+   PRODUCT — карточки и метрики: каждый блок в Card, у каждого раздела
+   измеримый показатель, числа tabular. Общая шапка семейства —
+   components/ui/ProductHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий, строку
-   `editorial` из карты ниже и значение из union в types/site.ts.
+   вернуть как было, достаточно снять этот комментарий, строки
+   `editorial`/`product` из карты ниже и значения из union в
+   types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
   FeaturesSection,
@@ -62,6 +68,8 @@ const variants: VariantMap<
   compact: Compact,
   // Семейство editorial
   editorial: Editorial,
+  // Семейство product
+  product: Product,
 };
 
 /**

@@ -232,7 +232,14 @@ export interface HeroSection extends SectionBase {
      * всю ширину ОКНА под ними. `widget` не читается — второй колонки в
      * раскладке нет.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: тёмный первый экран, слева пилюля/заголовок/лид/
+     * кнопки и строка доверия, справа карточка метрик с диаграммой. Ось
+     * 6/6. `widget` ОБЯЗАТЕЛЕН (без него роутер откатывается на
+     * "centered"), `image` не читается.
+     */
+    | "product";
   /**
    * Плашка-анонс над заголовком («Версия 2.0», «Набор открыт»).
    * Читают showcase и poster — в остальных раскладках её место занимает
@@ -352,7 +359,13 @@ export interface StatsSection extends SectionBase {
      * над каждой ячейкой, волосяная между колонками, поднятая ступень
      * кегля цифры. Не читает icon, containerVariant, fillLastRow и image.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: карточки-метрики — подпись капителью сверху,
+     * крупное число под ней, пояснение (`text`) снизу, иконка в углу.
+     * `highlight` не читает.
+     */
+    | "product";
   /**
    * Подложка под цифрами: flat — полоса во всю ширину с линейками
    * сверху/снизу (база), elevated — единый блок с тенью,
@@ -423,7 +436,12 @@ export interface FeaturesSection extends SectionBase {
      * только воздух. Как и table, несовместим с `photo` — роутер уводит
      * такую секцию в cards.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: карточки с плашкой иконки НАД заголовком
+     * (в отличие от `cards`, где иконка в строке с ним).
+     */
+    | "product";
   columns?: 2 | 3;
   /** Кнопка под сеткой карточек. Читает только cards. */
   action?: CtaLink;
@@ -492,7 +510,12 @@ export interface StepsSection extends SectionBase {
      * заголовком. Число колонок берётся из числа шагов: до 3 на lg, до 5
      * на xl. `icon` рисуется голым глифом, `iconShape` не читается.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: колонки на линейке в два пикселя, номер акцентом
+     * над заголовком, срок (`meta`) прижат к низу. `icon` не читает.
+     */
+    | "product";
   /** Фото для variant="split" — эйброу/заголовок/лид ложатся поверх него. Без него вариант не рендерится. */
   image?: string;
   /**
@@ -560,7 +583,13 @@ export interface GallerySection extends SectionBase {
      * прямо на поверхности секции (название и год строкой по базовой
      * линии, категория капителью). `align: "center"` не читает.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: карточки результатов на тёмной поверхности
+     * (surface по умолчанию "ink"), полоса метрик из `item.stats` на
+     * линейке внизу карточки. `photo` не читает.
+     */
+    | "product";
   items: CaseItem[];
   note?: string;
   /** Кнопка в шапке секции. Читают cards-icon, photo-grid, photo-bento. */
@@ -629,7 +658,12 @@ export interface TestimonialsSection extends SectionBase {
      * капителью на волосяной линейке прижата к низу ряда. Не читает
      * rating, photo, result, featured и fillLastRow.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: карточки, цитата сверху, автор с аватаром прижат
+     * к низу. Не читает rating, result, featured.
+     */
+    | "product";
   items: TestimonialItem[];
   /** Строка «нам доверяют» под отзывами. Тот же тип, что у Hero. */
   trust?: HeroTrust;
@@ -704,7 +738,12 @@ export interface TeamSection extends SectionBase {
      * волосяная линейка с индексом. Читает `link`, не читает `social`,
      * `tags`, `image` и `fillLastRow`.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: карточки с круглым аватаром 64px, роль акцентной
+     * капителью, стаж прижат к низу. Не читает `tags` и `link`.
+     */
+    | "product";
   items: TeamMember[];
   /** Фото для шапки variant="bento". Без него шапка остаётся текстовой. */
   image?: string;
@@ -783,7 +822,13 @@ export interface AboutSection extends SectionBase {
      * линейке рядом с `eyebrow`. Ось 7/5, фото 3:4. `photo` обязателен.
      * Не читает aside, panel, photoCaption, badge, decorative, frame.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: текст слева, сетка метрик 2×2 справа из
+     * `panel.stats`; без них справа встаёт `photo`, без обоих раздел
+     * одноколоночный. Из `panel` читает только `stats`.
+     */
+    | "product";
   /** Абзацы, один <p> на элемент массива. */
   text: string[];
   /** Не читает только type-only — там второй колонки нет вовсе. */
@@ -857,7 +902,12 @@ export interface FaqSection extends SectionBase {
      * аккордеон справа (7/12). Заголовок НЕ залипает — залипание это
      * опознавательный знак sticky-split, см. CLAUDE.md §2.15.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: шапка ProductHeader слева (5/12), аккордеон
+     * справа (7/12). Не залипает.
+     */
+    | "product";
   items: FaqItem[];
   /** Карточка поддержки в сайдбаре. Читает только split-sidebar. */
   support?: FaqSupport;
@@ -965,7 +1015,13 @@ export interface PricingSection extends SectionBase {
      * `plan.badge` плашкой справа, название тарифа под ними. Цена —
      * text-h2, чек-лист тире (без галок).
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: центрированная шапка, карточки с галками в
+     * чек-листе, выделенный тариф акцентной рамкой. Переключателя периода
+     * нет — у PricingPlan одна цена.
+     */
+    | "product";
   items: PricingPlan[];
   note?: string;
   /** Короткая подпись доверия под сеткой. Читают split/playful. */
@@ -1036,7 +1092,12 @@ export interface CtaSection extends SectionBase {
      * колонтитул на линейке над заголовком. От theme.titleStyle не
      * зависит.
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: тёмная панель со скруглением ВНУТРИ светлой
+     * секции (surface по умолчанию "paper"), кнопки колонкой справа.
+     */
+    | "product";
   actions?: CtaLink[];
   note?: string;
 }
@@ -1088,7 +1149,13 @@ export interface ContactSection extends SectionBase {
      * значением крупным font-display, без иконок; форма справа (7/12).
      * `layout` уважается, но по умолчанию тут "plain".
      */
-    | "editorial";
+    | "editorial"
+    /**
+     * Семейство product: реквизиты с пиктограммами слева (5/12), форма
+     * справа (7/12) в приподнятой карточке — `layout` по умолчанию
+     * "cardContainer".
+     */
+    | "product";
   /**
    * plain — форма лежит прямо на поверхности секции (база),
    * cardContainer — форма упакована в Card variant="elevated".
@@ -1243,7 +1310,13 @@ export type HeaderVariant =
    * непрозрачен с первого кадра — линейка под баром часть приёма,
    * поэтому `transparentBeforeScroll` он игнорирует.
    */
-  | "editorial";
+  | "editorial"
+  /**
+   * Семейство product: знак-плашка с вордмарком слева, навигация без
+   * подчёркивания (активный пункт только цветом), кнопки справа.
+   * `transparentBeforeScroll` читает как обычно.
+   */
+  | "product";
 
 export interface HeaderConfig {
   actions: CtaLink[];
@@ -1327,7 +1400,12 @@ export type FooterVariant =
   | "monogram"
   | "centered"
   | "split"
-  | "editorial";
+  | "editorial"
+  /**
+   * Семейство product: единственный тёмный подвал в каталоге — одна
+   * строка «знак + копирайт + ссылки», колонки и подписка ярусом выше.
+   */
+  | "product";
 
 export interface FooterConfig {
   note: string;

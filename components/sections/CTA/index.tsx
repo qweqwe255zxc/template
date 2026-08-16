@@ -2,6 +2,7 @@ import { Band } from "./variants/Band";
 import { Boxed } from "./variants/Boxed";
 import { Centered } from "./variants/Centered";
 import { Editorial } from "./variants/Editorial";
+import { Product } from "./variants/Product";
 import { Left } from "./variants/Left";
 import { Panel } from "./variants/Panel";
 import { Quiet } from "./variants/Quiet";
@@ -24,8 +25,8 @@ import type { CtaSection, TitleStyle } from "@/types/site";
    ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
    Sirotov Architects).
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
-   `editorial`: band, quiet, centered, left, boxed, panel, sticky-split.
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
+   `editorial` и `product`: band, quiet, centered, left, boxed, panel, sticky-split.
 
    EDITORIAL — новое семейство: печатная сетка, линейки, нумерованные
    колонтитулы, крупный заголовок в верхнем регистре. Общая шапка
@@ -35,11 +36,16 @@ import type { CtaSection, TitleStyle } from "@/types/site";
    двенадцати секций и у Header/Footer, то есть сайт этим приёмом
    собирается без примеси карточных раскладок.
 
+   PRODUCT — карточки и метрики: каждый блок в Card, у каждого раздела
+   измеримый показатель, числа tabular. Общая шапка семейства —
+   components/ui/ProductHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий, строку
-   `editorial` из карты ниже и значение из union в types/site.ts.
+   вернуть как было, достаточно снять этот комментарий, строки
+   `editorial`/`product` из карты ниже и значения из union в
+   types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<CtaSection, NonNullable<CtaSection["variant"]>> = {
   // Эконом-класс
@@ -52,6 +58,8 @@ const variants: VariantMap<CtaSection, NonNullable<CtaSection["variant"]>> = {
   "sticky-split": StickySplit,
   // Семейство editorial
   editorial: Editorial,
+  // Семейство product
+  product: Product,
 };
 
 /**
