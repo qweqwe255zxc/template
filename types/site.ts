@@ -346,7 +346,13 @@ export interface StatsSection extends SectionBase {
     | "photo"
     | "plain"
     /** Цифры сеткой 2×2 справа от залипающего заголовка. Семейство sticky-split. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: полоса-таблица без карточек — сплошная линейка
+     * над каждой ячейкой, волосяная между колонками, поднятая ступень
+     * кегля цифры. Не читает icon, containerVariant, fillLastRow и image.
+     */
+    | "editorial";
   /**
    * Подложка под цифрами: flat — полоса во всю ширину с линейками
    * сверху/снизу (база), elevated — единый блок с тенью,
@@ -617,7 +623,13 @@ export interface TestimonialsSection extends SectionBase {
     | "rated-cards"
     | "spotlight"
     /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: цитаты столбцами прямо на поверхности, подпись
+     * капителью на волосяной линейке прижата к низу ряда. Не читает
+     * rating, photo, result, featured и fillLastRow.
+     */
+    | "editorial";
   items: TestimonialItem[];
   /** Строка «нам доверяют» под отзывами. Тот же тип, что у Hero. */
   trust?: HeroTrust;
@@ -686,7 +698,13 @@ export interface TeamSection extends SectionBase {
     | "tags-cards"
     | "bento"
     /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: портреты 3:4 без карточек, над каждым —
+     * волосяная линейка с индексом. Читает `link`, не читает `social`,
+     * `tags`, `image` и `fillLastRow`.
+     */
+    | "editorial";
   items: TeamMember[];
   /** Фото для шапки variant="bento". Без него шапка остаётся текстовой. */
   image?: string;
@@ -758,7 +776,14 @@ export interface AboutSection extends SectionBase {
     | "quiet-split"
     | "panel"
     /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: раздел открывается не заголовком, а первым
+     * абзацем `text` крупной ступенью; `title` уходит в колонтитул на
+     * линейке рядом с `eyebrow`. Ось 7/5, фото 3:4. `photo` обязателен.
+     * Не читает aside, panel, photoCaption, badge, decorative, frame.
+     */
+    | "editorial";
   /** Абзацы, один <p> на элемент массива. */
   text: string[];
   /** Не читает только type-only — там второй колонки нет вовсе. */
@@ -826,7 +851,13 @@ export interface FaqSection extends SectionBase {
     | "split-sidebar"
     | "categorized"
     /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: колонтитул и заголовок капслоком слева (5/12),
+     * аккордеон справа (7/12). Заголовок НЕ залипает — залипание это
+     * опознавательный знак sticky-split, см. CLAUDE.md §2.15.
+     */
+    | "editorial";
   items: FaqItem[];
   /** Карточка поддержки в сайдбаре. Читает только split-sidebar. */
   support?: FaqSupport;
@@ -1051,7 +1082,13 @@ export interface ContactSection extends SectionBase {
     | "boxed"
     | "panels"
     /** Тот же приём, что у остальных секций: залипающий заголовок 4/12 слева, содержимое 8/12 справа. */
-    | "sticky-split";
+    | "sticky-split"
+    /**
+     * Семейство editorial: реквизиты слева (5/12) подписью капителью и
+     * значением крупным font-display, без иконок; форма справа (7/12).
+     * `layout` уважается, но по умолчанию тут "plain".
+     */
+    | "editorial";
   /**
    * plain — форма лежит прямо на поверхности секции (база),
    * cardContainer — форма упакована в Card variant="elevated".
@@ -1199,7 +1236,14 @@ export type HeaderVariant =
   | "monogram"
   | "centered"
   | "glass"
-  | "split";
+  | "split"
+  /**
+   * Семейство editorial: вордмарк и навигация капителью с разрядкой,
+   * активный пункт только цветом. Единственный вариант хедера, который
+   * непрозрачен с первого кадра — линейка под баром часть приёма,
+   * поэтому `transparentBeforeScroll` он игнорирует.
+   */
+  | "editorial";
 
 export interface HeaderConfig {
   actions: CtaLink[];
@@ -1271,6 +1315,9 @@ export interface FooterNewsletter {
  *             фоном плашки и поверхностью секции).
  * centered  — всё по центру: знак, один ряд ссылок, копирайт, соцссылки.
  * split     — ссылки двумя кластерами по бокам от центрального вордмарка.
+ * editorial — семейство печатной сетки: два яруса на линейках (сплошная
+ *             сверху, волосяная между ними), весь служебный текст
+ *             капителью с разрядкой, соцссылки текстом, а не иконками.
  */
 export type FooterVariant =
   | "default"
@@ -1279,7 +1326,8 @@ export type FooterVariant =
   | "compact"
   | "monogram"
   | "centered"
-  | "split";
+  | "split"
+  | "editorial";
 
 export interface FooterConfig {
   note: string;

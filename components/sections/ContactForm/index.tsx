@@ -1,4 +1,5 @@
 import { Boxed } from "./variants/Boxed";
+import { Editorial } from "./variants/Editorial";
 import { Panels } from "./variants/Panels";
 import { Split } from "./variants/Split";
 import { Stacked } from "./variants/Stacked";
@@ -24,18 +25,22 @@ import type { ContactSection } from "@/types/site";
    ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
    Sirotov Architects).
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов этой секции: split, stacked, boxed, panels, sticky-split.
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
+   семейства `editorial`: split, stacked, boxed, panels, sticky-split.
 
-   EDITORIAL — семейство печатной сетки (линейки, нумерованные
-   колонтитулы, крупный заголовок в верхнем регистре) у этой секции ПОКА
-   НЕ СДЕЛАНО: первым заходом перенесены шесть ключевых секций — Hero,
-   Features, Steps, Gallery, Pricing, CTA. Общая шапка семейства —
+   EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
+   крупный заголовок в верхнем регистре. Общая шапка семейства —
    components/ui/EditorialHeader.tsx.
+
+   Семейство закрыто целиком: вариант `editorial` есть у всех
+   двенадцати секций и у Header/Footer, то есть сайт этим приёмом
+   собирается без примеси карточных раскладок.
 
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий.
+   вернуть как было, достаточно снять этот комментарий, строку
+   `editorial` из карты ниже и значение из union в types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
   ContactFormProps,
@@ -47,6 +52,8 @@ const variants: VariantMap<
   boxed: Boxed,
   panels: Panels,
   "sticky-split": StickySplit,
+  // Семейство editorial
+  editorial: Editorial,
 };
 
 /**

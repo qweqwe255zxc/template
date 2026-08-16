@@ -14,6 +14,7 @@ const variants: NonNullable<AboutSection["variant"]>[] = [
   "quiet-split",
   "panel",
   "sticky-split",
+  "editorial",
 ];
 
 export default function QaAboutPage() {

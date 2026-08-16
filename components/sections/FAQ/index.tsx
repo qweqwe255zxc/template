@@ -1,4 +1,5 @@
 import { Categorized } from "./variants/Categorized";
+import { Editorial } from "./variants/Editorial";
 import { Narrow } from "./variants/Narrow";
 import { SplitSidebar } from "./variants/SplitSidebar";
 import { Wide } from "./variants/Wide";
@@ -14,18 +15,22 @@ import type { FaqSection } from "@/types/site";
    ТАРИФНАЯ ПОМЕТКА (временная, поставлена при переносе лендинга
    Sirotov Architects).
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов этой секции: narrow, wide, split-sidebar, categorized, sticky-split.
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
+   семейства `editorial`: narrow, wide, split-sidebar, categorized, sticky-split.
 
-   EDITORIAL — семейство печатной сетки (линейки, нумерованные
-   колонтитулы, крупный заголовок в верхнем регистре) у этой секции ПОКА
-   НЕ СДЕЛАНО: первым заходом перенесены шесть ключевых секций — Hero,
-   Features, Steps, Gallery, Pricing, CTA. Общая шапка семейства —
+   EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
+   крупный заголовок в верхнем регистре. Общая шапка семейства —
    components/ui/EditorialHeader.tsx.
+
+   Семейство закрыто целиком: вариант `editorial` есть у всех
+   двенадцати секций и у Header/Footer, то есть сайт этим приёмом
+   собирается без примеси карточных раскладок.
 
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий.
+   вернуть как было, достаточно снять этот комментарий, строку
+   `editorial` из карты ниже и значение из union в types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<FaqSection, NonNullable<FaqSection["variant"]>> = {
   // Эконом-класс
@@ -34,6 +39,8 @@ const variants: VariantMap<FaqSection, NonNullable<FaqSection["variant"]>> = {
     "split-sidebar": SplitSidebar,
     categorized: Categorized,
   "sticky-split": StickySplit,
+  // Семейство editorial
+  editorial: Editorial,
 };
 
 export function FAQ(props: FaqSection) {
