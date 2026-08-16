@@ -15,6 +15,7 @@ const variants: NonNullable<FeaturesSection["variant"]>[] = [
   "alternating",
   "compact",
   "editorial",
+  "product",
 ];
 
 /**

@@ -20,6 +20,7 @@ const variants: NonNullable<PricingSection["variant"]>[] = [
   "matrix",
   "sticky-split",
   "editorial",
+  "product",
 ];
 
 export default function QaPricingPage() {

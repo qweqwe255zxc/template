@@ -15,6 +15,7 @@ const variants: FooterVariant[] = [
   "centered",
   "split",
   "editorial",
+  "product",
 ];
 
 export default function QaFooterPage() {

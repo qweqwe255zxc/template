@@ -3,6 +3,7 @@ import { Bento } from "./variants/Bento";
 import { Cards } from "./variants/Cards";
 import { Columns } from "./variants/Columns";
 import { Editorial } from "./variants/Editorial";
+import { Product } from "./variants/Product";
 import { PhotoCards } from "./variants/PhotoCards";
 import { Rows } from "./variants/Rows";
 import { TagsCards } from "./variants/TagsCards";
@@ -19,7 +20,7 @@ import type { TeamSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
-   семейства `editorial`: columns, rows, cards, photo-cards, badge-avatars, tags-cards, bento,
+   семейств `editorial` и `product`: columns, rows, cards, photo-cards, badge-avatars, tags-cards, bento,
    sticky-split.
 
    EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
@@ -30,11 +31,16 @@ import type { TeamSection } from "@/types/site";
    двенадцати секций и у Header/Footer, то есть сайт этим приёмом
    собирается без примеси карточных раскладок.
 
+   PRODUCT — карточки и метрики: каждый блок в Card, у каждого раздела
+   измеримый показатель, числа tabular. Общая шапка семейства —
+   components/ui/ProductHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий, строку
-   `editorial` из карты ниже и значение из union в types/site.ts.
+   вернуть как было, достаточно снять этот комментарий, строки
+   `editorial`/`product` из карты ниже и значения из union в
+   types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<TeamSection, NonNullable<TeamSection["variant"]>> = {
   // Эконом-класс
@@ -48,6 +54,8 @@ const variants: VariantMap<TeamSection, NonNullable<TeamSection["variant"]>> = {
   "sticky-split": StickySplit,
   // Семейство editorial
   editorial: Editorial,
+  // Семейство product
+  product: Product,
 };
 
 export function Team(props: TeamSection) {

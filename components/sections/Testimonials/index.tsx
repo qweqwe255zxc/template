@@ -1,6 +1,7 @@
 import { Bento } from "./variants/Bento";
 import { Cards } from "./variants/Cards";
 import { Editorial } from "./variants/Editorial";
+import { Product } from "./variants/Product";
 import { Quotes } from "./variants/Quotes";
 import { RatedCards } from "./variants/RatedCards";
 import { Spotlight } from "./variants/Spotlight";
@@ -17,7 +18,7 @@ import type { TestimonialsSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
-   семейства `editorial`: quotes, cards, bento, rated-cards, spotlight, sticky-split.
+   семейств `editorial` и `product`: quotes, cards, bento, rated-cards, spotlight, sticky-split.
 
    EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
    крупный заголовок в верхнем регистре. Общая шапка семейства —
@@ -27,11 +28,16 @@ import type { TestimonialsSection } from "@/types/site";
    двенадцати секций и у Header/Footer, то есть сайт этим приёмом
    собирается без примеси карточных раскладок.
 
+   PRODUCT — карточки и метрики: каждый блок в Card, у каждого раздела
+   измеримый показатель, числа tabular. Общая шапка семейства —
+   components/ui/ProductHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий, строку
-   `editorial` из карты ниже и значение из union в types/site.ts.
+   вернуть как было, достаточно снять этот комментарий, строки
+   `editorial`/`product` из карты ниже и значения из union в
+   types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
   TestimonialsSection,
@@ -46,6 +52,8 @@ const variants: VariantMap<
   "sticky-split": StickySplit,
   // Семейство editorial
   editorial: Editorial,
+  // Семейство product
+  product: Product,
 };
 
 export function Testimonials(props: TestimonialsSection) {

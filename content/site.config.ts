@@ -106,7 +106,8 @@ export const siteConfig: SiteConfig = {
 
     header: {
         // variant: "default" | "bold" | "classic" | "compact" | "monogram" |
-        //          "centered" | "glass" | "split" | "editorial"
+        //          "centered" | "glass" | "split" | "editorial" |
+        //          "product"
         variant: "split",
         actions: [
             { label: "Смотреть демо", href: "#hero", variant: "secondary" },
@@ -116,7 +117,8 @@ export const siteConfig: SiteConfig = {
 
     footer: {
         // variant: "default" | "bold" | "classic" | "compact" | "monogram" |
-        //          "centered" | "split" | "editorial"
+        //          "centered" | "split" | "editorial" |
+        //          "product"
         variant: "monogram",
         // monogramBackground: "gradient" | "surface" — только для variant: "monogram".
         monogramBackground: "gradient",
@@ -178,7 +180,8 @@ export const siteConfig: SiteConfig = {
             type: "hero",
             surface: "paper",
             // variant: "type-only" | "split" | "centered" | "showcase" |
-            //          "poster" | "service" | "sticky-split" | "editorial"
+            //          "poster" | "service" | "sticky-split" | "editorial" |
+            //          "product"
             variant: "service",
             // rail читают только type-only/split/centered — showcase его
             // игнорирует (номер/рельс уступают место badge). Оставлено
@@ -208,6 +211,25 @@ export const siteConfig: SiteConfig = {
                 ],
                 text: "Уже используют 60+ студий и фрилансеров",
             },
+            // widget читают split/showcase (там image главнее — см.
+            // resolveHeroLayout) и product, где карточка метрик и есть
+            // вторая колонка: без неё product откатывается на centered.
+            // Заполнен, чтобы переключение variant не требовало дописывать
+            // данные — как и rail выше.
+            widget: {
+                badge: "Сборка за 15 минут",
+                title: "Что уходит в прототип",
+                metrics: [
+                    { label: "Готовых вариантов секций", value: "84", progress: 100 },
+                    { label: "Типов секций", value: "12", progress: 75 },
+                    { label: "Тарифа оформления", value: "2", progress: 40 },
+                ],
+                chart: {
+                    caption: "Секций собрано за неделю в демо-проектах",
+                    values: [38, 54, 46, 68, 80, 62, 94],
+                    peakIndex: 6,
+                },
+            },
         },
 
         {
@@ -215,7 +237,8 @@ export const siteConfig: SiteConfig = {
             type: "stats",
             surface: "surface",
             // variant: "band" | "grid" | "badge" | "rows" | "bento" | "photo" |
-            //          "plain" | "sticky-split" | "editorial"
+            //          "plain" | "sticky-split" | "editorial" |
+            //          "product"
             variant: "plain",
             // containerVariant: "flat" | "elevated" | "bordered" — читают
             // только band/grid, для photo не применяется.
@@ -237,7 +260,8 @@ export const siteConfig: SiteConfig = {
             type: "features",
             surface: "paper",
             // variant: "table" | "cards" | "bento" | "alternating" | "compact" |
-            //          "sticky-split" | "editorial"
+            //          "sticky-split" | "editorial" |
+            //          "product"
             variant: "bento",
             number: "02",
             nav: "Возможности",
@@ -309,7 +333,8 @@ export const siteConfig: SiteConfig = {
             type: "about",
             surface: "surface",
             // variant: "photo" | "type-only" | "split-actions" |
-            //          "quiet-split" | "panel" | "sticky-split" | "editorial"
+            //          "quiet-split" | "panel" | "sticky-split" | "editorial" |
+            //          "product"
             variant: "panel",
             number: "03",
             eyebrow: "Наш подход",
@@ -323,6 +348,32 @@ export const siteConfig: SiteConfig = {
             ],
             photo: "/images/about-team.jpg",
             photoAlt: "Команда студии «Модуль» за работой",
+            // highlights читают panel и editorial (в editorial это две
+            // врезки на волосяных линейках под крупной репликой — без них
+            // левая колонка там остаётся из одного абзаца и не набирает
+            // высоту фотографии).
+            highlights: [
+                {
+                    title: "Подход",
+                    text: "Раскладку решает variant, глубину — тариф. Компоненты не трогают ни то, ни другое: и то и другое приезжает из токенов.",
+                },
+                {
+                    title: "Принципы",
+                    text: "Ничего не обрезаем многоточием, фиксированных высот не ставим, каждый ряд выравниваем по внутренним линиям — а не по краю карточки.",
+                },
+            ],
+            // panel.stats читают panel (боковая карточка) и product
+            // (сетка метрик 2×2 справа вместо фотографии).
+            panel: {
+                title: "Что внутри",
+                text: "Двенадцать типов секций, три сквозных семейства и два тарифа оформления — всё переключается полями конфига.",
+                stats: [
+                    { value: "2021", label: "Год первой версии шаблона" },
+                    { value: "84", label: "Готовых варианта секций" },
+                    { value: "12", label: "Типов секций в конфиге" },
+                    { value: "4.8", label: "Средняя оценка в отзывах" },
+                ],
+            },
         },
 
         {
@@ -331,7 +382,8 @@ export const siteConfig: SiteConfig = {
             surface: "paper",
             // variant: "rail" | "stack" | "timeline-vertical" | "cards" | "cascade" |
             //          "timeline-horizontal" | "split" | "numbered-cards" |
-            //          "sticky-split" | "editorial"
+            //          "sticky-split" | "editorial" |
+            //          "product"
             variant: "cards",
             number: "04",
             nav: "Как собрать",
@@ -380,7 +432,8 @@ export const siteConfig: SiteConfig = {
             type: "gallery",
             surface: "ink",
             // variant: "table" | "grid" | "cards-icon" | "photo-grid" |
-            //          "photo-bento" | "sticky-split" | "editorial"
+            //          "photo-bento" | "sticky-split" | "editorial" |
+            //          "product"
             variant: "photo-grid",
             number: "05",
             nav: "Кейсы",
@@ -445,7 +498,8 @@ export const siteConfig: SiteConfig = {
             type: "testimonials",
             surface: "surface",
             // variant: "quotes" | "cards" | "bento" | "rated-cards" | "spotlight" |
-            //          "sticky-split" | "editorial"
+            //          "sticky-split" | "editorial" |
+            //          "product"
             variant: "spotlight",
             number: "06",
             nav: "Отзывы",
@@ -499,7 +553,8 @@ export const siteConfig: SiteConfig = {
             surface: "paper",
             // variant: "columns" | "rows" | "cards" | "photo-cards" |
             //          "badge-avatars" | "tags-cards" | "bento" |
-            //          "sticky-split" | "editorial"
+            //          "sticky-split" | "editorial" |
+            //          "product"
             variant: "bento",
             number: "07",
             nav: "Команда",
@@ -556,7 +611,8 @@ export const siteConfig: SiteConfig = {
             type: "faq",
             surface: "surface",
             // variant: "narrow" | "wide" | "split-sidebar" | "categorized" |
-            //          "sticky-split" | "editorial"
+            //          "sticky-split" | "editorial" |
+            //          "product"
             variant: "categorized",
             number: "08",
             nav: "Вопросы",
@@ -620,7 +676,8 @@ export const siteConfig: SiteConfig = {
             surface: "paper",
             // variant: "table" | "cards" | "ribbon" | "split" | "dark" | "playful" |
             //          "quote" | "glass" | "banner" | "matrix" |
-            //          "sticky-split" | "editorial"
+            //          "sticky-split" | "editorial" |
+            //          "product"
             variant: "matrix",
             number: "09",
             nav: "Тарифы",
@@ -720,7 +777,8 @@ export const siteConfig: SiteConfig = {
             type: "cta",
             surface: "accent",
             // variant: "band" | "quiet" | "centered" | "left" | "boxed" | "panel" |
-            //          "sticky-split" | "editorial"
+            //          "sticky-split" | "editorial" |
+            //          "product"
             variant: "panel",
             eyebrow: "Следующий шаг",
             title: "Клонируйте шаблон и замените site.config.ts",
@@ -738,7 +796,8 @@ export const siteConfig: SiteConfig = {
             type: "contact",
             surface: "surface",
             // variant: "split" | "stacked" | "boxed" | "panels" |
-            //          "sticky-split" | "editorial"
+            //          "sticky-split" | "editorial" |
+            //          "product"
             variant: "panels",
             // layout: "plain" | "cardContainer" — подложка под самой формой,
             // отдельная ось от variant (раскладки колонок).

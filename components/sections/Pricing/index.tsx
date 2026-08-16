@@ -2,6 +2,7 @@ import { Banner } from "./variants/Banner";
 import { Cards } from "./variants/Cards";
 import { Dark } from "./variants/Dark";
 import { Editorial } from "./variants/Editorial";
+import { Product } from "./variants/Product";
 import { Glass } from "./variants/Glass";
 import { Matrix } from "./variants/Matrix";
 import { Playful } from "./variants/Playful";
@@ -27,8 +28,8 @@ import type { PricingSection } from "@/types/site";
    Sirotov Architects). «Тариф» здесь — класс шаблона, не тариф клиента
    из items ниже.
 
-   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейства
-   `editorial`: table, cards, ribbon, split, dark, playful, quote, glass,
+   ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
+   `editorial` и `product`: table, cards, ribbon, split, dark, playful, quote, glass,
    banner, matrix, sticky-split.
 
    EDITORIAL — новое семейство: печатная сетка, линейки, нумерованные
@@ -39,11 +40,16 @@ import type { PricingSection } from "@/types/site";
    двенадцати секций и у Header/Footer, то есть сайт этим приёмом
    собирается без примеси карточных раскладок.
 
+   PRODUCT — карточки и метрики: каждый блок в Card, у каждого раздела
+   измеримый показатель, числа tabular. Общая шапка семейства —
+   components/ui/ProductHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
-   вернуть как было, достаточно снять этот комментарий, строку
-   `editorial` из карты ниже и значение из union в types/site.ts.
+   вернуть как было, достаточно снять этот комментарий, строки
+   `editorial`/`product` из карты ниже и значения из union в
+   types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
   PricingSection,
@@ -63,19 +69,29 @@ const variants: VariantMap<
   "sticky-split": StickySplit,
   // Семейство editorial
   editorial: Editorial,
+  // Семейство product
+  product: Product,
 };
 
 export function Pricing(props: PricingSection) {
   const variant = props.variant ?? "table";
   const hasPhoto = props.items.some((plan) => plan.photo);
 
-  if (process.env.NODE_ENV !== "production" && hasPhoto && variant === "table") {
+  // product из форсирования исключён: он, как и cards, рисует план через
+  // PlanContent внутри Card и прокидывает mediaAspectClassName, то есть
+  // фото у него работает штатно. Форс существовал ради табличных и
+  // панельных раскладок, где бокс с фото выравнивать нечем, — но для
+  // сквозного семейства он означал бы, что одна секция страницы молча
+  // выпадает из приёма из-за поля в конфиге.
+  const forcedToCards = hasPhoto && variant !== "product";
+
+  if (process.env.NODE_ENV !== "production" && forcedToCards && variant !== "cards") {
     console.warn(
-      `[Pricing] Секция "${props.id}": variant="table" не поддерживает photo — форсирован variant="cards".`,
+      `[Pricing] Секция "${props.id}": variant="${variant}" не поддерживает photo — форсирован variant="cards".`,
     );
   }
 
-  const Variant = hasPhoto ? Cards : (variants[variant] ?? Table);
+  const Variant = forcedToCards ? Cards : (variants[variant] ?? Table);
   return <Variant {...props} />;
 }
 
