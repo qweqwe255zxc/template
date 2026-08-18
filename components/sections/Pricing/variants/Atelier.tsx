@@ -130,11 +130,13 @@ export function Atelier(props: PricingSection) {
                     return (
                       <li
                         key={label}
+                        // Без альфы поверх приглушённого — см. развёрнутое
+                        // объяснение в parts/PlanContent.tsx: пара
+                        // «muted + /60» не проходит по контрасту ни в одной
+                        // теме, а «исключено» уже сказано зачёркиванием.
                         className={cn(
-                          "text-small",
-                          excluded
-                            ? "text-fg-muted/60 line-through"
-                            : "text-fg-muted",
+                          "text-small text-fg-muted",
+                          excluded && "line-through",
                         )}
                       >
                         {label}

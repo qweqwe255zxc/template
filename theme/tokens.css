@@ -416,7 +416,12 @@
   --palette-rule-strong: #6d716c;
 
   --palette-ink-fg: #141615;
-  --palette-ink-fg-muted: #676a65; /* 4.9:1 по светлому блоку инверсии */
+  /* 4.9:1 в комментарии было посчитано по САМОЙ поверхности инверсии
+     (--palette-ink), но приглушённый текст чаще лежит на карточке внутри
+     неё, а она темнее на пару процентов: там выходило 4.29 при норме 4.5
+     — замерено на Pricing/split в тёмной теме. #5f625d даёт 4.84 в
+     карточке и с запасом проходит на самой поверхности. */
+  --palette-ink-fg-muted: #5f625d;
   --palette-ink-rule: #363832;
 
   --accent-fg: #0d2427; /* тёмный петроль — текст по осветлённому акценту, 8.0:1 */
@@ -540,7 +545,14 @@
 [data-surface="accent"] {
   --surface-bg: var(--accent);
   --surface-fg: var(--accent-fg);
-  --surface-fg-muted: color-mix(in srgb, var(--accent-fg) 72%, transparent);
+  /* 80%, а не 72%: на 72% приглушённый текст на акцентной заливке давал
+     4.34 контраста в тёмной теме при норме 4.5 — замерено на всех десяти
+     вариантах CTA, то есть промах был общий для каталога, а не у одного
+     варианта. На 80% выходит 5.23 в тёмной и 6.37 в светлой, и при этом
+     ступень «приглушённый против основного» на глаз сохраняется (основной
+     на той же заливке — 7.97 и 8.94). Выше поднимать нельзя: приглушённый
+     сравняется с основным и перестанет быть приглушённым. */
+  --surface-fg-muted: color-mix(in srgb, var(--accent-fg) 80%, transparent);
   --surface-rule: color-mix(in srgb, var(--accent-fg) 24%, transparent);
   --surface-rule-strong: color-mix(in srgb, var(--accent-fg) 45%, transparent);
   --surface-card: color-mix(in srgb, var(--accent) 92%, var(--accent-fg));
