@@ -90,10 +90,14 @@ export function Atelier(props: HeroSection) {
         ))}
       </h1>
 
-      {/* Штрих — тот же знак и тем же цветом, что в шапке раздела:
-          bg-accent-border остаётся видимым на любой поверхности, см.
-          комментарий в components/ui/AtelierHeader.tsx. */}
-      <div className="mt-7 h-0.5 w-12 bg-accent-border" data-reveal />
+      {/* Штрих — тот же знак и тем же цветом, что в шапке раздела,
+          включая доводку под акцентную поверхность. Почему двух классов
+          мало и откуда взялся второй — см. комментарий в
+          components/ui/AtelierHeader.tsx. */}
+      <div
+        className="mt-7 h-0.5 w-12 bg-accent-border [[data-surface=accent]_&]:bg-fg"
+        data-reveal
+      />
 
       {lead ? (
         <p

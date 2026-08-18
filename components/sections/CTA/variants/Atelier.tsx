@@ -41,8 +41,12 @@ export function Atelier(props: CtaSection) {
               <h2 className="max-w-[18ch] font-heading text-h1">{title}</h2>
             ) : null}
 
+            {/* Единственное место семейства, где штрих по умолчанию
+                лежит НА акцентной заливке, — здесь доводка из
+                AtelierHeader обязательна, иначе знак семейства
+                проседает до 2.35 контраста в тёмной теме. */}
             {title ? (
-              <div className="mt-7 h-0.5 w-12 bg-accent-border" />
+              <div className="mt-7 h-0.5 w-12 bg-accent-border [[data-surface=accent]_&]:bg-fg" />
             ) : null}
 
             {lead ? (
