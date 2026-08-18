@@ -54,7 +54,7 @@ export function NewsletterForm({ newsletter, className }: NewsletterFormProps) {
           type="email"
           required
           placeholder={newsletter.placeholder}
-          className="ui-control h-10 min-w-40 grow-[999] basis-0 text-small text-fg placeholder:text-fg-muted/60 hover:border-fg focus:border-fg focus:outline-none"
+          className="ui-control h-10 min-w-40 grow-[999] basis-0 text-small text-fg placeholder:text-fg-muted hover:border-fg focus:border-fg focus:outline-none"
         />
         <Button type="submit" variant="primary" size="sm" className="grow">
           {newsletter.submitLabel}
