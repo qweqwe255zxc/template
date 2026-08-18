@@ -135,7 +135,9 @@ export function Select({
           "ui-control flex w-full items-center justify-between gap-3",
           "text-body text-left hover:border-fg focus:border-fg",
           "focus:outline-none focus-visible:outline-none",
-          value ? "text-fg" : "text-fg-muted/60",
+          // Без альфы: «muted + /60» не проходит по контрасту в тёмной
+          // теме (3.21 при норме 4.5). См. Input.tsx.
+          value ? "text-fg" : "text-fg-muted",
         )}
       >
         <span className="truncate">{selected?.label ?? placeholder}</span>

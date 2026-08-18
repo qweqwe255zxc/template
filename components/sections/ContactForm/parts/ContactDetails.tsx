@@ -9,6 +9,8 @@ import {
   Phone,
   Send,
 } from "lucide-react";
+import { SeamGrid, SEAM_CELL_SM } from "@/components/ui/SeamGrid";
+import { cn } from "@/lib/cn";
 import { yandexMapsHref } from "./yandexMapsHref";
 import type { ContactsConfig } from "@/types/site";
 
@@ -26,8 +28,13 @@ interface ContactDetailsProps {
    * Иконка-пиктограмма у каждого реквизита — ровно тот декор, вместо
    * которого в этом семействе работает типографика, а линейка там
    * зарезервирована под колонтитул раздела.
+   * atelier — семейство разграфлённого бланка: те же реквизиты клетками
+   * решётки на волосяных швах (components/ui/SeamGrid), подпись капителью
+   * с разрядкой 0.2em, значение обычным набором. Тоже без иконок, но по
+   * другой причине, чем в editorial: там их место занимает типографика,
+   * здесь — сама клетка.
    */
-  layout?: "list" | "inline" | "editorial";
+  layout?: "list" | "inline" | "editorial" | "atelier";
   /** Классы колонки реквизитов. */
   className?: string;
 }
@@ -111,7 +118,38 @@ export function ContactDetails({
         </h3>
       ) : null}
 
-      {layout === "editorial" ? (
+      {layout === "atelier" ? (
+        // Решётка в ОДНУ колонку, а не в две, как editorial. Колонка
+        // реквизитов тут 5/12, то есть на 1024px около 390px: две клетки
+        // по 195px рвут адрес на четыре строки. Одна колонка заодно
+        // снимает вопрос неполного последнего ряда — при любом числе
+        // реквизитов ряд полный, и дыры цвета линии в бланке не будет
+        // (см. seamTailSpan в components/ui/SeamGrid.tsx).
+        <SeamGrid as="dl" className={detailsTitle ? "mt-7" : undefined}>
+          {details.map(({ label, value, href }) => (
+            <div key={label} className={cn(SEAM_CELL_SM, "min-w-0")}>
+              <dt className="text-caption font-medium uppercase tracking-[0.2em] text-fg-muted">
+                {label}
+              </dt>
+              <dd className="tabular mt-2.5 break-words text-body">
+                {href ? (
+                  <a
+                    href={href}
+                    className="transition-colors hover:text-accent"
+                    {...(href.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
+                    {value}
+                  </a>
+                ) : (
+                  value
+                )}
+              </dd>
+            </div>
+          ))}
+        </SeamGrid>
+      ) : layout === "editorial" ? (
         // Тот же контейнерный запрос, что и в inline, и по той же
         // причине: колонка реквизитов бывает и 5/12, и во всю ширину, а
         // считать надо по ней, а не по окну. Одна колонка на узком

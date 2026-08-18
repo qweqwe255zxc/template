@@ -33,9 +33,10 @@ interface InputProps {
  * Цвет линии — --color-rule-strong (контраст 3.4:1), обычный hairline
  * тут недостаточно контрастен для границы интерактивного поля (WCAG 1.4.11).
  */
+/* Плейсхолдер — `text-fg-muted` без альфы. Пара «muted + /60» давала 3.21 контраста в тёмной теме при норме 4.5, то есть подсказка в поле читалась хуже, чем должна. Приглушённого тона достаточно, чтобы отличить подсказку от введённого значения (`text-fg`), — гасить его ещё и прозрачностью незачем. */
 const control =
   "ui-control w-full text-body text-fg " +
-  "placeholder:text-fg-muted/60 hover:border-fg focus:border-fg " +
+  "placeholder:text-fg-muted hover:border-fg focus:border-fg " +
   "focus:outline-none focus-visible:outline-none appearance-none";
 
 /**

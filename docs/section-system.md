@@ -130,13 +130,13 @@ item в ряду → одна карточка `col-span-2`, два слота �
 
 | Секция | Читают | Не читают (не карточные/линейные раскладки) |
 |---|---|---|
-| Stats | `badge`, `plain`, `bento` | `band`, `grid`, `rows`, `photo` |
-| Features | `cards`, `bento` | `table`, `editorial` |
-| Steps | `cards`, `cascade`, `numbered-cards` | `rail`, `stack`, `timeline-vertical`, `timeline-horizontal`, `split` |
+| Stats | `badge`, `plain`, `bento` | `band`, `grid`, `rows`, `photo`, `atelier` |
+| Features | `cards`, `bento` | `table`, `editorial`, `atelier` |
+| Steps | `cards`, `cascade`, `numbered-cards` | `rail`, `stack`, `timeline-vertical`, `timeline-horizontal`, `split`, `atelier` |
 | Gallery | `grid`, `cards-icon`, `photo-grid`, `photo-bento` | `table`, `editorial` |
-| Testimonials | `cards`, `bento`, `rated-cards` | `quotes`, `spotlight` |
+| Testimonials | `cards`, `bento`, `rated-cards` | `quotes`, `spotlight`, `atelier` |
 | Team | `cards`, `bento` | `columns`, `rows`, `photo-cards`, `badge-avatars`, `tags-cards` (последние три растягивают каждый неполный ряд через `lib/bentoSpan.ts`, не только последний, — `fillLastRow` их не выключает) |
-| Pricing | `cards`, `ribbon`, `split`, `dark`, `playful`, `quote`, `glass`, `banner`, `matrix` | `table`, `editorial` |
+| Pricing | `cards`, `ribbon`, `split`, `dark`, `playful`, `quote`, `glass`, `banner`, `matrix` | `table`, `editorial`, `atelier` |
 
 Не читают варианты, где границы/разделители завязаны на позицию
 элемента в сетке (`border-l`/`border-t` по `index % cols`, как у
@@ -151,7 +151,7 @@ item в ряду → одна карточка `col-span-2`, два слота �
 
 ### Hero — `components/sections/Hero/`, тип `"hero"`
 
-Девять вариантов (считая `sticky-split`, `editorial` и `product`). Роутер разрешает `type-only` ↔ `split` через
+Десять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). Роутер разрешает `type-only` ↔ `split` через
 `resolveHeroLayout` (`widget` сам включает `split`; `split` без
 `image`/`widget` откатывается на `type-only`) — для остальных четырёх
 `resolved === props.variant`. Несовместимые комбинации полей дают
@@ -201,7 +201,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Stats — `Stats/`, тип `"stats"`
 
-Десять вариантов (считая `sticky-split`, `editorial` и `product`). `band`/`grid` — плоские, без заголовка секции (только
+Одиннадцать вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `band`/`grid` — плоские, без заголовка секции (только
 `number`, не `eyebrow`/`title`/`lead`). Остальные пять — карточные,
 читают заголовок через `parts/StatsHeader.tsx`.
 
@@ -233,7 +233,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Features — `Features/`, тип `"features"`
 
-Восемь вариантов (считая `sticky-split`, `editorial` и `product`). `table`/`cards`/`alternating`/`compact` — заголовок
+Девять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `table`/`cards`/`alternating`/`compact` — заголовок
 через `SectionHeader`. `bento` центрирует его через
 `parts/FeaturesHeader.tsx`. `sticky-split` собирает шапку сам: она уезжает
 в левую колонку и на `lg+` залипает при прокрутке.
@@ -275,7 +275,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Steps — `Steps/`, тип `"steps"`
 
-Одиннадцать вариантов (считая `sticky-split`, `editorial` и `product`). `rail`/`stack`/`timeline-vertical` — заголовок через
+Двенадцать вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `rail`/`stack`/`timeline-vertical` — заголовок через
 `SectionHeader`. Пять новых — через свой `parts/StepsHeader.tsx`.
 
 | Поле | Обязательное | По умолчанию | Примечание |
@@ -303,7 +303,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Gallery — `Gallery/`, тип `"gallery"` (кейсы)
 
-Восемь вариантов (считая `sticky-split`, `editorial` и `product`). `table`/`grid` — `surface="ink"` по умолчанию
+Девять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `table`/`grid` — `surface="ink"` по умолчанию
 (единственный тёмный блок), заголовок через `SectionHeader`. Три новых
 карточных — через `parts/GalleryHeader.tsx` (эйброу + опц. кнопка
 `action` справа), по умолчанию `surface="surface"`.
@@ -332,7 +332,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Testimonials — `Testimonials/`, тип `"testimonials"`
 
-Восемь вариантов (считая `sticky-split`, `editorial` и `product`). `quotes`/`cards` — заголовок через `SectionHeader`.
+Девять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `quotes`/`cards` — заголовок через `SectionHeader`.
 `bento`/`rated-cards`/`spotlight` — через `parts/TestimonialsHeader.tsx`.
 
 | Поле | Обязательное | По умолчанию | Примечание |
@@ -359,7 +359,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Team — `Team/`, тип `"team"`
 
-Десять вариантов (считая `sticky-split`, `editorial` и `product`). `columns`/`rows`/`cards` — заголовок через
+Одиннадцать вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `columns`/`rows`/`cards` — заголовок через
 `SectionHeader`. `photo-cards`/`badge-avatars`/`tags-cards` — через
 `parts/TeamHeader.tsx`. `bento` строит свою шапку в 2 колонки (как
 `About`).
@@ -391,7 +391,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### About — `About/`, тип `"about"`
 
-Восемь вариантов (считая `sticky-split`, `editorial` и `product`). `photo` — исходный, через `parts/AboutLayout.tsx`, `photo`
+Девять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `photo` — исходный, через `parts/AboutLayout.tsx`, `photo`
 там обязателен; сторону задаёт `photoPosition` ("right" по умолчанию,
 "left" — зеркально через `md:order-*`, а не отдельный variant — раньше это
 были `photo-right`/`photo-left`, различавшиеся только этим флагом).
@@ -445,7 +445,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### FAQ — `FAQ/`, тип `"faq"`
 
-Семь вариантов (считая `sticky-split`, `editorial` и `product`). `narrow`/`wide` делят общий `parts/FaqBody.tsx` (шапка +
+Восемь вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `narrow`/`wide` делят общий `parts/FaqBody.tsx` (шапка +
 аккордеон, отличаются только шириной контейнера). `split-sidebar` и
 `categorized` — самостоятельные раскладки.
 
@@ -470,7 +470,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Pricing — `Pricing/`, тип `"pricing"`
 
-Тринадцать вариантов (считая `sticky-split`, `editorial` и `product`). `table`/`cards` — исходные, через `parts/PlanContent.tsx`
+Четырнадцать вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `table`/`cards` — исходные, через `parts/PlanContent.tsx`
 (общее содержимое тарифа для всех вариантов). Восемь новых читают
 центрированный заголовок через `parts/PricingHeader.tsx` (как
 `TestimonialsHeader`).
@@ -513,7 +513,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### CTA — `CTA/`, тип `"cta"`
 
-Девять вариантов (считая `sticky-split`, `editorial` и `product`). `band`/`quiet` не читают `eyebrow` (заголовок
+Десять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `band`/`quiet` не читают `eyebrow` (заголовок
 слева/кнопки справа, `parts/CtaBody.tsx`), отличаются только
 вертикальным ритмом. Четыре новых читают `eyebrow` через
 `parts/CtaEyebrow.tsx` (пилюля или подпись с точкой).
@@ -545,7 +545,9 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 honeypot, `fetch("/api/contact")`). `split`/`stacked` — реквизиты через
 `parts/ContactDetails.tsx` (линейки), `editorial` — через него же, но
 раскладкой `layout="editorial"` (подпись капителью, значение крупным
-`font-display`, без пиктограмм). `boxed` — те же данные через
+`font-display`, без пиктограмм), `atelier` — тоже через него, раскладкой
+`layout="atelier"` (реквизиты клетками решётки на волосяных швах).
+`boxed` — те же данные через
 `parts/ContactDetailCards.tsx` (карточка на строку). `panels` не
 использует `Container` (полноширинная афиша) и не читает `number`.
 
@@ -584,8 +586,8 @@ honeypot, `fetch("/api/contact")`). `split`/`stacked` — реквизиты ч�
 
 | Папка | Кто рендерит | Пропсы | Варианты |
 |---|---|---|---|
-| `Header/` | `app/page.tsx` | `brandName`, `brandMark`, `nav`, `actions`, `showThemeToggle`, `variant?`, `transparentBeforeScroll?` | `default`, `bold`, `classic`, `compact`, `monogram`, `centered`, `glass`, `split`, `editorial`, `product` |
-| `Footer/` | `app/page.tsx` | `brand`, `contacts`, `footer`, `nav` | `default`, `bold`, `classic`, `compact`, `monogram`, `centered`, `split`, `editorial`, `product` (9 — без отдельного `glass`, см. ниже) |
+| `Header/` | `app/page.tsx` | `brandName`, `brandMark`, `nav`, `actions`, `showThemeToggle`, `variant?`, `transparentBeforeScroll?` | `default`, `bold`, `classic`, `compact`, `monogram`, `centered`, `glass`, `split`, `editorial`, `product`, `atelier` |
+| `Footer/` | `app/page.tsx` | `brand`, `contacts`, `footer`, `nav` | `default`, `bold`, `classic`, `compact`, `monogram`, `centered`, `split`, `editorial`, `product`, `atelier` (10 — без отдельного `glass`, см. ниже) |
 | `NotFound/` | `app/not-found.tsx` | `brand`, `contacts` | `Default` |
 | `Privacy/` | `app/privacy/page.tsx` | `brand`, `contacts`, `siteUrl` | `Default` |
 
@@ -1244,3 +1246,86 @@ Sans + Inter + JetBrains Mono) НЕ переносились: токены пр�
 `[data-preset]` в `theme/tokens.css` не тронуты, чтобы решение о том,
 какому тарифу отдать семейство, можно было принять (и откатить)
 позже.
+
+## Семейство `atelier`
+
+Четвёртое сквозное семейство после `sticky-split`, `editorial` и
+`product`: вариант `atelier` есть у всех двенадцати секций конфига и у
+`Header`/`Footer`. Перенесено с лендинга клиники TouchUp (Claude
+Design).
+
+Приём держится на двух графических элементах, и оба повторяются в
+каждом разделе:
+
+1. **Короткий акцентный штрих под заголовком** — `components/ui/AtelierHeader.tsx`.
+   Не путать с линейкой `editorial`: та идёт СВЕРХУ и во всю ширину
+   колонки (граница раздела), эта — СНИЗУ и короткая (подпись под
+   заголовком). На странице, собранной одним приёмом, обе роли заняты,
+   и перепутать их нельзя. Штрих красится `bg-accent-border`, а не
+   `bg-accent`: этот токен остаётся видимым на всех четырёх
+   поверхностях, включая акцентную заливку CTA, где акцент по акценту
+   не виден вовсе.
+2. **Решётка на волосяных швах** — `components/ui/SeamGrid.tsx`. Сетка
+   красится цветом линии и раздвигает клетки на пиксель (`gap-px`),
+   клетка закрашивается фоном поверхности (`SEAM_CELL`). Линию рисует
+   не граница ячейки, а просвет между ячейками, поэтому шов всегда
+   ровно один пиксель и не требует условных `border-l-0` по индексу
+   (ср. `Stats/editorial`, где половина файла — именно этот расчёт).
+
+Шапка ещё двумя вещами отличается от трёх остальных `*Header`-обёрток:
+колонтитул ПРИГЛУШЁННЫЙ (акцент уже израсходован на штрих) и набран
+разрядкой 0.22em — самой широкой в шаблоне; выключка по умолчанию
+ЦЕНТРАЛЬНАЯ, `align="start"` включается вручную (зеркало
+`ProductHeader`). Свою шапку в вариант не копировать.
+
+Стенд семейства целиком — `/qa-audit/atelier`.
+
+### Неполный последний ряд
+
+У решётки и плитки своя механика хвоста, отдельная от
+`lib/gridFill.ts`. Причина: в сетке с зазором пустой слот — это воздух,
+его не видно; в ЗАМКНУТОЙ решётке на его месте остаётся прямоугольник
+цвета линии внутри рамки, а в плитке встык — дыра цвета секции внутри
+сплошного полотна.
+
+| Функция | Где | Что делает |
+|---|---|---|
+| `seamColumns(count, max)` | `SeamGrid.tsx` | подбирает число колонок, на которое клетки делятся нацело (четыре отзыва → 2×2, а не «две обычные и одна втрое шире»); опускается не ниже чем на колонку от максимума |
+| `seamTailSpan(i, count, cols, prefix)` | `SeamGrid.tsx` | растягивает ПОСЛЕДНЮЮ клетку на весь остаток ряда — одной клеткой, а не по +1 на несколько, как `fillLastRowClasses` |
+| `tileTail(...)` | `Features/variants/Atelier.tsx` | то же для плитки, но вместе со span'ом меняет и пропорцию (`aspect-square` → `2/1`/`3/1`), иначе растянутая вдвое плитка удваивает и высоту |
+
+Поэтому `fillLastRow` варианты семейства не читают: у них своя,
+всегда-закрывающая механика.
+
+### Что вариант каждой секции читает и чего не читает
+
+| Секция | Особенность | Не читает |
+|---|---|---|
+| Hero | текст в левой половине, фото встык к правому краю ОКНА на всю высоту экрана; штрих между заголовком и лидом | `widget`; `image` НЕ обязателен — без него одна колонка в контейнере |
+| Stats | решётка, крупное число, подпись капителью под ним; `highlight: "accent"` красит одну цифру акцентом | `icon`, `containerVariant`, `image`, `fillLastRow`, `highlight: "tint"` |
+| Features | плитка квадратов ВСТЫК во всю ширину окна: с `photo` — кадр с подписью на тёмной плашке, без — сплошная заливка `accent`/`ink` через одну | `icon`, `iconShape`, `points`, `fillLastRow` |
+| Steps | та же решётка, крупный приглушённый номер, `meta` на `mt-auto` | `icon`, `iconShape`, `photo`, `featured`, `fillLastRow` |
+| Gallery | портретные кадры 3:4 без карточек, строка «категория · год» НАД заголовком | `align: "center"` |
+| Testimonials | цитаты клетками решётки, подпись с аватаром на `mt-auto` | `rating`, `result`, `featured`, `fillLastRow` |
+| Team | портреты 3:4 без карточек в четыре колонки, роль капителью; `banner` по умолчанию тоном `quote` | `social`, `tags`, `link`, `image`, `fillLastRow` |
+| About | ось 1/1, фото 4:5, решётка `highlights` под текстом; `photo` НЕ обязателен | `panel`, `aside`, `photoCaption`, `badge`, `decorative`, `frame`, `highlight.icon` |
+| FAQ | центрированная шапка, аккордеон в узкой колонке (760px) | — (не залипает: это знак `sticky-split`) |
+| Pricing | ПЕРЕВЁРНУТАЯ иерархия — название тарифа мелкой капителью, цена крупной ступенью первой строкой; выделенный тариф сплошной акцентной заливкой клетки | `photo` (роутер форсирует `cards`), маркеры чек-листа |
+| CTA | акцентная полоса пополам: заголовок со штрихом слева, кнопки колонкой справа | `eyebrow` |
+| Contact | реквизиты клетками решётки слева 5/12, форма справа 7/12 | — (`layout` по умолчанию `"plain"`, но читается) |
+
+### Ограничения, которые нужно знать до сборки
+
+- **Features/atelier без единого `photo`** вырождается в шахматку
+  сплошных заливок. Читается, но проекту с шестью услугами без кадров
+  лучше взять `cards`.
+- **Тёмного блока у семейства своего нет** — роль «тёмного» играет
+  заливка плитки (`ink` через одну) и акцентная полоса CTA. Ритм
+  поверхностей (§3 CLAUDE.md) всё так же обязателен: четыре
+  разграфлённых блока подряд на одной поверхности сливаются в
+  клетчатую простыню.
+- **Решётку и линейки `editorial` не смешивать** в одной секции: они
+  конкурируют за одну роль — «чем отбит блок».
+- **Приём обязывает** так же, как `sticky-split` и `editorial`: либо
+  весь сайт, либо ни одной секции. Одинокий штрих среди карточных
+  разделов читается как случайная чёрточка.

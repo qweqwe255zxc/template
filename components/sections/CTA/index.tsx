@@ -1,3 +1,4 @@
+import { Atelier } from "./variants/Atelier";
 import { Band } from "./variants/Band";
 import { Boxed } from "./variants/Boxed";
 import { Centered } from "./variants/Centered";
@@ -26,7 +27,7 @@ import type { CtaSection, TitleStyle } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
-   `editorial` и `product`: band, quiet, centered, left, boxed, panel, sticky-split.
+   `editorial`, `product` и `atelier`: band, quiet, centered, left, boxed, panel, sticky-split.
 
    EDITORIAL — новое семейство: печатная сетка, линейки, нумерованные
    колонтитулы, крупный заголовок в верхнем регистре. Общая шапка
@@ -40,11 +41,16 @@ import type { CtaSection, TitleStyle } from "@/types/site";
    измеримый показатель, числа tabular. Общая шапка семейства —
    components/ui/ProductHeader.tsx. Тоже закрыто целиком.
 
+   ATELIER — разграфлённый бланк: решётка на волосяных швах
+   (components/ui/SeamGrid.tsx), короткий акцентный штрих под заголовком
+   раздела, плитка квадратов встык. Общая шапка семейства —
+   components/ui/AtelierHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
    вернуть как было, достаточно снять этот комментарий, строки
-   `editorial`/`product` из карты ниже и значения из union в
+   `editorial`/`product`/`atelier` из карты ниже и значения из union в
    types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<CtaSection, NonNullable<CtaSection["variant"]>> = {
@@ -60,6 +66,8 @@ const variants: VariantMap<CtaSection, NonNullable<CtaSection["variant"]>> = {
   editorial: Editorial,
   // Семейство product
   product: Product,
+  // Семейство atelier
+  atelier: Atelier,
 };
 
 /**

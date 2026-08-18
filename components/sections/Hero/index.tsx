@@ -1,4 +1,5 @@
 import { resolveHeroLayout } from "./parts/resolveHeroLayout";
+import { Atelier } from "./variants/Atelier";
 import { Centered } from "./variants/Centered";
 import { Editorial } from "./variants/Editorial";
 import { Product } from "./variants/Product";
@@ -29,7 +30,7 @@ import type { HeroSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
-   `editorial` и `product`: type-only, split, centered, showcase, poster, service,
+   `editorial`, `product` и `atelier`: type-only, split, centered, showcase, poster, service,
    sticky-split.
 
    EDITORIAL — новое семейство: печатная сетка, волосяные линейки,
@@ -44,11 +45,16 @@ import type { HeroSection } from "@/types/site";
    измеримый показатель, числа tabular. Общая шапка семейства —
    components/ui/ProductHeader.tsx. Тоже закрыто целиком.
 
+   ATELIER — разграфлённый бланк: решётка на волосяных швах
+   (components/ui/SeamGrid.tsx), короткий акцентный штрих под заголовком
+   раздела, плитка квадратов встык. Общая шапка семейства —
+   components/ui/AtelierHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
    вернуть как было, достаточно снять этот комментарий, строки
-   `editorial`/`product` из карты ниже и значения из union в
+   `editorial`/`product`/`atelier` из карты ниже и значения из union в
    types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
@@ -64,6 +70,8 @@ const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
   editorial: Editorial,
   // Семейство product
   product: Product,
+  // Семейство atelier
+  atelier: Atelier,
 };
 
 /** Варианты без второй колонки: image и widget им положить некуда. */
@@ -86,15 +94,18 @@ const NO_RAIL: NonNullable<HeroSection["variant"]>[] = [
 /**
  * Варианты, которые умеют показать только фото, но не виджет метрик.
  *
- * editorial входит сюда, но, в отличие от poster/service, image ему НЕ
- * обязателен (в PHOTO_FALLBACK его нет): фотография там — полоса-горизонт
- * под первым экраном, без неё раскладка остаётся законченной голой
- * типографикой. А вот виджет положить некуда — второй колонки нет вовсе.
+ * editorial и atelier входят сюда, но, в отличие от poster/service, image
+ * им НЕ обязателен (в PHOTO_FALLBACK их нет): у editorial фотография —
+ * полоса-горизонт под первым экраном, у atelier — правая половина, и обе
+ * раскладки без неё остаются законченными (atelier сам сворачивается в
+ * одну колонку внутри контейнера). А вот виджет положить некуда — второй
+ * колонки под него нет ни там, ни там.
  */
 const IMAGE_ONLY: NonNullable<HeroSection["variant"]>[] = [
   "poster",
   "service",
   "editorial",
+  "atelier",
 ];
 
 /**

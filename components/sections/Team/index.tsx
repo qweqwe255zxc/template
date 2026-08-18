@@ -1,3 +1,4 @@
+import { Atelier } from "./variants/Atelier";
 import { BadgeAvatars } from "./variants/BadgeAvatars";
 import { Bento } from "./variants/Bento";
 import { Cards } from "./variants/Cards";
@@ -20,7 +21,7 @@ import type { TeamSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
-   семейств `editorial` и `product`: columns, rows, cards, photo-cards, badge-avatars, tags-cards, bento,
+   семейств `editorial`, `product` и `atelier`: columns, rows, cards, photo-cards, badge-avatars, tags-cards, bento,
    sticky-split.
 
    EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
@@ -35,11 +36,16 @@ import type { TeamSection } from "@/types/site";
    измеримый показатель, числа tabular. Общая шапка семейства —
    components/ui/ProductHeader.tsx. Тоже закрыто целиком.
 
+   ATELIER — разграфлённый бланк: решётка на волосяных швах
+   (components/ui/SeamGrid.tsx), короткий акцентный штрих под заголовком
+   раздела, плитка квадратов встык. Общая шапка семейства —
+   components/ui/AtelierHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
    вернуть как было, достаточно снять этот комментарий, строки
-   `editorial`/`product` из карты ниже и значения из union в
+   `editorial`/`product`/`atelier` из карты ниже и значения из union в
    types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<TeamSection, NonNullable<TeamSection["variant"]>> = {
@@ -56,6 +62,8 @@ const variants: VariantMap<TeamSection, NonNullable<TeamSection["variant"]>> = {
   editorial: Editorial,
   // Семейство product
   product: Product,
+  // Семейство atelier
+  atelier: Atelier,
 };
 
 export function Team(props: TeamSection) {

@@ -16,6 +16,7 @@ const variants: NonNullable<GallerySection["variant"]>[] = [
   "sticky-split",
   "editorial",
   "product",
+  "atelier",
 ];
 
 export default function QaGalleryPage() {

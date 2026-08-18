@@ -16,6 +16,7 @@ const variants: FooterVariant[] = [
   "split",
   "editorial",
   "product",
+  "atelier",
 ];
 
 export default function QaFooterPage() {
