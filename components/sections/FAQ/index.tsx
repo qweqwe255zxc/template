@@ -1,3 +1,4 @@
+import { Atelier } from "./variants/Atelier";
 import { Categorized } from "./variants/Categorized";
 import { Editorial } from "./variants/Editorial";
 import { Product } from "./variants/Product";
@@ -17,7 +18,7 @@ import type { FaqSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО
-   семейств `editorial` и `product`: narrow, wide, split-sidebar, categorized, sticky-split.
+   семейств `editorial`, `product` и `atelier`: narrow, wide, split-sidebar, categorized, sticky-split.
 
    EDITORIAL — печатная сетка: линейки, нумерованные колонтитулы,
    крупный заголовок в верхнем регистре. Общая шапка семейства —
@@ -31,11 +32,16 @@ import type { FaqSection } from "@/types/site";
    измеримый показатель, числа tabular. Общая шапка семейства —
    components/ui/ProductHeader.tsx. Тоже закрыто целиком.
 
+   ATELIER — разграфлённый бланк: решётка на волосяных швах
+   (components/ui/SeamGrid.tsx), короткий акцентный штрих под заголовком
+   раздела, плитка квадратов встык. Общая шапка семейства —
+   components/ui/AtelierHeader.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
    вернуть как было, достаточно снять этот комментарий, строки
-   `editorial`/`product` из карты ниже и значения из union в
+   `editorial`/`product`/`atelier` из карты ниже и значения из union в
    types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<FaqSection, NonNullable<FaqSection["variant"]>> = {
@@ -49,6 +55,8 @@ const variants: VariantMap<FaqSection, NonNullable<FaqSection["variant"]>> = {
   editorial: Editorial,
   // Семейство product
   product: Product,
+  // Семейство atelier
+  atelier: Atelier,
 };
 
 export function FAQ(props: FaqSection) {

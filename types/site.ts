@@ -239,7 +239,15 @@ export interface HeroSection extends SectionBase {
      * 6/6. `widget` ОБЯЗАТЕЛЕН (без него роутер откатывается на
      * "centered"), `image` не читается.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: текст в левой половине (колонтитул капителью,
+     * заголовок, ШТРИХ, лид, кнопки), фотография в правой встык к краю
+     * ОКНА и на всю высоту первого экрана. `widget` не читается —
+     * вторая колонка занята фото; `image` не обязателен, без него
+     * раскладка вырождается в одноколоночную внутри контейнера.
+     */
+    | "atelier";
   /**
    * Плашка-анонс над заголовком («Версия 2.0», «Набор открыт»).
    * Читают showcase и poster — в остальных раскладках её место занимает
@@ -365,7 +373,14 @@ export interface StatsSection extends SectionBase {
      * крупное число под ней, пояснение (`text`) снизу, иконка в углу.
      * `highlight` не читает.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: разграфлённый бланк — решётка на волосяных
+     * швах, в клетке крупное число и подпись капителью под ним. Читает
+     * `highlight: "accent"` (единственная цифра акцентом), не читает
+     * icon, containerVariant, image и fillLastRow.
+     */
+    | "atelier";
   /**
    * Подложка под цифрами: flat — полоса во всю ширину с линейками
    * сверху/снизу (база), elevated — единый блок с тенью,
@@ -441,7 +456,14 @@ export interface FeaturesSection extends SectionBase {
      * Семейство product: карточки с плашкой иконки НАД заголовком
      * (в отличие от `cards`, где иконка в строке с ним).
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: плитка квадратов ВСТЫК во всю ширину окна.
+     * Элемент с `photo` — кадр с подписью на тёмной плашке снизу, без
+     * `photo` — сплошная заливка (accent/ink через одну). Не читает
+     * icon, iconShape, points и fillLastRow.
+     */
+    | "atelier";
   columns?: 2 | 3;
   /** Кнопка под сеткой карточек. Читает только cards. */
   action?: CtaLink;
@@ -515,7 +537,14 @@ export interface StepsSection extends SectionBase {
      * Семейство product: колонки на линейке в два пикселя, номер акцентом
      * над заголовком, срок (`meta`) прижат к низу. `icon` не читает.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: тот же бланк, что у цифр, — решётка на
+     * волосяных швах, по шагу в клетке: крупный номер, заголовок,
+     * описание, `meta` прижата к низу. Не читает icon, iconShape,
+     * photo, featured и fillLastRow.
+     */
+    | "atelier";
   /** Фото для variant="split" — эйброу/заголовок/лид ложатся поверх него. Без него вариант не рендерится. */
   image?: string;
   /**
@@ -589,7 +618,13 @@ export interface GallerySection extends SectionBase {
      * (surface по умолчанию "ink"), полоса метрик из `item.stats` на
      * линейке внизу карточки. `photo` не читает.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: портретные кадры 3:4 без карточек, строка
+     * «категория · год» капителью НАД заголовком. `action` — ссылка
+     * справа в шапке. `align: "center"` не читает.
+     */
+    | "atelier";
   items: CaseItem[];
   note?: string;
   /** Кнопка в шапке секции. Читают cards-icon, photo-grid, photo-bento. */
@@ -663,7 +698,13 @@ export interface TestimonialsSection extends SectionBase {
      * Семейство product: карточки, цитата сверху, автор с аватаром прижат
      * к низу. Не читает rating, result, featured.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: цитаты клетками решётки на волосяных швах,
+     * подпись с круглым аватаром прижата к низу клетки. Не читает
+     * rating, result, featured и fillLastRow.
+     */
+    | "atelier";
   items: TestimonialItem[];
   /** Строка «нам доверяют» под отзывами. Тот же тип, что у Hero. */
   trust?: HeroTrust;
@@ -743,7 +784,13 @@ export interface TeamSection extends SectionBase {
      * Семейство product: карточки с круглым аватаром 64px, роль акцентной
      * капителью, стаж прижат к низу. Не читает `tags` и `link`.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: портреты 3:4 без карточек в четыре колонки,
+     * роль капителью с разрядкой. Не читает social, tags, link, image и
+     * fillLastRow; `banner` по умолчанию рисуется тоном "quote".
+     */
+    | "atelier";
   items: TeamMember[];
   /** Фото для шапки variant="bento". Без него шапка остаётся текстовой. */
   image?: string;
@@ -828,7 +875,15 @@ export interface AboutSection extends SectionBase {
      * `panel.stats`; без них справа встаёт `photo`, без обоих раздел
      * одноколоночный. Из `panel` читает только `stats`.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: фотография 4:5 в одной половине, текст в
+     * другой, под текстом — решётка `highlights` на волосяных швах. Ось
+     * 1/1, `photoPosition` читается, `photo` не обязателен. Не читает
+     * panel, aside, photoCaption, badge, decorative, frame и
+     * highlight.icon.
+     */
+    | "atelier";
   /** Абзацы, один <p> на элемент массива. */
   text: string[];
   /** Не читает только type-only — там второй колонки нет вовсе. */
@@ -907,7 +962,14 @@ export interface FaqSection extends SectionBase {
      * Семейство product: шапка ProductHeader слева (5/12), аккордеон
      * справа (7/12). Не залипает.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: центрированная шапка со штрихом, аккордеон в
+     * узкой колонке (760px). Не залипает. `support` рендерится под
+     * аккордеоном. `item.icon` вариант не трогает — плашку у вопроса
+     * рисует общий Accordion, одинаково во всех раскладках FAQ.
+     */
+    | "atelier";
   items: FaqItem[];
   /** Карточка поддержки в сайдбаре. Читает только split-sidebar. */
   support?: FaqSupport;
@@ -1021,7 +1083,15 @@ export interface PricingSection extends SectionBase {
      * чек-листе, выделенный тариф акцентной рамкой. Переключателя периода
      * нет — у PricingPlan одна цена.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: колонки разграфлённого бланка с ПЕРЕВЁРНУТОЙ
+     * иерархией — название тарифа мелкой капителью, цена крупной
+     * ступенью первой строкой. Выделенный тариф — сплошная акцентная
+     * заливка клетки. Чек-лист без маркеров; `photo` не поддерживает
+     * (роутер форсирует cards).
+     */
+    | "atelier";
   items: PricingPlan[];
   note?: string;
   /** Короткая подпись доверия под сеткой. Читают split/playful. */
@@ -1097,7 +1167,13 @@ export interface CtaSection extends SectionBase {
      * Семейство product: тёмная панель со скруглением ВНУТРИ светлой
      * секции (surface по умолчанию "paper"), кнопки колонкой справа.
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: акцентная полоса пополам — заголовок со
+     * штрихом и лидом слева, кнопки колонкой во всю ширину справа.
+     * `surface` по умолчанию "accent", `eyebrow` не читается.
+     */
+    | "atelier";
   actions?: CtaLink[];
   note?: string;
 }
@@ -1155,7 +1231,13 @@ export interface ContactSection extends SectionBase {
      * справа (7/12) в приподнятой карточке — `layout` по умолчанию
      * "cardContainer".
      */
-    | "product";
+    | "product"
+    /**
+     * Семейство atelier: центрированная шапка со штрихом, реквизиты
+     * клетками решётки слева (5/12), форма справа (7/12), карта полосой
+     * под ними. `layout` по умолчанию "plain".
+     */
+    | "atelier";
   /**
    * plain — форма лежит прямо на поверхности секции (база),
    * cardContainer — форма упакована в Card variant="elevated".
@@ -1316,7 +1398,14 @@ export type HeaderVariant =
    * подчёркивания (активный пункт только цветом), кнопки справа.
    * `transparentBeforeScroll` читает как обычно.
    */
-  | "product";
+  | "product"
+  /**
+   * Семейство atelier: крупный тонкий вордмарк слева, навигация
+   * капителью с разрядкой по центру (три равные зоны, а не
+   * justify-between), кнопка справа. Активный пункт только цветом,
+   * без подчёркивания. `transparentBeforeScroll` читает как обычно.
+   */
+  | "atelier";
 
 export interface HeaderConfig {
   actions: CtaLink[];
@@ -1405,7 +1494,14 @@ export type FooterVariant =
    * Семейство product: единственный тёмный подвал в каталоге — одна
    * строка «знак + копирайт + ссылки», колонки и подписка ярусом выше.
    */
-  | "product";
+  | "product"
+  /**
+   * Семейство atelier: три колонки — знак с описанием, адрес и часы,
+   * способы связи. Единственный футер, который выводит реквизиты из
+   * `contacts`. Подписи колонок капителью с разрядкой, соцссылки
+   * иконками.
+   */
+  | "atelier";
 
 export interface FooterConfig {
   note: string;

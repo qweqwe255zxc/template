@@ -28,10 +28,11 @@ const pages = [
   "header",
   "footer",
   // Стенды семейств целиком, а не одной секции: вся страница одним
-  // приёмом. См. комментарии в app/qa-audit/editorial/page.tsx и
-  // app/qa-audit/product/page.tsx.
+  // приёмом. См. комментарии в app/qa-audit/editorial/page.tsx,
+  // app/qa-audit/product/page.tsx и app/qa-audit/atelier/page.tsx.
   "editorial",
   "product",
+  "atelier",
 ];
 
 export default function QaIndexPage() {

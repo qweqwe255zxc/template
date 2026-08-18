@@ -16,6 +16,7 @@ const variants: NonNullable<AboutSection["variant"]>[] = [
   "sticky-split",
   "editorial",
   "product",
+  "atelier",
 ];
 
 export default function QaAboutPage() {

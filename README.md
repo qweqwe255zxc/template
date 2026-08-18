@@ -44,7 +44,7 @@ app/               роуты: страница, /privacy, 404, robots, sitemap,
 components/ui/     примитивы: Button, Card, Container, Section, Accordion, Input, …
 components/sections/<Тип>/
   index.tsx        роутер вариантов + dev-warn при неверном конфиге
-  variants/        сами раскладки — 84 варианта в 12 типах секций
+  variants/        сами раскладки — 120 вариантов в 12 типах секций
   parts/           куски, общие для нескольких вариантов
 content/           site.config.ts — единственный файл, который правят под проект
 theme/             tokens.css (все цвета, размеры, тени) + palette.ts (их дубль для рантайма)
