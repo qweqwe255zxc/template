@@ -16,6 +16,7 @@ const variants: NonNullable<ContactSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaContactPage() {

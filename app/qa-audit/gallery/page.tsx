@@ -17,6 +17,7 @@ const variants: NonNullable<GallerySection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaGalleryPage() {

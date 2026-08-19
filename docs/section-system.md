@@ -11,9 +11,14 @@
 
 Базовые поля секции — `SectionBase` (`types/site.ts:9`): `id`
 (обязательное, anchor + key), `surface?`, `number?`, `eyebrow?`,
-`title?`, `lead?`, `nav?`, `iconShape?`, `headerAlign?`, `titleStyle?`. Не все
+`title?`, `lead?`, `nav?`, `iconShape?`, `headerAlign?`, `titleStyle?`,
+`ticker?`. Не все
 компоненты читают все эти поля — расхождения отмечены в таблицах ниже,
 это форма конкретной секции, а не баг.
+
+`ticker?` — строка бегущей строки у нижнего края секции. Читают ТОЛЬКО
+варианты семейства `market` (см. одноимённый раздел в конце файла): в
+чужой раскладке полоса читалась бы баннером из другого макета.
 
 `nav?` не читается компонентом секции вообще — его использует
 `lib/seo.ts:107` (`buildNav`), чтобы собрать меню хедера из секций, где
@@ -130,13 +135,13 @@ item в ряду → одна карточка `col-span-2`, два слота �
 
 | Секция | Читают | Не читают (не карточные/линейные раскладки) |
 |---|---|---|
-| Stats | `badge`, `plain`, `bento` | `band`, `grid`, `rows`, `photo`, `atelier` |
-| Features | `cards`, `bento` | `table`, `editorial`, `atelier` |
-| Steps | `cards`, `cascade`, `numbered-cards` | `rail`, `stack`, `timeline-vertical`, `timeline-horizontal`, `split`, `atelier` |
+| Stats | `badge`, `plain`, `bento` | `band`, `grid`, `rows`, `photo`, `atelier`, `market` |
+| Features | `cards`, `bento` | `table`, `editorial`, `atelier`, `market` |
+| Steps | `cards`, `cascade`, `numbered-cards` | `rail`, `stack`, `timeline-vertical`, `timeline-horizontal`, `split`, `atelier`, `market` |
 | Gallery | `grid`, `cards-icon`, `photo-grid`, `photo-bento` | `table`, `editorial` |
-| Testimonials | `cards`, `bento`, `rated-cards` | `quotes`, `spotlight`, `atelier` |
+| Testimonials | `cards`, `bento`, `rated-cards` | `quotes`, `spotlight`, `atelier`, `market` |
 | Team | `cards`, `bento` | `columns`, `rows`, `photo-cards`, `badge-avatars`, `tags-cards` (последние три растягивают каждый неполный ряд через `lib/bentoSpan.ts`, не только последний, — `fillLastRow` их не выключает) |
-| Pricing | `cards`, `ribbon`, `split`, `dark`, `playful`, `quote`, `glass`, `banner`, `matrix` | `table`, `editorial`, `atelier` |
+| Pricing | `cards`, `ribbon`, `split`, `dark`, `playful`, `quote`, `glass`, `banner`, `matrix` | `table`, `editorial`, `atelier`, `market` |
 
 Не читают варианты, где границы/разделители завязаны на позицию
 элемента в сетке (`border-l`/`border-t` по `index % cols`, как у
@@ -151,7 +156,7 @@ item в ряду → одна карточка `col-span-2`, два слота �
 
 ### Hero — `components/sections/Hero/`, тип `"hero"`
 
-Десять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). Роутер разрешает `type-only` ↔ `split` через
+Одиннадцать вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). Роутер разрешает `type-only` ↔ `split` через
 `resolveHeroLayout` (`widget` сам включает `split`; `split` без
 `image`/`widget` откатывается на `type-only`) — для остальных четырёх
 `resolved === props.variant`. Несовместимые комбинации полей дают
@@ -201,7 +206,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Stats — `Stats/`, тип `"stats"`
 
-Одиннадцать вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `band`/`grid` — плоские, без заголовка секции (только
+Двенадцать вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `band`/`grid` — плоские, без заголовка секции (только
 `number`, не `eyebrow`/`title`/`lead`). Остальные пять — карточные,
 читают заголовок через `parts/StatsHeader.tsx`.
 
@@ -233,7 +238,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Features — `Features/`, тип `"features"`
 
-Девять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `table`/`cards`/`alternating`/`compact` — заголовок
+Десять вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `table`/`cards`/`alternating`/`compact` — заголовок
 через `SectionHeader`. `bento` центрирует его через
 `parts/FeaturesHeader.tsx`. `sticky-split` собирает шапку сам: она уезжает
 в левую колонку и на `lg+` залипает при прокрутке.
@@ -275,7 +280,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Steps — `Steps/`, тип `"steps"`
 
-Двенадцать вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `rail`/`stack`/`timeline-vertical` — заголовок через
+Тринадцать вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `rail`/`stack`/`timeline-vertical` — заголовок через
 `SectionHeader`. Пять новых — через свой `parts/StepsHeader.tsx`.
 
 | Поле | Обязательное | По умолчанию | Примечание |
@@ -303,7 +308,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Gallery — `Gallery/`, тип `"gallery"` (кейсы)
 
-Девять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `table`/`grid` — `surface="ink"` по умолчанию
+Десять вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `table`/`grid` — `surface="ink"` по умолчанию
 (единственный тёмный блок), заголовок через `SectionHeader`. Три новых
 карточных — через `parts/GalleryHeader.tsx` (эйброу + опц. кнопка
 `action` справа), по умолчанию `surface="surface"`.
@@ -332,7 +337,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Testimonials — `Testimonials/`, тип `"testimonials"`
 
-Девять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `quotes`/`cards` — заголовок через `SectionHeader`.
+Десять вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `quotes`/`cards` — заголовок через `SectionHeader`.
 `bento`/`rated-cards`/`spotlight` — через `parts/TestimonialsHeader.tsx`.
 
 | Поле | Обязательное | По умолчанию | Примечание |
@@ -359,7 +364,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Team — `Team/`, тип `"team"`
 
-Одиннадцать вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `columns`/`rows`/`cards` — заголовок через
+Двенадцать вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `columns`/`rows`/`cards` — заголовок через
 `SectionHeader`. `photo-cards`/`badge-avatars`/`tags-cards` — через
 `parts/TeamHeader.tsx`. `bento` строит свою шапку в 2 колонки (как
 `About`).
@@ -391,7 +396,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### About — `About/`, тип `"about"`
 
-Девять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `photo` — исходный, через `parts/AboutLayout.tsx`, `photo`
+Десять вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `photo` — исходный, через `parts/AboutLayout.tsx`, `photo`
 там обязателен; сторону задаёт `photoPosition` ("right" по умолчанию,
 "left" — зеркально через `md:order-*`, а не отдельный variant — раньше это
 были `photo-right`/`photo-left`, различавшиеся только этим флагом).
@@ -445,7 +450,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### FAQ — `FAQ/`, тип `"faq"`
 
-Восемь вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `narrow`/`wide` делят общий `parts/FaqBody.tsx` (шапка +
+Девять вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `narrow`/`wide` делят общий `parts/FaqBody.tsx` (шапка +
 аккордеон, отличаются только шириной контейнера). `split-sidebar` и
 `categorized` — самостоятельные раскладки.
 
@@ -470,7 +475,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### Pricing — `Pricing/`, тип `"pricing"`
 
-Четырнадцать вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `table`/`cards` — исходные, через `parts/PlanContent.tsx`
+Пятнадцать вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `table`/`cards` — исходные, через `parts/PlanContent.tsx`
 (общее содержимое тарифа для всех вариантов). Восемь новых читают
 центрированный заголовок через `parts/PricingHeader.tsx` (как
 `TestimonialsHeader`).
@@ -513,7 +518,7 @@ CTA остаётся на `"lg"`. Раньше налог на хедер при
 
 ### CTA — `CTA/`, тип `"cta"`
 
-Десять вариантов (считая `sticky-split`, `editorial`, `product` и `atelier`). `band`/`quiet` не читают `eyebrow` (заголовок
+Одиннадцать вариантов (считая `sticky-split`, `editorial`, `product`, `atelier` и `market`). `band`/`quiet` не читают `eyebrow` (заголовок
 слева/кнопки справа, `parts/CtaBody.tsx`), отличаются только
 вертикальным ритмом. Четыре новых читают `eyebrow` через
 `parts/CtaEyebrow.tsx` (пилюля или подпись с точкой).
@@ -546,7 +551,9 @@ honeypot, `fetch("/api/contact")`). `split`/`stacked` — реквизиты ч�
 `parts/ContactDetails.tsx` (линейки), `editorial` — через него же, но
 раскладкой `layout="editorial"` (подпись капителью, значение крупным
 `font-display`, без пиктограмм), `atelier` — тоже через него, раскладкой
-`layout="atelier"` (реквизиты клетками решётки на волосяных швах).
+`layout="atelier"` (реквизиты клетками решётки на волосяных швах),
+`market` — раскладкой `layout="market"` (пары «подпись акцентным
+капслоком — значение» в две колонки, без иконок и линеек).
 `boxed` — те же данные через
 `parts/ContactDetailCards.tsx` (карточка на строку). `panels` не
 использует `Container` (полноширинная афиша) и не читает `number`.
@@ -586,8 +593,8 @@ honeypot, `fetch("/api/contact")`). `split`/`stacked` — реквизиты ч�
 
 | Папка | Кто рендерит | Пропсы | Варианты |
 |---|---|---|---|
-| `Header/` | `app/page.tsx` | `brandName`, `brandMark`, `nav`, `actions`, `showThemeToggle`, `variant?`, `transparentBeforeScroll?` | `default`, `bold`, `classic`, `compact`, `monogram`, `centered`, `glass`, `split`, `editorial`, `product`, `atelier` |
-| `Footer/` | `app/page.tsx` | `brand`, `contacts`, `footer`, `nav` | `default`, `bold`, `classic`, `compact`, `monogram`, `centered`, `split`, `editorial`, `product`, `atelier` (10 — без отдельного `glass`, см. ниже) |
+| `Header/` | `app/page.tsx` | `brandName`, `brandMark`, `nav`, `actions`, `showThemeToggle`, `variant?`, `transparentBeforeScroll?` | `default`, `bold`, `classic`, `compact`, `monogram`, `centered`, `glass`, `split`, `editorial`, `product`, `atelier`, `market` |
+| `Footer/` | `app/page.tsx` | `brand`, `contacts`, `footer`, `nav` | `default`, `bold`, `classic`, `compact`, `monogram`, `centered`, `split`, `editorial`, `product`, `atelier`, `market` (11 — без отдельного `glass`, см. ниже) |
 | `NotFound/` | `app/not-found.tsx` | `brand`, `contacts` | `Default` |
 | `Privacy/` | `app/privacy/page.tsx` | `brand`, `contacts`, `siteUrl` | `Default` |
 
@@ -1250,9 +1257,9 @@ Sans + Inter + JetBrains Mono) НЕ переносились: токены пр�
 ## Семейство `atelier`
 
 Четвёртое сквозное семейство после `sticky-split`, `editorial` и
-`product`: вариант `atelier` есть у всех двенадцати секций конфига и у
-`Header`/`Footer`. Перенесено с лендинга клиники TouchUp (Claude
-Design).
+`product` (пятое — `market`): вариант `atelier` есть у всех двенадцати
+секций конфига и у `Header`/`Footer`. Перенесено с лендинга клиники
+TouchUp (Claude Design).
 
 Приём держится на двух графических элементах, и оба повторяются в
 каждом разделе:
@@ -1329,3 +1336,91 @@ Design).
 - **Приём обязывает** так же, как `sticky-split` и `editorial`: либо
   весь сайт, либо ни одной секции. Одинокий штрих среди карточных
   разделов читается как случайная чёрточка.
+
+
+---
+
+## Семейство `market`
+
+Пятое сквозное семейство после `sticky-split`, `editorial`, `product` и
+`atelier`: вариант `market` есть у всех двенадцати секций конфига и у
+`Header`/`Footer`. Перенесено с лендинга доставки Noodle K (Claude
+Design).
+
+Приём держится на трёх элементах, и все три повторяются в каждом разделе:
+
+1. **Кричащий заголовок раздела** — `components/ui/MarketHeader.tsx`:
+   короткое слово КАПСЛОКОМ, акцентным цветом, по центру, под ним
+   двойной шеврон вниз (`ChevronsDown`). Единственная шапка шаблона, где
+   цвет достаётся самому заголовку. Шеврон рисуется только при
+   `align="center"`; при `align="start"` его нет — под прижатым к краю
+   заголовком указатель показывал бы мимо колонки.
+   Заголовок и шеврон красятся `text-accent`, но под
+   `[data-surface="accent"]` и `[data-surface="ink"]` уходят в
+   `text-fg`: на акцентной заливке акцент по акценту не виден, на
+   тёмном блоке проваливается по контрасту.
+2. **Бегущая строка** — `components/ui/Ticker.tsx` плюс обёртка
+   `SectionTicker` из того же файла. Полоса во всю ширину ОКНА
+   (рисуется вне `Container`), волосяные линейки `border-accent-border`
+   сверху и снизу, фраза капслоком, повторённая и едущая по кругу.
+   Включается полем `ticker` у секции (`SectionBase.ticker`), рисуется у
+   НИЖНЕГО края своей секции и садится встык к следующему разделу
+   (`SectionTicker` съедает нижний отступ секции отрицательным полем —
+   величина зависит от её `spacing`, отсюда одноимённый проп).
+
+   Устройство петли: две одинаковые половины, дорожка
+   `w-max`, анимация `translateX(0 → -50%)`, то есть ровно на одну
+   половину. Обе размерные ручки обязательны и обе выведены замером:
+   без `w-max` дорожка ужимается и `-50%` считается не от той ширины;
+   `min-w-[100vw]` (а не `min-w-full`) у половин — потому что процент от
+   ширины дорожки, которая сама зависит от половин, даёт браузеру
+   циклическую зависимость. Движение снимается при
+   `prefers-reduced-motion` (правило в `app/globals.css`).
+3. **Плоская карточка** — не общий `Card`, а лист `bg-card` со
+   скруглением и волосяной рамкой `border-rule`, без тени и подъёма,
+   одинаковый в обоих тарифах. Рамка обязательна: на секции
+   `surface="surface"` токен `--surface-card` совпадает с фоном секции
+   один в один, и без линии карточка исчезает (§1.5 CLAUDE.md).
+
+Стенд семейства целиком — `/qa-audit/market`.
+
+### Что читает и чего не читает
+
+| Секция | Раскладка | Не читает |
+|---|---|---|
+| Hero | заголовок капслоком акцентом слева (1.15fr), лид и кнопки справа (1fr) по нижнему краю, полоса фактов, бегущая строка | `widget`; `image` не обязателен — идёт полосой во всю ширину окна под фактами |
+| Stats | четыре колонки: акцентное `text-stat` и мелкая подпись | `icon`, `containerVariant`, `image`, `fillLastRow`, `highlight` |
+| Features | сетка плоских карточек, акцентная иконка голым глифом над заголовком | `photo` (роутер форсирует `cards`), `iconShape`, `fillLastRow` |
+| Steps | колонки без оси: акцентный номер, `meta`, заголовок, описание | `icon`, `iconShape`, `photo`, `featured`, `fillLastRow` |
+| Gallery | кадры 4:3, подпись из первой пары `item.stats` ВНУТРИ кадра | `align: "center"`; без `stats` кадр остаётся чистым |
+| Testimonials | плоские карточки: акцентная кавычка, цитата, автор внизу | `rating`, `photo`, `result`, `featured`, `fillLastRow` |
+| Team | портреты 3:4 без карточек, имя полужирным, роль обычной строкой | `social`, `tags`, `link`, `image`, `fillLastRow` |
+| About | фото 4:5 слева, справа шапка по левому краю, текст и мини-цифры из `panel.stats` | `aside`, `photoCaption`, `badge`, `decorative`, `frame`, `highlights`, `photoPosition`; `photo` не обязателен |
+| FAQ | центрированная шапка, аккордеон в узкой колонке (760px) | — (не залипает: это знак `sticky-split`) |
+| Pricing | плоские карточки, цена крупной первой строкой, выделенный тариф сплошной акцентной заливкой, чек-лист БЕЗ маркеров | `photo` (роутер форсирует `cards`) |
+| CTA | акцентная полоса: заголовок капслоком слева (1.2fr), лид и кнопки справа (auto) | `eyebrow` |
+| Contact | реквизиты слева 5/12 парами «подпись акцентным капслоком — значение», форма справа 7/12 | — (`layout` по умолчанию `"plain"`, но читается) |
+
+### Ограничения, которые нужно знать до сборки
+
+- **Три бегущие строки на страницу — предел.** Технически `ticker`
+  можно поставить всем двенадцати секциям, но тогда полоса перестаёт
+  быть отбивкой и становится фоном. В демо-конфиге их три: под первым
+  экраном, после «как работаем» и перед подвалом.
+- **Направления у поля `ticker` нет.** В исходнике соседние полосы
+  бегут в разные стороны, но секция не знает своего номера на странице.
+  Все полосы едут влево; `direction` остался пропом самого `Ticker`.
+- **Акцентная иконка — оговорённое исключение** из правила «иконки в
+  `fg-muted`» (`lib/icons.ts`). Действует только в этом семействе.
+- **Коричневая рама вокруг страницы из исходника не перенесена.** Это
+  оформление всего `<main>`, до которого вариант секции не дотягивается,
+  и вдобавок смена палитры — а её §5 шаг 0 CLAUDE.md запрещает без
+  референсов клиента.
+- **Ритм поверхностей (§3 CLAUDE.md) тут критичнее, чем где-либо.**
+  Акцент расходуется щедро — заголовки, цифры, иконки, навигация, — и
+  без чередования фонов страница к десятому разделу становится
+  равномерно цветной кашей, в которой акцент перестаёт что-либо
+  выделять.
+- **Приём обязывает** так же, как четыре предыдущих: либо весь сайт,
+  либо ни одной секции. Одинокая бегущая строка среди обычных разделов
+  читается как рекламный баннер из чужого макета.

@@ -17,6 +17,7 @@ const variants: NonNullable<TestimonialsSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaTestimonialsPage() {

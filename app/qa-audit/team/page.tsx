@@ -19,6 +19,7 @@ const variants: NonNullable<TeamSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaTeamPage() {

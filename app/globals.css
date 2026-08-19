@@ -480,6 +480,41 @@
     padding-inline: var(--accordion-px);
   }
 
+  /* ---- Бегущая строка (семейство market) ---------------------------- */
+  /* Дорожка из двух одинаковых половин едет на -50%, то есть ровно на
+     одну половину — стык не виден. Направление задаётся реверсом той же
+     анимации, а не второй парой кейфреймов: так у полос, бегущих в
+     разные стороны, гарантированно одинаковая скорость.
+
+     Длительность приходит инлайновой переменной из components/ui/
+     Ticker.tsx (это ЗНАЧЕНИЕ, а не размер раскладки, — §1.5 п. 3 про
+     другое). Фолбэк на случай, если полосу поставят руками без пропа. */
+  .ui-ticker-track {
+    animation: ui-ticker-scroll var(--ticker-duration, 26s) linear infinite;
+    will-change: transform;
+  }
+
+  .ui-ticker-track[data-direction="right"] {
+    animation-direction: reverse;
+  }
+
+  @keyframes ui-ticker-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Замершая полоса остаётся читаемой — это просто строка повторов,
+     терять при выключенном движении нечего. */
+  @media (prefers-reduced-motion: reduce) {
+    .ui-ticker-track {
+      animation: none;
+    }
+  }
+
   /* ---- Хедер -------------------------------------------------------- */
   /* До скролла хедер лежит поверх hero (position: fixed в variants/*.tsx)
      и обязан оставаться прозрачным — иначе прозрачность нечем показать.

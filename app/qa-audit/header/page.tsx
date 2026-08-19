@@ -18,6 +18,7 @@ const variants: HeaderVariant[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 /**

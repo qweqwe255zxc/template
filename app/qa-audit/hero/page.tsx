@@ -18,6 +18,7 @@ const variants: NonNullable<HeroSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaHeroPage() {

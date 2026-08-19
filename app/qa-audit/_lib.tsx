@@ -80,6 +80,7 @@ export const FAMILY_ORDER = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ] as const;
 
 export type SectionSlug = (typeof SECTION_ORDER)[number];
