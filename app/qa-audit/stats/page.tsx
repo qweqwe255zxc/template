@@ -19,6 +19,7 @@ const variants: NonNullable<StatsSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaStatsPage() {

@@ -1,4 +1,5 @@
 import { Atelier } from "./variants/Atelier";
+import { Market } from "./variants/Market";
 import { Alternating } from "./variants/Alternating";
 import { Bento } from "./variants/Bento";
 import { Cards } from "./variants/Cards";
@@ -35,7 +36,7 @@ import type { FeaturesSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
-   `editorial`, `product` и `atelier`: table, cards, bento, sticky-split, alternating, compact.
+   `editorial`, `product`, `atelier` и `market`: table, cards, bento, sticky-split, alternating, compact.
 
    EDITORIAL — новое семейство: печатная сетка, волосяные линейки,
    нумерованные колонтитулы, крупный заголовок в верхнем регистре. Общая
@@ -54,11 +55,17 @@ import type { FeaturesSection } from "@/types/site";
    раздела, плитка квадратов встык. Общая шапка семейства —
    components/ui/AtelierHeader.tsx. Тоже закрыто целиком.
 
+   MARKET — уличная вывеска: заголовок раздела капслоком и АКЦЕНТНЫМ
+   цветом с двойным шевроном под ним, плоские карточки без теней и
+   рамок, бегущая строка (`SectionBase.ticker`) отбивкой между
+   разделами. Общая шапка семейства — components/ui/MarketHeader.tsx,
+   полоса — components/ui/Ticker.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
    вернуть как было, достаточно снять этот комментарий, строки
-   `editorial`/`product`/`atelier` из карты ниже и значения из union в
+   `editorial`/`product`/`atelier`/`market` из карты ниже и значения из union в
    types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
@@ -78,6 +85,8 @@ const variants: VariantMap<
   product: Product,
   // Семейство atelier
   atelier: Atelier,
+  // Семейство market
+  market: Market,
 };
 
 /**
@@ -89,12 +98,18 @@ const variants: VariantMap<
  * editorial входит по той же причине, что и table: линию ряда там держит
  * border-top каждой ячейки, а не карточка, и картинка произвольной
  * высоты рвёт эту линию.
+ *
+ * market входит, хотя его карточка — тоже карточка: она плоская и
+ * построена вокруг иконки-глифа над заголовком, и фото произвольной
+ * высоты в ней некуда положить, не заведя карточке второй ярус, которого
+ * у приёма нет. Проекту с фотографиями в услугах подходит `cards`.
  */
 const GRID_ONLY: NonNullable<FeaturesSection["variant"]>[] = [
   "table",
   "sticky-split",
   "compact",
   "editorial",
+  "market",
 ];
 
 export function Features(props: FeaturesSection) {

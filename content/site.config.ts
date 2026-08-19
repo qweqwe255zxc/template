@@ -60,7 +60,7 @@ export const siteConfig: SiteConfig = {
         title: "Модуль — конструктор сайтов для агентств и фрилансеров",
         titleTemplate: "%s — Модуль",
         description:
-            "Демо-шаблон «Модуль»: 12 типов секций, 120 вариантов раскладок и два тарифа оформления — econom, standard. Меняете site.config.ts, а не компоненты.",
+            "Демо-шаблон «Модуль»: 12 типов секций, 132 варианта раскладок и два тарифа оформления — econom, standard. Меняете site.config.ts, а не компоненты.",
         keywords: [
             "конструктор сайтов",
             "шаблон лендинга",
@@ -107,7 +107,7 @@ export const siteConfig: SiteConfig = {
     header: {
         // variant: "default" | "bold" | "classic" | "compact" | "monogram" |
         //          "centered" | "glass" | "split" | "editorial" |
-        //          "product" | "atelier"
+        //          "product" | "atelier" | "market"
         variant: "split",
         actions: [
             { label: "Смотреть демо", href: "#hero", variant: "secondary" },
@@ -118,7 +118,7 @@ export const siteConfig: SiteConfig = {
     footer: {
         // variant: "default" | "bold" | "classic" | "compact" | "monogram" |
         //          "centered" | "split" | "editorial" |
-        //          "product" | "atelier"
+        //          "product" | "atelier" | "market"
         variant: "monogram",
         // monogramBackground: "gradient" | "surface" — только для variant: "monogram".
         monogramBackground: "gradient",
@@ -177,11 +177,14 @@ export const siteConfig: SiteConfig = {
     sections: [
         {
             id: "hero",
+            // Бегущая строка у нижнего края секции. Читают только
+            // варианты семейства "market" (CLAUDE.md §2.19).
+            ticker: "Готовим и привозим за 40 минут",
             type: "hero",
             surface: "paper",
             // variant: "type-only" | "split" | "centered" | "showcase" |
             //          "poster" | "service" | "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "service",
             // rail читают только type-only/split/centered — showcase его
             // игнорирует (номер/рельс уступают место badge). Оставлено
@@ -189,7 +192,7 @@ export const siteConfig: SiteConfig = {
             rail: "Конструктор сайтов · демо-сборка",
             headline: ["Это шаблон", "конструктора,", "а не готовый сайт"],
             lead: "Демо-сборка «Модуль»: та же вёрстка, те же токены, что получит ваш клиент. Переключайте variant у любой секции ниже — данные и раскладка уже на месте.",
-            badge: "Демо-сборка · 120 вариантов секций",
+            badge: "Демо-сборка · 132 варианта секций",
             // frame: "plain" | "browser" — оправа медиа-панели, без image не используется.
             frame: "browser",
             image: "/images/hero-product.jpg",
@@ -198,7 +201,7 @@ export const siteConfig: SiteConfig = {
                 { label: "Как собрать лендинг", href: "#process", variant: "secondary" },
             ],
             facts: [
-                { value: "120", label: "готовых вариантов секций" },
+                { value: "132", label: "готовых вариантов секций" },
                 { value: "2 тарифа", label: "econom / standard" },
                 { value: "12 типов", label: "секций — у каждой своя раскладка" },
             ],
@@ -220,7 +223,7 @@ export const siteConfig: SiteConfig = {
                 badge: "Сборка за 15 минут",
                 title: "Что уходит в прототип",
                 metrics: [
-                    { label: "Готовых вариантов секций", value: "120", progress: 100 },
+                    { label: "Готовых вариантов секций", value: "132", progress: 100 },
                     { label: "Типов секций", value: "12", progress: 75 },
                     { label: "Тарифа оформления", value: "2", progress: 40 },
                 ],
@@ -238,7 +241,7 @@ export const siteConfig: SiteConfig = {
             surface: "surface",
             // variant: "band" | "grid" | "badge" | "rows" | "bento" | "photo" |
             //          "plain" | "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "plain",
             // containerVariant: "flat" | "elevated" | "bordered" — читают
             // только band/grid, для photo не применяется.
@@ -249,7 +252,7 @@ export const siteConfig: SiteConfig = {
             image: "/images/stats-photo.jpg",
             items: [
                 { value: "60", suffix: "+", label: "студий и агентств", icon: "globe" },
-                { value: "120", label: "вариантов секций", icon: "check" },
+                { value: "132", label: "вариантов секций", icon: "check" },
                 { value: "15", suffix: "", label: "минут на сборку прототипа", icon: "clock" },
                 { value: "4.8", label: "средний рейтинг в отзывах ниже", icon: "star" },
             ],
@@ -261,7 +264,7 @@ export const siteConfig: SiteConfig = {
             surface: "paper",
             // variant: "table" | "cards" | "bento" | "alternating" | "compact" |
             //          "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "bento",
             number: "02",
             nav: "Возможности",
@@ -271,7 +274,7 @@ export const siteConfig: SiteConfig = {
             items: [
                 {
                     icon: "globe",
-                    title: "120 вариантов раскладки",
+                    title: "132 варианта раскладки",
                     text: "У Hero — 7 вариантов, у Stats — 8, у Steps — 9, у Pricing — 11. Переключаются одним полем variant в site.config.ts, без правки компонентов.",
                     points: [
                         "Каждый вариант — законченный React-компонент",
@@ -334,7 +337,7 @@ export const siteConfig: SiteConfig = {
             surface: "surface",
             // variant: "photo" | "type-only" | "split-actions" |
             //          "quiet-split" | "panel" | "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "panel",
             number: "03",
             eyebrow: "Наш подход",
@@ -369,7 +372,7 @@ export const siteConfig: SiteConfig = {
                 text: "Двенадцать типов секций, три сквозных семейства и два тарифа оформления — всё переключается полями конфига.",
                 stats: [
                     { value: "2021", label: "Год первой версии шаблона" },
-                    { value: "120", label: "Готовых вариантов секций" },
+                    { value: "132", label: "Готовых вариантов секций" },
                     { value: "12", label: "Типов секций в конфиге" },
                     { value: "4.8", label: "Средняя оценка в отзывах" },
                 ],
@@ -378,12 +381,15 @@ export const siteConfig: SiteConfig = {
 
         {
             id: "process",
+            // Бегущая строка у нижнего края секции. Читают только
+            // варианты семейства "market" (CLAUDE.md §2.19).
+            ticker: "Смета в тот же день",
             type: "steps",
             surface: "paper",
             // variant: "rail" | "stack" | "timeline-vertical" | "cards" | "cascade" |
             //          "timeline-horizontal" | "split" | "numbered-cards" |
             //          "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "cards",
             number: "04",
             nav: "Как собрать",
@@ -411,7 +417,7 @@ export const siteConfig: SiteConfig = {
                     number: "03",
                     title: "Подберите варианты",
                     text: "Выбираете 2–3 сквозных приёма под бренд и проставляете variant по каталогу CLAUDE.md, §2 — не по одной «самой интересной» раскладке на секцию.",
-                    meta: "120 вариантов секций",
+                    meta: "132 варианта секций",
                     icon: "globe",
                     photo: "/images/steps-3.jpg",
                 },
@@ -433,7 +439,7 @@ export const siteConfig: SiteConfig = {
             surface: "ink",
             // variant: "table" | "grid" | "cards-icon" | "photo-grid" |
             //          "photo-bento" | "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "photo-grid",
             number: "05",
             nav: "Кейсы",
@@ -466,6 +472,10 @@ export const siteConfig: SiteConfig = {
                     tags: ["econom", "poster"],
                     photo: "/images/gallery-2.jpg",
                     link: { label: "Обсудить похожий проект", href: "#contact", variant: "quiet" },
+                    stats: [
+                        { value: "4 дня", label: "от брифа до запуска" },
+                        { value: "0", label: "правок вёрстки" },
+                    ],
                 },
                 {
                     category: "Каталог услуг",
@@ -477,6 +487,10 @@ export const siteConfig: SiteConfig = {
                     tags: ["econom", "table"],
                     photo: "/images/gallery-3.jpg",
                     link: { label: "Обсудить похожий проект", href: "#contact", variant: "quiet" },
+                    stats: [
+                        { value: "6 страниц", label: "услуг из одного конфига" },
+                        { value: "1 день", label: "на сборку прототипа" },
+                    ],
                 },
                 {
                     category: "Портфолио",
@@ -488,6 +502,10 @@ export const siteConfig: SiteConfig = {
                     tags: ["econom", "showcase"],
                     photo: "/images/gallery-4.jpg",
                     link: { label: "Обсудить похожий проект", href: "#contact", variant: "quiet" },
+                    stats: [
+                        { value: "18 работ", label: "в витрине бюро" },
+                        { value: "2 недели", label: "вместе с контентом" },
+                    ],
                 },
             ],
             note: "Фабулы обезличены и частично изменены для демонстрации — детали конкретных проектов охраняются NDA студий.",
@@ -499,7 +517,7 @@ export const siteConfig: SiteConfig = {
             surface: "surface",
             // variant: "quotes" | "cards" | "bento" | "rated-cards" | "spotlight" |
             //          "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "spotlight",
             number: "06",
             nav: "Отзывы",
@@ -554,7 +572,7 @@ export const siteConfig: SiteConfig = {
             // variant: "columns" | "rows" | "cards" | "photo-cards" |
             //          "badge-avatars" | "tags-cards" | "bento" |
             //          "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "bento",
             number: "07",
             nav: "Команда",
@@ -612,7 +630,7 @@ export const siteConfig: SiteConfig = {
             surface: "surface",
             // variant: "narrow" | "wide" | "split-sidebar" | "categorized" |
             //          "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "categorized",
             number: "08",
             nav: "Вопросы",
@@ -621,7 +639,7 @@ export const siteConfig: SiteConfig = {
             items: [
                 {
                     question: "Сколько стоит лицензия на шаблон?",
-                    answer: "Тарифы в разделе «Тарифы» — это тарифы ОФОРМЛЕНИЯ (глубина карточек, тени, радиусы), а не число доступных секций: все 12 типов секций и все 120 вариантов доступны в любом из двух. Цена лицензии считается отдельно, по брифу.",
+                    answer: "Тарифы в разделе «Тарифы» — это тарифы ОФОРМЛЕНИЯ (глубина карточек, тени, радиусы), а не число доступных секций: все 12 типов секций и все 132 варианта доступны в любом из двух. Цена лицензии считается отдельно, по брифу.",
                     icon: "handCoins",
                     category: "Тарифы",
                     tags: ["Тарифы", "Оплата"],
@@ -677,7 +695,7 @@ export const siteConfig: SiteConfig = {
             // variant: "table" | "cards" | "ribbon" | "split" | "dark" | "playful" |
             //          "quote" | "glass" | "banner" | "matrix" |
             //          "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "matrix",
             number: "09",
             nav: "Тарифы",
@@ -778,7 +796,7 @@ export const siteConfig: SiteConfig = {
             surface: "accent",
             // variant: "band" | "quiet" | "centered" | "left" | "boxed" | "panel" |
             //          "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "panel",
             eyebrow: "Следующий шаг",
             title: "Клонируйте шаблон и замените site.config.ts",
@@ -793,11 +811,14 @@ export const siteConfig: SiteConfig = {
 
         {
             id: "contact",
+            // Бегущая строка у нижнего края секции. Читают только
+            // варианты семейства "market" (CLAUDE.md §2.19).
+            ticker: "Заявка за пять минут",
             type: "contact",
             surface: "surface",
             // variant: "split" | "stacked" | "boxed" | "panels" |
             //          "sticky-split" | "editorial" |
-            //          "product" | "atelier"
+            //          "product" | "atelier" | "market"
             variant: "panels",
             // layout: "plain" | "cardContainer" — подложка под самой формой,
             // отдельная ось от variant (раскладки колонок).

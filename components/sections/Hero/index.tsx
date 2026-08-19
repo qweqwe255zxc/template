@@ -1,5 +1,6 @@
 import { resolveHeroLayout } from "./parts/resolveHeroLayout";
 import { Atelier } from "./variants/Atelier";
+import { Market } from "./variants/Market";
 import { Centered } from "./variants/Centered";
 import { Editorial } from "./variants/Editorial";
 import { Product } from "./variants/Product";
@@ -30,7 +31,7 @@ import type { HeroSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
-   `editorial`, `product` и `atelier`: type-only, split, centered, showcase, poster, service,
+   `editorial`, `product`, `atelier` и `market`: type-only, split, centered, showcase, poster, service,
    sticky-split.
 
    EDITORIAL — новое семейство: печатная сетка, волосяные линейки,
@@ -50,11 +51,17 @@ import type { HeroSection } from "@/types/site";
    раздела, плитка квадратов встык. Общая шапка семейства —
    components/ui/AtelierHeader.tsx. Тоже закрыто целиком.
 
+   MARKET — уличная вывеска: заголовок раздела капслоком и АКЦЕНТНЫМ
+   цветом с двойным шевроном под ним, плоские карточки без теней и
+   рамок, бегущая строка (`SectionBase.ticker`) отбивкой между
+   разделами. Общая шапка семейства — components/ui/MarketHeader.tsx,
+   полоса — components/ui/Ticker.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
    вернуть как было, достаточно снять этот комментарий, строки
-   `editorial`/`product`/`atelier` из карты ниже и значения из union в
+   `editorial`/`product`/`atelier`/`market` из карты ниже и значения из union в
    types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
@@ -72,6 +79,8 @@ const variants: VariantMap<HeroSection, NonNullable<HeroSection["variant"]>> = {
   product: Product,
   // Семейство atelier
   atelier: Atelier,
+  // Семейство market
+  market: Market,
 };
 
 /** Варианты без второй колонки: image и widget им положить некуда. */
@@ -94,18 +103,21 @@ const NO_RAIL: NonNullable<HeroSection["variant"]>[] = [
 /**
  * Варианты, которые умеют показать только фото, но не виджет метрик.
  *
- * editorial и atelier входят сюда, но, в отличие от poster/service, image
- * им НЕ обязателен (в PHOTO_FALLBACK их нет): у editorial фотография —
- * полоса-горизонт под первым экраном, у atelier — правая половина, и обе
- * раскладки без неё остаются законченными (atelier сам сворачивается в
- * одну колонку внутри контейнера). А вот виджет положить некуда — второй
- * колонки под него нет ни там, ни там.
+ * editorial, atelier и market входят сюда, но, в отличие от poster/
+ * service, image им НЕ обязателен (в PHOTO_FALLBACK их нет): у editorial
+ * фотография — полоса-горизонт под первым экраном, у atelier — правая
+ * половина, у market — полоса под фактами, и все три раскладки без неё
+ * остаются законченными (atelier сам сворачивается в одну колонку внутри
+ * контейнера, market и так одноколоночный). А вот виджет положить некуда
+ * — второй колонки под него нет ни в одной из трёх: у market её занимают
+ * лид и кнопки.
  */
 const IMAGE_ONLY: NonNullable<HeroSection["variant"]>[] = [
   "poster",
   "service",
   "editorial",
   "atelier",
+  "market",
 ];
 
 /**
@@ -194,10 +206,11 @@ export function Hero(props: HeroSection) {
 
     if (IMAGE_ONLY.includes(resolved) && props.widget) {
       console.warn(
-        `[Hero] Секция "${props.id}": variant="${resolved}" показывает только фото — ` +
-          `widget в этой раскладке не рендерится (карточка метрик на полноэкранной ` +
-          `половине читается как случайный объект в пустоте). Дайте image или ` +
-          `возьмите variant: "showcase". См. docs/section-system.md.`,
+        `[Hero] Секция "${props.id}": variant="${resolved}" не рендерит widget — ` +
+          `второй колонки под карточку метрик в этой раскладке нет (у poster/service/` +
+          `atelier её занимает фото, у editorial колонок нет вовсе, у market — лид и ` +
+          `кнопки). Нужна карточка метрик — variant: "showcase" или "product". ` +
+          `См. docs/section-system.md.`,
       );
     }
 

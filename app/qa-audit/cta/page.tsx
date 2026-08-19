@@ -18,6 +18,7 @@ const variants: NonNullable<CtaSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaCtaPage() {

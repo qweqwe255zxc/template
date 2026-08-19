@@ -17,6 +17,7 @@ const variants: NonNullable<AboutSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaAboutPage() {

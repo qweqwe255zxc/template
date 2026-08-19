@@ -1,4 +1,5 @@
 import { Atelier } from "./variants/Atelier";
+import { Market } from "./variants/Market";
 import { Cards } from "./variants/Cards";
 import { Cascade } from "./variants/Cascade";
 import { Editorial } from "./variants/Editorial";
@@ -22,7 +23,7 @@ import type { StepsSection } from "@/types/site";
    Sirotov Architects).
 
    ЭКОНОМ-КЛАСС — весь каталог вариантов, существовавший ДО семейств
-   `editorial`, `product` и `atelier`: rail, stack, timeline-vertical, cards, cascade,
+   `editorial`, `product`, `atelier` и `market`: rail, stack, timeline-vertical, cards, cascade,
    timeline-horizontal, split, numbered-cards, sticky-split.
 
    EDITORIAL — новое семейство: печатная сетка, линейки, нумерованные
@@ -42,11 +43,17 @@ import type { StepsSection } from "@/types/site";
    раздела, плитка квадратов встык. Общая шапка семейства —
    components/ui/AtelierHeader.tsx. Тоже закрыто целиком.
 
+   MARKET — уличная вывеска: заголовок раздела капслоком и АКЦЕНТНЫМ
+   цветом с двойным шевроном под ним, плоские карточки без теней и
+   рамок, бегущая строка (`SectionBase.ticker`) отбивкой между
+   разделами. Общая шапка семейства — components/ui/MarketHeader.tsx,
+   полоса — components/ui/Ticker.tsx. Тоже закрыто целиком.
+
    Пометка НАМЕРЕННО лежит отдельно от тарифной механики шаблона:
    theme.preset ("econom"/"standard"), PRESET_DEFAULTS в lib/preset.ts и
    блоки [data-preset] в theme/tokens.css не тронуты вообще. Чтобы
    вернуть как было, достаточно снять этот комментарий, строки
-   `editorial`/`product`/`atelier` из карты ниже и значения из union в
+   `editorial`/`product`/`atelier`/`market` из карты ниже и значения из union в
    types/site.ts.
    -------------------------------------------------------------------------- */
 const variants: VariantMap<
@@ -69,6 +76,8 @@ const variants: VariantMap<
   product: Product,
   // Семейство atelier
   atelier: Atelier,
+  // Семейство market
+  market: Market,
 };
 
 export function Steps(props: StepsSection) {

@@ -16,6 +16,7 @@ const variants: NonNullable<FaqSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaFaqPage() {

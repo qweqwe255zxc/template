@@ -33,8 +33,13 @@ interface ContactDetailsProps {
    * с разрядкой 0.2em, значение обычным набором. Тоже без иконок, но по
    * другой причине, чем в editorial: там их место занимает типографика,
    * здесь — сама клетка.
+   * market — семейство уличной вывески: сетка пар «подпись капслоком —
+   * значение», без иконок, без линеек и без клеток. Подпись набрана
+   * акцентом — тем же цветом, которым в этом семействе набраны
+   * заголовки разделов и цифры; это единственное, что держит блок, и
+   * поэтому любая рамка вокруг него была бы лишней.
    */
-  layout?: "list" | "inline" | "editorial" | "atelier";
+  layout?: "list" | "inline" | "editorial" | "atelier" | "market";
   /** Классы колонки реквизитов. */
   className?: string;
 }
@@ -111,14 +116,57 @@ export function ContactDetails({
   ];
 
   return (
-    <div className={className} data-reveal>
+    // @container/details — на ОБЁРТКЕ, а не на самих сетках внутри.
+    // Раньше и объявление, и запрос висели на одном и том же <dl>
+    // (layout="editorial" и layout="inline"), а элемент по спецификации
+    // не может быть собственным query container: запрос молча не
+    // срабатывал, и реквизиты всегда стояли одной колонкой, сколько бы
+    // места им ни дали. Поймано при переносе layout="market" — и чинит
+    // заодно две прежние раскладки.
+    <div className={cn("@container/details", className)} data-reveal>
       {detailsTitle ? (
         <h3 className="text-caption font-medium uppercase text-fg-muted">
           {detailsTitle}
         </h3>
       ) : null}
 
-      {layout === "atelier" ? (
+      {layout === "market" ? (
+        // Две колонки пар «подпись — значение», как в исходном приёме.
+        // Контейнерный запрос, а не брейкпоинт, по той же причине, что в
+        // inline: колонка реквизитов бывает и 5/12, и во всю ширину, и
+        // считать надо по ней, а не по окну.
+        //
+        // @container объявлен на ОБЁРТКЕ (см. корневой div выше), а
+        // запрос стоит на самой сетке. Повесить оба класса на один
+        // элемент нельзя — по спецификации элемент не может быть
+        // собственным query container, и запрос молча не срабатывает
+        // (поймано здесь же: восемь реквизитов стояли одной колонкой,
+        // хотя места хватало на две).
+        <dl className="mt-8 grid gap-x-gutter gap-y-8 @md/details:grid-cols-2">
+          {details.map(({ label, value, href }) => (
+            <div key={label} className="min-w-0">
+              <dt className="text-caption font-semibold uppercase text-accent [[data-surface=accent]_&]:text-fg [[data-surface=ink]_&]:text-fg">
+                {label}
+              </dt>
+              <dd className="tabular mt-2 break-words text-body text-fg-muted">
+                {href ? (
+                  <a
+                    href={href}
+                    className="transition-colors hover:text-fg"
+                    {...(href.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
+                    {value}
+                  </a>
+                ) : (
+                  value
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ) : layout === "atelier" ? (
         // Решётка в ОДНУ колонку, а не в две, как editorial. Колонка
         // реквизитов тут 5/12, то есть на 1024px около 390px: две клетки
         // по 195px рвут адрес на четыре строки. Одна колонка заодно
@@ -155,7 +203,7 @@ export function ContactDetails({
         // считать надо по ней, а не по окну. Одна колонка на узком
         // экране — потому что значения тут набраны крупно (адрес в две
         // строки), и вторая колонка начиналась бы с переноса.
-        <dl className="@container/details mt-8 grid gap-x-gutter gap-y-8 @lg/details:grid-cols-2">
+        <dl className="mt-8 grid gap-x-gutter gap-y-8 @lg/details:grid-cols-2">
           {details.map(({ label, value, href }) => (
             <div key={label} className="min-w-0">
               <dt className="text-caption font-medium uppercase text-fg-muted">
@@ -187,7 +235,7 @@ export function ContactDetails({
         <dl
           className={
             layout === "inline"
-              ? "@container/details mt-7 grid gap-x-gutter gap-y-1 border-y border-rule py-6 @lg/details:grid-cols-2 @4xl/details:grid-cols-3"
+              ? "mt-7 grid gap-x-gutter gap-y-1 border-y border-rule py-6 @lg/details:grid-cols-2 @4xl/details:grid-cols-3"
               : "mt-7 border-t border-rule"
           }
         >

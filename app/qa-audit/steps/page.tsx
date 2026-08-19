@@ -20,6 +20,7 @@ const variants: NonNullable<StepsSection["variant"]>[] = [
   "editorial",
   "product",
   "atelier",
+  "market",
 ];
 
 export default function QaStepsPage() {
