@@ -40,19 +40,19 @@ export function Split(props: StepsSection) {
             {number || eyebrow || title || lead ? (
               <div className="relative bg-gradient-to-t from-ink/90 via-ink/40 to-transparent p-8 pt-20 md:absolute md:inset-x-0 md:bottom-0">
                 {number || eyebrow ? (
-                  <p className="text-caption font-medium uppercase text-paper/70">
+                  <p className="text-caption font-medium uppercase text-ink-fg/70">
                     {[number, eyebrow].filter(Boolean).join(" · ")}
                   </p>
                 ) : null}
                 {title ? (
                   <h2
-                    className={`font-heading text-h2 text-paper ${number || eyebrow ? "mt-2" : ""}`}
+                    className={`font-heading text-h2 text-ink-fg ${number || eyebrow ? "mt-2" : ""}`}
                   >
                     {title}
                   </h2>
                 ) : null}
                 {lead ? (
-                  <p className="mt-3 max-w-[42ch] text-small text-paper/80">{lead}</p>
+                  <p className="mt-3 max-w-[42ch] text-small text-ink-fg/80">{lead}</p>
                 ) : null}
               </div>
             ) : null}

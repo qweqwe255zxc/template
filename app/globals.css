@@ -24,6 +24,14 @@
   --color-surface: var(--palette-surface);
   --color-ink: var(--palette-ink);
   --color-ink-muted: var(--palette-ink-muted);
+  /* Текст, парный к --color-ink (bg-ink / from-ink / via-ink): подпись
+     поверх фото на тёмном градиенте. Пара --palette-ink/--palette-ink-fg
+     специально переопределяется ЦЕЛИКОМ в [data-theme="dark"], поэтому
+     контраст держится в обеих темах — в отличие от --color-paper, которая
+     сама инвертируется и для фото-оверлея не годится (см. баг с
+     text-paper на подписях поверх фото). */
+  --color-ink-fg: var(--palette-ink-fg);
+  --color-ink-fg-muted: var(--palette-ink-fg-muted);
 
   /* Акцент */
   --color-accent: var(--accent);

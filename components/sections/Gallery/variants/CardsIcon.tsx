@@ -86,7 +86,7 @@ export function CardsIcon(props: GallerySection) {
                         centered && "w-full",
                       )}
                     >
-                      <span className="text-small font-medium text-accent">
+                      <span className="text-small font-medium text-fg">
                         {item.category}
                       </span>
 

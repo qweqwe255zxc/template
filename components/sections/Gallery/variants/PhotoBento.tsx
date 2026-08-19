@@ -75,7 +75,7 @@ export function PhotoBento(props: GallerySection) {
                 centered && "items-center text-center",
               )}
             >
-              <p className="text-caption font-medium uppercase text-accent">
+              <p className="text-caption font-medium uppercase text-fg">
                 {first.category}
               </p>
               <h3 className="mt-3 font-display text-h2">{first.title ?? first.category}</h3>
@@ -104,7 +104,7 @@ export function PhotoBento(props: GallerySection) {
               {first.link ? (
                 <Link
                   href={first.link.href}
-                  className="mt-6 inline-flex items-center gap-1.5 text-small font-medium text-accent"
+                  className="mt-6 inline-flex items-center gap-1.5 text-small font-medium text-fg"
                 >
                   {first.link.label}
                   <ArrowRight aria-hidden="true" className="size-4" />
@@ -162,7 +162,7 @@ export function PhotoBento(props: GallerySection) {
                   {item.link ? (
                     <Link
                       href={item.link.href}
-                      className="mt-auto inline-flex items-center gap-1.5 pt-4 text-small font-medium text-accent"
+                      className="mt-auto inline-flex items-center gap-1.5 pt-4 text-small font-medium text-fg"
                     >
                       {item.link.label}
                       <ArrowRight aria-hidden="true" className="size-4" />

@@ -682,8 +682,10 @@
   --popover-radius: var(--radius-card);
   --popover-shadow: var(--elevation-lg);
 
-  /* Поля формы становятся коробками. */
-  --control-bg: var(--surface-card);
+  /* Поля формы становятся коробками. --control-bg — не здесь: var(--surface-card)
+     обязан резолвиться на самой секции, а не на корне пресета (см.
+     [data-preset="standard"] [data-surface] ниже — та же причина, что у
+     --card-bg рядом). */
   --control-border-width: var(--border-hairline);
   --control-radius: var(--radius-control);
   --control-px: 0.875rem;
@@ -709,6 +711,12 @@
   /* Выделенный тариф выходит вперёд акцентной рамкой: в дорогом тарифе
      это единственное место, где акцент допускается на рамке карточки. */
   --card-featured-border: var(--accent-border);
+  /* Поле формы — та же ловушка, что у карточки: раньше жило одним
+     уровнем выше ([data-preset="standard"]), var(--surface-card) резолвился
+     один раз по корневой поверхности и не пересчитывался во вложенной
+     [data-surface="ink"] (баг: подписка в Footer/product становилась
+     невидимой — текст и фон совпадали в тёмной теме). */
+  --control-bg: var(--surface-card);
 }
 
 /* Плашка под иконкой — нейтральная ступень от текста самой секции, а не

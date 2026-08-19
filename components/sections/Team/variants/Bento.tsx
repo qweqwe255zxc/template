@@ -92,10 +92,10 @@ export function Bento(props: TeamSection) {
               variant="framed"
               padded={false}
               className="relative aspect-[4/3] overflow-hidden sm:aspect-[16/9]"
-              // Без фото имя/роль (жёстко светлый text-paper поверх
-              // градиента) остаются на обычной светлой поверхности карточки —
-              // data-surface="ink" даёт тёмный --card-bg, на котором этот
-              // текст читается так же, как поверх фото.
+              // Без фото имя/роль (text-ink-fg — та же пара, что у
+              // градиента from-ink) остаются на обычной светлой поверхности
+              // карточки — data-surface="ink" даёт тёмный --card-bg, на
+              // котором этот текст читается так же, как поверх фото.
               data-surface={first.photo ? undefined : "ink"}
             >
               {first.photo ? (
@@ -108,11 +108,11 @@ export function Bento(props: TeamSection) {
                 />
               ) : null}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent p-7 md:p-9">
-                <p className="text-caption font-medium uppercase text-paper/70">
+                <p className="text-caption font-medium uppercase text-ink-fg/70">
                   {first.role}
                 </p>
-                <h3 className="mt-1 font-display text-h2 text-paper">{first.name}</h3>
-                <p className="mt-2 max-w-[52ch] text-small text-paper/80">{first.focus}</p>
+                <h3 className="mt-1 font-display text-h2 text-ink-fg">{first.name}</h3>
+                <p className="mt-2 max-w-[52ch] text-small text-ink-fg/80">{first.focus}</p>
                 <MemberSocial items={first.social} />
               </div>
             </Card>
@@ -150,10 +150,10 @@ export function Bento(props: TeamSection) {
                   />
                 ) : null}
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent p-5">
-                  <p className="text-caption font-medium uppercase text-paper/70">
+                  <p className="text-caption font-medium uppercase text-ink-fg/70">
                     {member.role}
                   </p>
-                  <h3 className="mt-1 font-display text-h4 text-paper">{member.name}</h3>
+                  <h3 className="mt-1 font-display text-h4 text-ink-fg">{member.name}</h3>
                 </div>
               </Card>
             </li>
