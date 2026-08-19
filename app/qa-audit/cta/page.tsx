@@ -1,7 +1,7 @@
 import { CTA } from "@/components/sections/CTA";
 import { siteConfig } from "@/content/site.config";
 import type { CtaSection } from "@/types/site";
-import { QaBlock } from "../_lib";
+import { QaBlock, QaNav } from "../_lib";
 
 const base = siteConfig.sections.find(
   (s): s is CtaSection => s.type === "cta",
@@ -23,6 +23,7 @@ const variants: NonNullable<CtaSection["variant"]>[] = [
 export default function QaCtaPage() {
   return (
     <main>
+      <QaNav current="cta" />
       {variants.map((variant) => (
         <QaBlock key={variant} label={`CTA / variant="${variant}"`}>
           <CTA {...base} id={`cta-${variant}`} variant={variant} />

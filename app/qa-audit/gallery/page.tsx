@@ -1,7 +1,7 @@
 import { Gallery } from "@/components/sections/Gallery";
 import { siteConfig } from "@/content/site.config";
 import type { GallerySection } from "@/types/site";
-import { QaBlock } from "../_lib";
+import { QaBlock, QaNav } from "../_lib";
 
 const base = siteConfig.sections.find(
   (s): s is GallerySection => s.type === "gallery",
@@ -22,6 +22,7 @@ const variants: NonNullable<GallerySection["variant"]>[] = [
 export default function QaGalleryPage() {
   return (
     <main>
+      <QaNav current="gallery" />
       {variants.map((variant) => (
         <QaBlock key={variant} label={`Gallery / variant="${variant}"`}>
           <Gallery

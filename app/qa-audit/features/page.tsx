@@ -1,7 +1,7 @@
 import { Features } from "@/components/sections/Features";
 import { siteConfig } from "@/content/site.config";
 import type { FeaturesSection } from "@/types/site";
-import { QaBlock } from "../_lib";
+import { QaBlock, QaNav } from "../_lib";
 
 const base = siteConfig.sections.find(
   (s): s is FeaturesSection => s.type === "features",
@@ -45,6 +45,7 @@ const withPhotos = {
 export default function QaFeaturesPage() {
   return (
     <main>
+      <QaNav current="features" />
       {variants.map((variant) => (
         <QaBlock key={variant} label={`Features / variant="${variant}"`}>
           <Features

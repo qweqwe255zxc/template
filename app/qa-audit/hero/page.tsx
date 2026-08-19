@@ -1,7 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { siteConfig } from "@/content/site.config";
 import type { HeroSection } from "@/types/site";
-import { QaBlock } from "../_lib";
+import { QaBlock, QaNav } from "../_lib";
 
 const base = siteConfig.sections.find(
   (s): s is HeroSection => s.type === "hero",
@@ -23,6 +23,7 @@ const variants: NonNullable<HeroSection["variant"]>[] = [
 export default function QaHeroPage() {
   return (
     <main>
+      <QaNav current="hero" />
       {variants.map((variant) => (
         <QaBlock key={variant} label={`Hero / variant="${variant}"`}>
           <Hero

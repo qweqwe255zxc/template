@@ -2,7 +2,7 @@ import { Footer } from "@/components/sections/Footer";
 import { siteConfig } from "@/content/site.config";
 import { buildNav } from "@/lib/seo";
 import type { FooterVariant } from "@/types/site";
-import { QaLabel } from "../_lib";
+import { QaLabel, QaNav } from "../_lib";
 
 const nav = buildNav(siteConfig);
 
@@ -22,6 +22,7 @@ const variants: FooterVariant[] = [
 export default function QaFooterPage() {
   return (
     <main>
+      <QaNav current="footer" />
       {variants.map((variant) => (
         <div key={variant}>
           <QaLabel>{`Footer / variant="${variant}"`}</QaLabel>

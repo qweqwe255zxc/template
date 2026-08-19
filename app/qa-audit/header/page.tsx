@@ -2,7 +2,7 @@ import { Header } from "@/components/sections/Header";
 import { siteConfig } from "@/content/site.config";
 import { buildNav } from "@/lib/seo";
 import type { HeaderVariant } from "@/types/site";
-import { QaLabel } from "../_lib";
+import { QaLabel, QaNav } from "../_lib";
 
 const nav = buildNav(siteConfig);
 
@@ -31,6 +31,7 @@ const variants: HeaderVariant[] = [
 export default function QaHeaderPage() {
   return (
     <main>
+      <QaNav current="header" />
       {variants.map((variant) => (
         <div key={variant}>
           <QaLabel>{`Header / variant="${variant}"`}</QaLabel>

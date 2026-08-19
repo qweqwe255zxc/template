@@ -1,7 +1,7 @@
 import { Stats } from "@/components/sections/Stats";
 import { siteConfig } from "@/content/site.config";
 import type { StatsSection } from "@/types/site";
-import { QaBlock } from "../_lib";
+import { QaBlock, QaNav } from "../_lib";
 
 const base = siteConfig.sections.find(
   (s): s is StatsSection => s.type === "stats",
@@ -24,6 +24,7 @@ const variants: NonNullable<StatsSection["variant"]>[] = [
 export default function QaStatsPage() {
   return (
     <main>
+      <QaNav current="stats" />
       {variants.map((variant) => (
         <QaBlock key={variant} label={`Stats / variant="${variant}"`}>
           <Stats

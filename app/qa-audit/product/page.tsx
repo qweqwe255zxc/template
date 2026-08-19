@@ -5,6 +5,7 @@ import { Header } from "@/components/sections/Header";
 import { siteConfig } from "@/content/site.config";
 import { buildNav } from "@/lib/seo";
 import type { Section } from "@/types/site";
+import { QaNav } from "../_lib";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -43,6 +44,7 @@ export default function QaProductPage() {
 
   return (
     <>
+      <QaNav current="product" />
       <Header
         brandName={brand.name}
         brandMark={brand.mark}

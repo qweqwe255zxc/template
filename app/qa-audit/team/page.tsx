@@ -1,7 +1,7 @@
 import { Team } from "@/components/sections/Team";
 import { siteConfig } from "@/content/site.config";
 import type { TeamSection } from "@/types/site";
-import { QaBlock } from "../_lib";
+import { QaBlock, QaNav } from "../_lib";
 
 const base = siteConfig.sections.find(
   (s): s is TeamSection => s.type === "team",
@@ -24,6 +24,7 @@ const variants: NonNullable<TeamSection["variant"]>[] = [
 export default function QaTeamPage() {
   return (
     <main>
+      <QaNav current="team" />
       {variants.map((variant) => (
         <QaBlock key={variant} label={`Team / variant="${variant}"`}>
           <Team {...base} id={`team-${variant}`} variant={variant} />

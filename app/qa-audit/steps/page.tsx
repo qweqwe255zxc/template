@@ -1,7 +1,7 @@
 import { Steps } from "@/components/sections/Steps";
 import { siteConfig } from "@/content/site.config";
 import type { StepsSection } from "@/types/site";
-import { QaBlock } from "../_lib";
+import { QaBlock, QaNav } from "../_lib";
 
 const base = siteConfig.sections.find(
   (s): s is StepsSection => s.type === "steps",
@@ -25,6 +25,7 @@ const variants: NonNullable<StepsSection["variant"]>[] = [
 export default function QaStepsPage() {
   return (
     <main>
+      <QaNav current="steps" />
       {variants.map((variant) => (
         <QaBlock key={variant} label={`Steps / variant="${variant}"`}>
           <Steps

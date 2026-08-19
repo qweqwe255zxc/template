@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FAMILY_ORDER, SECTION_ORDER } from "./_lib";
 
 /**
  * Стенд живёт в шаблоне постоянно: на нём смотрят и сравнивают варианты
@@ -12,41 +13,48 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const pages = [
-  "hero",
-  "stats",
-  "features",
-  "about",
-  "steps",
-  "gallery",
-  "testimonials",
-  "team",
-  "faq",
-  "pricing",
-  "cta",
-  "contact",
-  "header",
-  "footer",
-  // Стенды семейств целиком, а не одной секции: вся страница одним
-  // приёмом. См. комментарии в app/qa-audit/editorial/page.tsx,
-  // app/qa-audit/product/page.tsx и app/qa-audit/atelier/page.tsx.
-  "editorial",
-  "product",
-  "atelier",
-];
-
 export default function QaIndexPage() {
   return (
-    <main style={{ padding: 32, fontFamily: "monospace" }}>
+    <main style={{ padding: 32, fontFamily: "monospace", maxWidth: 720 }}>
       <h1>QA harness — стенд адаптивности</h1>
-      <p>Каждая страница рендерит все варианты секции подряд. Удалить перед сдачей клиенту.</p>
+      <p>
+        Два разных способа смотреть каталог — не путать друг с другом (см.
+        _lib.tsx).
+      </p>
+
+      <h2>По разделам</h2>
+      <p>
+        Каждая страница рендерит все варианты ОДНОГО типа секции подряд —
+        сравнение раскладок между собой.
+      </p>
       <ul>
-        {pages.map((p) => (
+        {SECTION_ORDER.map((p) => (
           <li key={p}>
             <Link href={`/qa-audit/${p}`}>{p}</Link>
           </li>
         ))}
       </ul>
+
+      <h2>По вариантам</h2>
+      <p>
+        Каждая страница — весь сайт (хедер + 12 секций + футер, где
+        применимо) собранный ОДНИМ сквозным семейством варианта
+        (CLAUDE.md §2.15–2.18): не сравнение раскладок, а уже готовая
+        сборка сайта этим приёмом целиком.
+      </p>
+      <ul>
+        {FAMILY_ORDER.map((p) => (
+          <li key={p}>
+            <Link href={`/qa-audit/${p}`}>{p}</Link>
+          </li>
+        ))}
+      </ul>
+
+      <p>
+        На каждой странице внизу — панель «назад / вперёд», листающая внутри
+        своей группы (разделы отдельно от вариантов). Удалить перед сдачей
+        клиенту.
+      </p>
     </main>
   );
 }

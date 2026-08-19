@@ -1,7 +1,7 @@
 import { About } from "@/components/sections/About";
 import { siteConfig } from "@/content/site.config";
 import type { AboutSection } from "@/types/site";
-import { QaBlock } from "../_lib";
+import { QaBlock, QaNav } from "../_lib";
 
 const base = siteConfig.sections.find(
   (s): s is AboutSection => s.type === "about",
@@ -22,6 +22,7 @@ const variants: NonNullable<AboutSection["variant"]>[] = [
 export default function QaAboutPage() {
   return (
     <main>
+      <QaNav current="about" />
       {variants.map((variant) => (
         <QaBlock key={variant} label={`About / variant="${variant}"`}>
           <About
